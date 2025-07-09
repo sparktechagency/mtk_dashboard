@@ -1,17 +1,38 @@
 
-import { Button, Flex } from 'antd';
-function App() {
- 
+// import { Button, Flex } from 'antd';
+// import Navbar from './components/Navbar/Navbar';
+// import Sidebar from './components/Sidebar/Sidebar';
+// import Dashboard from './components/Dashboard/Dashboard';
+// function App() {
 
+
+//   return (
+//     <>
+//       <div className='flex justify-between '>
+//         <div className=''>
+//           <Sidebar></Sidebar>
+//         </div>
+//         <div className=''>
+//           <Navbar></Navbar>
+//         </div>
+
+//       </div>
+//       <Dashboard></Dashboard>
+//     </>
+//   )
+// }
+
+// export default App
+
+// App.jsx
+import { Outlet } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+
+export default function App() {
   return (
-    <>
-      <div>
-        <h1 className="text-4xl text-amber-300">Hello</h1>
-        <Button type="primary">Primary Button</Button>
-        <Button type="dashed">Dashed Button</Button>
-      </div>
-    </>
-  )
+   <Layout>
+      <Outlet/>
+   </Layout>
+  );
 }
 
-export default App
