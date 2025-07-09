@@ -25,6 +25,7 @@ import Login from "./components/Logout/Login.jsx";
 import ForgetPassword from "./components/Logout/ForgetPassword.jsx";
 import CheckYourEmail from "./components/Logout/CheckYourEmail.jsx";
 import SetPassword from "./components/Logout/SetPassword.jsx";
+import HelpCenterPage from "./components/HelpCenterPage/HelpCenterPage.jsx";
 
 
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
           path: "/",
           element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "/help-center",
+        element: <HelpCenterPage></HelpCenterPage>,
       },
       {
         path: "/user-management",

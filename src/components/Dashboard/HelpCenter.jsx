@@ -1,9 +1,48 @@
-import React from 'react'
-import { Table, Button, Space, Tag } from 'antd';
+import React, { useState } from 'react';
+import { Table, Button } from 'antd';
 import { EyeOutlined, RollbackOutlined } from '@ant-design/icons';
+import HelpDetailsModal from './HelpDetailsModal';
+import ReplyModal from './ReplyModal'; // ✅ import your reply modal here
+import { Link } from 'react-router-dom';
 
 export default function HelpCenter() {
-  // Mock data for the table
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
+  const [isReplyModalVisible, setIsReplyModalVisible] = useState(false);
+  const [selectedReply, setSelectedReply] = useState(null);
+
+  const handleView = (record) => {
+    setSelectedOrder({
+      name: record.email.split('@')[0],
+      address: '123 Main Street, NY',
+      date: record.date,
+      payment: 'Paid',
+      status: 'Delivered',
+    });
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setSelectedOrder(null);
+  };
+
+  const handleReply = (record) => {
+    setSelectedReply(record);
+    setIsReplyModalVisible(true);
+  };
+
+  const handleReplyCancel = () => {
+    setIsReplyModalVisible(false);
+    setSelectedReply(null);
+  };
+
+  const handleReplySubmit = (value) => {
+    console.log('Reply submitted:', value);
+    setIsReplyModalVisible(false);
+  };
+
   const dataSource = [
     {
       key: '1',
@@ -11,7 +50,7 @@ export default function HelpCenter() {
       date: '2/11/12',
       email: 'bockely@att.com',
       mobileNumber: '(907) 555-0101',
-      message: 'I Didn\'t Receive My Referral R...',
+      message: "I Didn't Receive My Referral R...",
     },
     {
       key: '2',
@@ -39,13 +78,11 @@ export default function HelpCenter() {
     },
   ];
 
-  // Define table columns
   const columns = [
     {
       title: 'Ticket ID',
       dataIndex: 'ticketId',
       key: 'ticketId',
-      
     },
     {
       title: 'Date',
@@ -74,10 +111,11 @@ export default function HelpCenter() {
     {
       title: 'Action',
       key: 'action',
-      align: 'center', // Optional shorthand for center alignment
-      render: () => (
+      align: 'center',
+      render: (text, record) => (
         <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
           <Button
+            onClick={() => handleView(record)}
             type="primary"
             icon={<EyeOutlined />}
             style={{
@@ -89,6 +127,7 @@ export default function HelpCenter() {
             }}
           />
           <Button
+            onClick={() => handleReply(record)}
             type="primary"
             icon={<RollbackOutlined />}
             style={{
@@ -104,82 +143,78 @@ export default function HelpCenter() {
     },
   ];
 
-
   return (
     <>
-      {/* Inject CSS here to remove table lines */}
       <style>
         {`
-          /* Remove background color from table header */
-    .ant-table-thead > tr > th {
-      background-color: transparent !important;
-      border-right: none !important;
-      border-bottom: none !important;
-    }
+          .ant-table-thead > tr > th {
+            background-color: transparent !important;
+            border-right: none !important;
+            border-bottom: none !important;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+          }
 
-    /* Remove vertical and bottom borders in body */
-    .ant-table-tbody > tr > td {
-      border-right: none !important;
-      border-bottom: none !important;
-    }
+          .ant-table-tbody > tr > td {
+            border-right: none !important;
+            border-bottom: none !important;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+          }
 
-    /* Remove divider between columns in all cells */
-    .ant-table-cell {
-      border-right: none !important;
-      border-bottom: none !important;
-    }
+          .ant-table-cell {
+            border-right: none !important;
+            border-bottom: none !important;
+          }
 
-    /* Remove split lines from table header wrapper */
-    .ant-table-content table {
-      border-collapse: collapse !important;
-    }
+          .ant-table-content table {
+            border-collapse: collapse !important;
+          }
 
-    /* Optional: Remove hover background for headers */
-    .ant-table-thead > tr:hover > th {
-      background-color: transparent !important;
-
-    }
-
-    /* Table header (column titles) */
-    .ant-table-thead > tr > th {
-      font-size: 16px; 
-      font-family: 'Inter', sans-serif; 
-      font-weight: 600; 
-      
-    }
-
-    /* Table body (data cells) */
-    .ant-table-tbody > tr > td {
-      font-size: 15px; 
-      font-family: 'Inter', sans-serif; 
-      font-weight: 400;
-      
-    }
+          .ant-table-thead > tr:hover > th {
+            background-color: transparent !important;
+          }
         `}
       </style>
 
-      <div className=" flex items-center justify-center">
-        <div className="w-full  bg-white rounded-2xl shadow-lg overflow-hidden">
-
-          <div className='flex justify-between ml-4 mr-12 mt-6 mb-4'>
-            <h2 className=" inter-semibold">Help Center</h2>
-            <Button className='inter-medium' type="link">View all</Button>
+      <div className="flex items-center justify-center">
+        <div className="w-full bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div className="flex justify-between ml-4 mr-12 mt-6 mb-4">
+            <h2 className="inter-semibold">Help Center</h2>
+            <Link to="/help-center" className="font-[Inter] text-blue-700">
+              View all
+            </Link>
           </div>
 
           <Table
             dataSource={dataSource}
             columns={columns}
-            pagination={false} // Disable pagination if you don't need it
+            pagination={false}
             bordered={false}
-            className="rounded-lg overflow-hidden" // Apply rounded corners to the table container
-            // Custom row styling to match the image's blue border
-            rowClassName={(record, index) =>
-              index === dataSource.length - 1 ? '' : ''
-            }
+            className="rounded-lg overflow-hidden"
+            rowClassName={(record, index) => (index === dataSource.length - 1 ? '' : '')}
           />
         </div>
       </div>
-    </>
 
-  )
+      {/* 👁️ Details Modal */}
+      <HelpDetailsModal
+        open={isModalVisible}
+        onCancel={handleCancel}
+        order={selectedOrder}
+      />
+
+      {/* 💬 Reply Modal */}
+      <ReplyModal
+        open={isReplyModalVisible}
+        onCancel={handleReplyCancel}
+        onAdd={handleReplySubmit}
+        fieldLabel="Question"
+        fieldName="question"
+        placeholder="Type question here"
+      />
+    </>
+  );
 }

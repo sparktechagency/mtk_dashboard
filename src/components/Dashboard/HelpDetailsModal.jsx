@@ -28,12 +28,12 @@ export default function HelpDetailsModal({ open, onCancel, order }) {
 
       <div className="space-y-2 text-[15px] font-[Inter] text-[#333]">
         <div className="flex justify-between">
-          <span className="font-medium">Order ID:</span>
-          <span className="text-right">#7745634657</span>
+          <span className="font-medium">Ticket ID:</span>
+          <span className="text-right">#325345636</span>
         </div>
         <div className="flex justify-between">
-          <span className="font-medium">Customer Name:</span>
-          <span>{order.name}</span>
+          <span className="font-medium">Date:</span>
+          <span>12/08/24</span>
         </div>
         <div className="flex justify-between">
           <span className="font-medium">Email:</span>
@@ -41,51 +41,23 @@ export default function HelpDetailsModal({ open, onCancel, order }) {
         </div>
         <div className="flex justify-between">
           <span className="font-medium">Phone Number:</span>
-          <span>4364856856</span>
+          <span>(201) 555-0124</span>
         </div>
         <div className="flex justify-between">
-          <span className="font-medium">Shipping Address:</span>
-          <span className="text-right">{order.address}</span>
+          <span className="font-medium">Issue:</span>
+          
         </div>
-        <div className="flex justify-between">
-          <span className="font-medium">Order Date:</span>
-          <span>{order.date}</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="font-medium">Total Price:</span>
-          <span>$67</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="font-medium">Payment Status:</span>
-          <span>{order.payment}</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="font-medium">Order Status:</span>
-          <span>{order.status}</span>
-        </div>
+        <span className="text-left">I want to create an account</span>
+
+       
+        
+       
+        
       </div>
 
       <div className="mt-6">
-        <h3 className="text-[16px] font-semibold font-[Inter] mb-2">Ordered Items:</h3>
-        <div className="">
-          <div className="flex justify-between font-[Inter] font-medium">
-            <div>Product Name</div>
-            <div className='pl-12'>Quantity</div>
-            <div>Price</div>
-          </div>
-          {orderedItems.map((item, index) => (
-            <div key={index} className="flex justify-between py-1">
-              <div>{item.name}</div>
-              <div>{item.quantity}</div>
-              <div>${item.price}</div>
-            </div>
-          ))}
-          <div className="flex justify-between text-[14px] py-2 font-semibold">
-            <div>Total</div>
-            <div></div>
-            <div>${totalItemPrice}</div>
-          </div>
-        </div>
+        <h3 className="text-[16px] font-semibold font-[Inter] mb-2">Response:</h3>
+        <p>Users can register using their email, phone number. Profile verification ensures authenticity and can be done via email, or phone.</p>
       </div>
     </Modal>
     );
