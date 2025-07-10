@@ -7,11 +7,11 @@ const { TextArea } = Input;
 export default function AddFAQModal({
     open,
     onCancel,
-    onAdd,
+    // onAdd,
     fieldLabel = 'Question',
     fieldName = 'fieldName',
     placeholder = 'Type question here',
-    initialValue = '', // ✅ 
+    initialValue = '', 
     
 }) {
     const [form] = Form.useForm();
@@ -22,12 +22,12 @@ export default function AddFAQModal({
         }
     }, [open, fieldName, initialValue, form]);
 
-    const handleSubmit = () => {
-        form.validateFields().then(values => {
-            onAdd(values[fieldName]);
-            form.resetFields();
-        });
-    };
+    // const handleSubmit = () => {
+    //     form.validateFields().then(values => {
+    //         onAdd(values[fieldName]);
+    //         form.resetFields();
+    //     });
+    // };
 
     return (
         <Modal

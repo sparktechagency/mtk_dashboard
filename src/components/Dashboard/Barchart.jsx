@@ -29,7 +29,7 @@ const userData = [
 ];
 export default function Barchart() {
   return (
-    <div className='w-[730px]'>
+    <div className=''>
          <Card
       title={<span className="text-[20px] font-semibold font-[Inter]">User Growth</span>}
       extra={

@@ -78,7 +78,7 @@ const columns = [
 export default function User() {
   const [currentPage, setCurrentPage] = useState(1);
   return (
-    <div className="pl-6 pt-6 pr-12 bg-[#FCF7E6]  ml-[300px] w-[1620px] min-h-screen">
+    <div className="pl-6 pt-6 pr-12 bg-[#FCF7E6]  md:ml-[300px] md:w-[1620px] min-h-screen">
       <div className='bg-white p-6 rounded-[8px] shadow-lg'>
         <div className="mb-6 flex justify-between items-center ">
           <div className='flex gap-2 items-center'>

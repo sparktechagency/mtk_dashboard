@@ -32,7 +32,7 @@ const data = [
 ];
 export default function Dashboard() {
     return (
-        <div className='bg-[#FCF7E6] ml-[300px]  w-[1620px]'>
+        <div className='bg-[#FCF7E6] md:ml-[300px]  md:w-[1620px]'>
             {/* Dashboard top */}
             <div className='flex gap-8 pl-8 pr-12 pt-8 pb-6'>
                 <div className='bg-[#FEFEFE] rounded-xl w-[25%] h-[215px]  flex flex-col justify-center items-center gap-4'>
@@ -66,9 +66,9 @@ export default function Dashboard() {
             </div>
 
             {/* Dashboard middle */}
-            <div className='flex pl-8 pr-12 gap-8  pb-6 '>
+            <div className='flex  md:flex-row flex-col gap-6 md:gap-0 pl-8 pr-12 md:justify-between  pb-6 '>
                 {/* graph one */}
-                <div className=' w-[775px]'>
+                <div className=' md:w-[49%]'>
                     <Card
                         title={<span className="text-[20px] font-semibold font-[Inter] ml-8">Income Overview</span>}
                         extra={
@@ -117,7 +117,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* graph two */}
-                <div className=' '>
+                <div className='md:w-[49%] '>
                     <Barchart></Barchart>
                 </div>
             </div>

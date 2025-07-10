@@ -2,8 +2,6 @@ import React from 'react';
 import { Form, Input, Checkbox, Typography, Card, Button } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import LoginPageButton from '../SharedComponents/LoginPageButton';
-import EmailInput from '../SharedComponents/EmailInput';
-import PasswordInput from '../SharedComponents/PasswordInput'; // Adjust the path
 import { Link } from 'react-router-dom';
 
 import './Login.css';
@@ -58,36 +56,7 @@ export default function CheckYourEmail() {
                     </div>
 
 
-                {/* <Form
-                    name="login"
-                    layout="vertical"
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                >
-
-
-
-                    <Form.Item>
-                        
-                    </Form.Item>
-                    
-                    <Form.Item style={{ marginBottom: 10 }}>
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            fontFamily: 'Inter',
-                            marginBottom: 32,
-                        }}>
-                            
-                               
-                            
-                           
-                        </div>
-                    </Form.Item>
-
-
-                </Form> */}
+               
             </Card>
         </div>
     )

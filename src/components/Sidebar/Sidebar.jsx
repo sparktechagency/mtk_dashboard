@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { MdOutlineCategory } from "react-icons/md";
@@ -7,7 +7,7 @@ import { MdOutlineStore, MdListAlt } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import {
     AppstoreOutlined,
-    DownloadOutlined,
+    
 } from '@ant-design/icons';
 import { Button, Menu } from 'antd';
 
@@ -46,15 +46,15 @@ const items = [
 
 
 export default function Sidebar() {
-    const [size, setSize] = useState('large');
+    // const [size, setSize] = useState('large');
     return (
-        <div className=' w-[300px] min-h-screen flex flex-col justify-between '>
+        <div className=' md:w-[300px] min-h-screen flex flex-col justify-between '>
 
             {/* Top Section */}
             <div >
                 {/* Logo */}
                 <div>
-                    <img className=' w-[252px] h-[80px] object-cover mt-[16px] mb-[24px]' src="/public/images/triplem_logo.png" alt="logo" />
+                    <img className=' md:w-[252px] h-[80px] object-cover mt-[16px] mb-[24px]' src="/public/images/triplem_logo.png" alt="logo" />
                 </div>
 
                 {/* Menu */}

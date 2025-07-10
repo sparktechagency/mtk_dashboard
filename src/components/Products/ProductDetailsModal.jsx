@@ -18,7 +18,7 @@ const colors = [
   { name: 'Silver', colorCode: '#d6d6d6' },
 ];
 
-export default function ProductDetailsModal({ open, onClose, product }) {
+export default function ProductDetailsModal({ open, onClose }) {
   return (
     <Modal
       open={open}

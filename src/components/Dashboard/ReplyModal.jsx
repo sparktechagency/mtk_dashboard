@@ -9,10 +9,7 @@ const { TextArea } = Input;
 export default function ReplyModal({
     open,
     onCancel,
-    onAdd,
-    fieldLabel = 'Question',
     fieldName = 'fieldName',
-    placeholder = 'Type question here',
     initialValue = '', // ✅ 
     
 }) {
@@ -24,12 +21,12 @@ export default function ReplyModal({
         }
     }, [open, fieldName, initialValue, form]);
 
-    const handleSubmit = () => {
-        form.validateFields().then(values => {
-            onAdd(values[fieldName]);
-            form.resetFields();
-        });
-    };
+    // const handleSubmit = () => {
+    //     form.validateFields().then(values => {
+    //         onAdd(values[fieldName]);
+    //         form.resetFields();
+    //     });
+    // };
 
     return (
         <Modal

@@ -43,9 +43,9 @@ export default function Profile() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
-    console.log('Saved Data:', formData);
-  };
+  // const handleSave = () => {
+  //   console.log('Saved Data:', formData);
+  // };
 
   return (
     <div className="pl-12 pt-12 pr-12 bg-[#FCF7E6] ml-[300px] w-[1620px] min-h-screen">
