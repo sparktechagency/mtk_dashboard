@@ -163,30 +163,11 @@ export default function HelpCenterPage() {
       align: 'center',
       render: (text, record) => (
         <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
-          <Button
-            onClick={() => handleView(record)}
-            type="primary"
-            icon={<EyeOutlined />}
-            style={{
-              backgroundColor: '#E4AF00',
-              borderColor: '#fadb14',
-              borderRadius: '8px',
-              width: 40,
-              height: 40,
-            }}
-          />
-          <Button
-            onClick={() => handleReply(record)}
-            type="primary"
-            icon={<RollbackOutlined />}
-            style={{
-              backgroundColor: '#3871C1',
-              borderColor: '#1890ff',
-              borderRadius: '8px',
-              width: 40,
-              height: 40,
-            }}
-          />
+          
+          <a  onClick={() => handleView(record)}
+            type="primary"> <img src="/public/images/view.png" alt="view" /></a>
+          <a  onClick={() => handleReply(record)}
+            type="primary"><img src="/public/images/reply.png" alt="reply" /></a>
         </div>
       ),
     },
@@ -211,10 +192,10 @@ export default function HelpCenterPage() {
           />
         </div>
 
-        <Table
+        <Table 
           dataSource={dataSource}
           columns={columns}
-          className="rounded-lg overflow-hidden"
+          className="rounded-lg overflow-hidden custom-table"
           pagination={{
             position: ['bottomCenter'],
             current: currentPage,
