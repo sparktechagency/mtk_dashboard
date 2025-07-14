@@ -3,6 +3,7 @@ import { Tabs, Input, Avatar } from 'antd';
 import BackButton from '../SharedComponents/BackButton';
 import SavedButton from '../SharedComponents/SavedButton';
 import './profile.css';
+import Container from '../SharedComponents/Container';
 
 const { TabPane } = Tabs;
 const { Password } = Input;
@@ -48,119 +49,121 @@ export default function Profile() {
   // };
 
   return (
-    <div className="pl-12 pt-12 pr-12 bg-[#FCF7E6] ml-[300px] w-[1620px] min-h-screen">
-      <div className="rounded-[8px] bg-white shadow-lg p-12">
-        {/* Back link */}
-        <div className="flex items-center gap-2">
-          <BackButton />
-          <h2 className="text-[20px] font-[Inter] font-semibold">Profile</h2>
-        </div>
-
-        {/* Avatar and name */}
-        <div className="flex flex-col items-center">
-          <div className="relative">
-            <Avatar size={96} src="/images/admin.png" />
-            <div className="absolute bottom-0 right-0">
-              <img src="/images/camera.png" alt="camera" />
-            </div>
+    <>
+      <Container>
+        <div className="rounded-[8px] bg-white shadow-lg p-12">
+          {/* Back link */}
+          <div className="flex items-center gap-2">
+            <BackButton />
+            <h2 className="text-[20px] font-[Inter] font-semibold">Profile</h2>
           </div>
-          <h2 className="mt-2 text-[30px] font-[Inter] font-medium">Mr. Admin</h2>
-        </div>
 
-        {/* Tabs */}
-        <Tabs
-          defaultActiveKey="1"
-          centered
-          className="mt-4 custom-tabs"
-          tabBarStyle={{ borderBottom: 'none' }}
-        >
-          <TabPane tab="Edit Profile" key="1">
-            <h3 className="text-center text-[24px] font-[Inter] font-medium mb-6">
-              Edit Your Profile
-            </h3>
-            <div className="space-y-4 max-w-xl mx-auto font-[Inter] font-normal text-[#333333]">
-              <div>
-                <label>User Name</label>
-                <Input
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="custom-placeholder"
-                  style={{ borderColor: '#E4AF00', padding: '10px 16px', borderRadius: '6px' }}
-                />
-              </div>
-              <div>
-                <label>Email</label>
-                <Input
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="custom-placeholder"
-                  style={{ borderColor: '#E4AF00', padding: '10px 16px', borderRadius: '6px' }}
-                />
-              </div>
-              <div>
-                <label>Contact no</label>
-                <Input
-                  name="contact"
-                  value={formData.contact}
-                  onChange={handleChange}
-                  className="custom-placeholder"
-                  style={{ borderColor: '#E4AF00', padding: '10px 16px', borderRadius: '6px' }}
-                />
-              </div>
-              <div>
-                <label>Address</label>
-                <Input
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  className="custom-placeholder"
-                  style={{ borderColor: '#E4AF00', padding: '10px 16px', borderRadius: '6px' }}
-                />
-              </div>
-              <div className="flex justify-center text-center pt-4">
-                <SavedButton />
+          {/* Avatar and name */}
+          <div className="flex flex-col items-center">
+            <div className="relative">
+              <Avatar size={96} src="/images/admin.png" />
+              <div className="absolute bottom-0 right-0">
+                <img src="/images/camera.png" alt="camera" />
               </div>
             </div>
-          </TabPane>
+            <h2 className="mt-2 text-[30px] font-[Inter] font-medium">Mr. Admin</h2>
+          </div>
 
-          <TabPane tab="Change Password" key="2">
-            <h3 className="text-center text-[24px] font-[Inter] font-medium mb-6">
-              Change Password
-            </h3>
-            <div className="space-y-4 max-w-xl mx-auto font-[Inter] font-normal text-[#333333]">
-              {passwordFields.map((field) => (
-                <div key={field.name} className="space-y-1">
-                  <label>{field.label}</label>
-                  <Password
-                    className="custom-placeholder"
-                    name={field.name}
-                    placeholder={field.placeholder}
-                    value={formData[field.name]}
+          {/* Tabs */}
+          <Tabs
+            defaultActiveKey="1"
+            centered
+            className="mt-4 custom-tabs"
+            tabBarStyle={{ borderBottom: 'none' }}
+          >
+            <TabPane tab="Edit Profile" key="1">
+              <h3 className="text-center text-[24px] font-[Inter] font-medium mb-6">
+                Edit Your Profile
+              </h3>
+              <div className="space-y-4 max-w-xl mx-auto font-[Inter] font-normal text-[#333333]">
+                <div>
+                  <label>User Name</label>
+                  <Input
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
-                    iconRender={(visible) =>
-                      visible ? (
-                       <a><img src="/public/images/view.png" alt="view" style={{ width: 18 }} /></a> 
-                      ) : (
-                       <a> <img src="/public/images/notView.png" alt="not view" style={{ width: 18 }} /></a>
-                      )
-                    }
-                    style={{
-                      borderColor: '#E4AF00',
-                      padding: '10px 16px',
-                      borderRadius: '6px',
-                    }}
+                    className="custom-placeholder"
+                    style={{ borderColor: '#E4AF00', padding: '10px 16px', borderRadius: '6px' }}
                   />
                 </div>
-              ))}
-              <div className="flex justify-center text-center pt-16">
-                <SavedButton />
+                <div>
+                  <label>Email</label>
+                  <Input
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="custom-placeholder"
+                    style={{ borderColor: '#E4AF00', padding: '10px 16px', borderRadius: '6px' }}
+                  />
+                </div>
+                <div>
+                  <label>Contact no</label>
+                  <Input
+                    name="contact"
+                    value={formData.contact}
+                    onChange={handleChange}
+                    className="custom-placeholder"
+                    style={{ borderColor: '#E4AF00', padding: '10px 16px', borderRadius: '6px' }}
+                  />
+                </div>
+                <div>
+                  <label>Address</label>
+                  <Input
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    className="custom-placeholder"
+                    style={{ borderColor: '#E4AF00', padding: '10px 16px', borderRadius: '6px' }}
+                  />
+                </div>
+                <div className="flex justify-center text-center pt-4">
+                  <SavedButton />
+                </div>
               </div>
-            </div>
-          </TabPane>
-        </Tabs>
-      </div>
-    </div>
+            </TabPane>
+
+            <TabPane tab="Change Password" key="2">
+              <h3 className="text-center text-[24px] font-[Inter] font-medium mb-6">
+                Change Password
+              </h3>
+              <div className="space-y-4 max-w-xl mx-auto font-[Inter] font-normal text-[#333333]">
+                {passwordFields.map((field) => (
+                  <div key={field.name} className="space-y-1">
+                    <label>{field.label}</label>
+                    <Password
+                      className="custom-placeholder"
+                      name={field.name}
+                      placeholder={field.placeholder}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      iconRender={(visible) =>
+                        visible ? (
+                          <a><img src="/public/images/view.png" alt="view" style={{ width: 18 }} /></a>
+                        ) : (
+                          <a> <img src="/public/images/notView.png" alt="not view" style={{ width: 18 }} /></a>
+                        )
+                      }
+                      style={{
+                        borderColor: '#E4AF00',
+                        padding: '10px 16px',
+                        borderRadius: '6px',
+                      }}
+                    />
+                  </div>
+                ))}
+                <div className="flex justify-center text-center pt-16">
+                  <SavedButton />
+                </div>
+              </div>
+            </TabPane>
+          </Tabs>
+        </div>
+      </Container>
+    </>
   );
 }

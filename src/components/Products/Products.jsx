@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 import './products.css';
 import ProductDetailsModal from './ProductDetailsModal';
 import AddProductModal from './AddProductModal';
+import Container from '../SharedComponents/Container';
+import BackButton from '../SharedComponents/BackButton';
+import PrimaryButton from '../SharedComponents/PrimaryButton';
+import CustomPagination from '../SharedComponents/CustomPagination';
 
 const data = [
   {
@@ -217,40 +221,21 @@ export default function Products() {
 
 
   return (
-    <div className="pl-6 pt-6 pr-12 bg-[#FCF7E6]  md:ml-[300px] md:w-[1620px] min-h-screen">
-      <div className='bg-white p-6 rounded-[8px] shadow-lg'>
+    <>
+      <Container>
+        <div className='bg-white p-6 rounded-[8px] shadow-lg'>
         <div className="mb-6 flex justify-between items-center ">
-          <div className='flex gap-2 items-center'>
-            <Link to="/"><img src="/public/images/users/Frame.png" alt="" /></Link>
-
-            <h2 className="text-[20px] font-[Inter] font-semibold ">Products</h2>
-          </div>
-          <Button
-            type="primary"
-
-            icon={<PlusOutlined />}
-            onClick={() => {
-              setIsEditMode(false);      // Add mode
+         <BackButton text="Products"></BackButton>
+         
+          <PrimaryButton
+          text="Add New"
+          icon={<PlusOutlined/>}
+           onClick={() => {
+              setIsEditMode(false);      
               setEditProduct(null);
               setIsAddModalOpen(true);
-            }}
-            style={{
-              backgroundColor: '#E4AF00',
-              border: 'none',
-              color: '#FEFEFE',
-              borderRadius: 4,
-              height: '48px',
-              padding: '0 44px',     // Keep horizontal padding, remove vertical
-              display: 'flex',
-              alignItems: 'center',  // Center icon and text vertically
-              fontFamily: 'Inter, sans-serif',
-              fontSize: 16,
-              marginRight: 32,
+            }}></PrimaryButton>
 
-            }}
-          >
-            Add New
-          </Button>
         </div>
 
         <Table
@@ -259,52 +244,7 @@ export default function Products() {
           dataSource={data}
 
 
-          pagination={{
-            // className: 'flex justify-center items-center gap-1',
-            position: ['bottomCenter'],
-            current: currentPage,
-            total: 1000,
-            pageSize: 10,
-            onChange: (page) => setCurrentPage(page),
-            showSizeChanger: false,
-            showLessItems: true,
-            itemRender: (page, type, originalElement) => {
-              if (type === 'page') {
-                if ([1, 2, 3, 100].includes(page)) {
-                  return (
-                    <span className={page === currentPage ? 'custom-page-active' : 'custom-page'}>
-                      {page}
-                      {page !== 100 && page !== 3 ? ' ,' : ''}
-                    </span>
-                  );
-                }
-                if (page === 4) {
-                  return <span className="custom-page"> </span>;
-                }
-                return null;
-              }
-
-              if (type === 'prev') {
-                return (
-                  <span className="pagination-btn">
-                    <span className="arrow">{originalElement}</span>
-                    <span className="label">Previous</span>
-                  </span>
-                );
-              }
-
-              if (type === 'next') {
-                return (
-                  <span className="pagination-btn">
-                    <span className="label">Next</span>
-                    <span className="arrow">{originalElement}</span>
-                  </span>
-                );
-              }
-
-              return originalElement;
-            },
-          }}
+          pagination={CustomPagination({currentPage, setCurrentPage})}
           bordered={false}
         />
 
@@ -334,7 +274,8 @@ export default function Products() {
 
 
       </div>
+      </Container>
 
-    </div>
+    </>
   )
 }

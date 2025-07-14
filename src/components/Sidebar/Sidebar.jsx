@@ -48,7 +48,7 @@ const items = [
 export default function Sidebar() {
     // const [size, setSize] = useState('large');
     return (
-        <div className=' md:w-[300px] min-h-screen flex flex-col justify-between '>
+        <div className=' lg:w-[300px] min-h-screen flex flex-col justify-between '>
 
             {/* Top Section */}
             <div >

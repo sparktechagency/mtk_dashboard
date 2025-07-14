@@ -3,10 +3,12 @@ import FontFormatSection from '../SharedComponents/FontFormatSection';
 import SavedButton from '../SharedComponents/SavedButton';
 import Intro from '../SharedComponents/Intro';
 import Details from '../SharedComponents/Details';
+import Container from '../SharedComponents/Container';
 export default function TermsConditions() {
   return (
-    <div className="pl-12 pt-12 pr-12 bg-[#FCF7E6]  md:ml-[300px] md:w-[1620px] min-h-screen">
-                <div className="rounded-[8px] bg-white shadow-lg p-12 ">
+    <>
+                <Container>
+                    <div className="rounded-[8px] bg-white shadow-lg p-12 ">
                     {/* Header */}
                     <div className="flex justify-between items-center mb-6">
                         <div className="flex items-center gap-2">
@@ -36,6 +38,7 @@ export default function TermsConditions() {
                     </div>
     
                 </div>
-            </div>
+                </Container>
+            </>
   )
 }

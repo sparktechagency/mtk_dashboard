@@ -2,9 +2,9 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input, Button } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
-import CloseIcon from './CloseIcon';
-import CancelButton from './CancelButton';
-import AddButton from './AddButton';
+import CloseIcon from '../SharedComponents/CloseIcon';
+import CancelButton from '../SharedComponents/CancelButton';
+import AddButton from '../SharedComponents/AddButton';
 
 export default function AddModal({
   open,
@@ -53,7 +53,7 @@ export default function AddModal({
         <Form.Item
           label={fieldLabel}
           name={fieldName}
-          rules={[{ required: true, message: `Please enter ${fieldLabel.toLowerCase()}` }]}
+          // rules={[{ required: true, message: `Please enter ${fieldLabel.toLowerCase()}` }]}
         >
           <Input placeholder={placeholder}
             style={{

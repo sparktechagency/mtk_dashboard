@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Table, Tag, Button, Avatar, Input, Space } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 import DetailsModal from './DetailsModal';
 import './order.css';
 import EditModal from './EditModal';
+import Container from '../SharedComponents/Container';
+import BackButton from '../SharedComponents/BackButton';
+import SearchButton from '../SharedComponents/SearchButton';
+import CustomPagination from '../SharedComponents/CustomPagination';
 
 
 const { Search } = Input;
@@ -192,20 +194,23 @@ export default function Orders() {
       key: 'payment',
       align: 'center',
       render: (status) => (
-        <Tag
-          color={getTagColor(status, 'payment')}
-          style={{
-            borderRadius: 226,
-            width: 125,
-            height: 36,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            fontFamily: 'Inter',
-          }}
-        >
-          {status}
-        </Tag>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Tag
+            color={getTagColor(status, 'payment')}
+            style={{
+              borderRadius: 226,
+              width: 125,
+              height: 36,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontFamily: 'Inter',
+            }}
+          >
+            {status}
+          </Tag>
+        </div>
+
       ),
     },
     {
@@ -214,20 +219,23 @@ export default function Orders() {
       key: 'status',
       align: 'center',
       render: (status) => (
-        <Tag
-          color={getTagColor(status, 'order')}
-          style={{
-            borderRadius: 226,
-            width: 125,
-            height: 36,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            fontFamily: 'Inter',
-          }}
-        >
-          {status}
-        </Tag>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Tag
+            color={getTagColor(status, 'order')}
+            style={{
+              borderRadius: 226,
+              width: 125,
+              height: 36,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontFamily: 'Inter',
+            }}
+          >
+            {status}
+          </Tag>
+        </div>
+
       ),
     },
     {
@@ -251,70 +259,24 @@ export default function Orders() {
   return (
 
 
-    <div className="pl-6 pt-6 pr-12 bg-[#FCF7E6] md:ml-[300px] md:w-[1620px] min-h-screen">
-      <div className="bg-white p-6 rounded-[8px] shadow-lg">
-        <div className="mb-6 flex justify-between items-center">
-          <div className="flex gap-2 items-center">
-            <Link to="/">
-              <img src="/public/images/users/Frame.png" alt="back" />
-            </Link>
-            <h2 className="text-[20px] font-[Inter] font-semibold">Order Management</h2>
+    <>
+      <Container>
+        <div className="bg-white p-6 rounded-[8px] shadow-lg">
+          <div className="mb-6 flex justify-between items-center">
+            <BackButton text="Order Management"></BackButton>
+            <SearchButton></SearchButton>
+            
           </div>
-          <Input
-            className="custom-search"
-            placeholder="Search here..."
-            prefix={<SearchOutlined style={{ color: '#E4AF00', fontSize: 20 }} />}
-            style={{ width: 300, height: 44, marginRight: 24 }}
+
+          <Table
+            className="custom-table"
+            columns={columns}
+            dataSource={data}
+            pagination={CustomPagination({ currentPage, setCurrentPage})}
+            bordered={false}
           />
         </div>
-
-        <Table
-          className="custom-table"
-          columns={columns}
-          dataSource={data}
-          pagination={{
-            position: ['bottomCenter'],
-            current: currentPage,
-            total: 1000,
-            pageSize: 10,
-            onChange: (page) => setCurrentPage(page),
-            showSizeChanger: false,
-            showLessItems: true,
-            itemRender: (page, type, originalElement) => {
-              if (type === 'page') {
-                if ([1, 2, 3, 100].includes(page)) {
-                  return (
-                    <span className={page === currentPage ? 'custom-page-active' : 'custom-page'}>
-                      {page}
-                      {page !== 100 && page !== 3 ? ' ,' : ''}
-                    </span>
-                  );
-                }
-                if (page === 4) return <span className="custom-page"> </span>;
-                return null;
-              }
-              if (type === 'prev') {
-                return (
-                  <span className="pagination-btn">
-                    <span className="arrow">{originalElement}</span>
-                    <span className="label">Previous</span>
-                  </span>
-                );
-              }
-              if (type === 'next') {
-                return (
-                  <span className="pagination-btn">
-                    <span className="label">Next</span>
-                    <span className="arrow">{originalElement}</span>
-                  </span>
-                );
-              }
-              return originalElement;
-            },
-          }}
-          bordered={false}
-        />
-      </div>
+      </Container>
 
       {/* View Modal */}
       <DetailsModal open={isModalVisible} onCancel={handleCancel} order={selectedOrder} />
@@ -327,6 +289,6 @@ export default function Orders() {
         initialPayment={selectedEditOrder?.payment}
       />
 
-    </div>
+    </>
   )
 }

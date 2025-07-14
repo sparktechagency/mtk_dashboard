@@ -3,7 +3,10 @@ import { Table, Button, Space } from 'antd';
 import { LeftOutlined, EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import './Category.css';
-import AddModal from '../SharedComponents/AddModal';
+import AddModal from './AddModal';
+import Container from '../SharedComponents/Container';
+import BackButton from '../SharedComponents/BackButton';
+import PrimaryButton from '../SharedComponents/PrimaryButton';
 
 export default function Category() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,7 +25,7 @@ export default function Category() {
     };
 
 
-    
+
 
     // Dummy category data
     const data = [
@@ -65,67 +68,52 @@ export default function Category() {
     ];
 
     return (
-        <div className="pl-12 pt-12 pr-12 bg-[#FCF7E6]  md:ml-[300px] md:w-[1620px] min-h-screen">
-            <div className="rounded-[8px] bg-white shadow-lg p-12">
-                {/* Header */}
-                <div className="flex justify-between items-center mb-6">
-                    <div className="flex items-center gap-2">
-                        <Link to="/"><img src="/public/images/users/Frame.png" alt="" /></Link>
-                        <h2 className="text-[20px] font-[Inter] font-semibold">Categories</h2>
+        <>
+            <Container>
+                <div className="rounded-[8px] bg-white shadow-lg p-12">
+                    {/* Header */}
+                    <div className="flex justify-between items-center mb-6">
+                        {/* <div className="flex items-center gap-2">
+                            <Link to="/"><img src="/public/images/users/Frame.png" alt="" /></Link>
+                            <h2 className="text-[20px] font-[Inter] font-semibold">Categories</h2>
+                        </div> */}
+                        <BackButton text="Categories"></BackButton>
+                        
+                        {/* Add Button */}
+                        <PrimaryButton text="Add New" icon={<PlusOutlined/>} onClick={handleAddClick}></PrimaryButton>
+
+                        {/* Modal shown on button click */}
+                        <AddModal
+                            open={isModalOpen}
+                            onCancel={() => setIsModalOpen(false)}
+                            onAdd={(name) => {
+                                if (isEditMode) {
+                                    console.log('Edited:', name);
+                                } else {
+                                    console.log('Added:', name);
+                                }
+                                setIsModalOpen(false);
+                            }}
+                            fieldLabel="Category Name"
+                            fieldName="categoryName"
+                            placeholder="Enter category name"
+                            initialValue={currentCategory}
+                            isEdit={isEditMode}
+                        />
+
+
                     </div>
-                    <Button
-                        type="primary"
 
-                        icon={<PlusOutlined />}
-                        onClick={handleAddClick}
-                        style={{
-                            backgroundColor: '#E4AF00',
-                            border: 'none',
-                            color: '#FEFEFE',
-                            borderRadius: 4,
-                            height: '48px',
-                            padding: '0 44px',     // Keep horizontal padding, remove vertical
-                            display: 'flex',
-                            alignItems: 'center',  // Center icon and text vertically
-                            fontFamily: 'Inter, sans-serif',
-                            fontSize: 16,
-
-                        }}
-                    >
-                        Add New
-                    </Button>
-
-                    {/* Modal shown on button click */}
-                    <AddModal
-                        open={isModalOpen}
-                        onCancel={() => setIsModalOpen(false)}
-                        onAdd={(name) => {
-                            if (isEditMode) {
-                                console.log('Edited:', name);
-                            } else {
-                                console.log('Added:', name);
-                            }
-                            setIsModalOpen(false);
-                        }}
-                        fieldLabel="Category Name"
-                        fieldName="categoryName"
-                        placeholder="Enter category name"
-                        initialValue={currentCategory}
-                        isEdit={isEditMode}
+                    {/* Table */}
+                    <Table
+                        className='custom-table'
+                        columns={columns}
+                        dataSource={data}
+                        pagination={false}
+                        bordered={false}
                     />
-
-
                 </div>
-
-                {/* Table */}
-                <Table
-                    className='custom-table'
-                    columns={columns}
-                    dataSource={data}
-                    pagination={false}
-                    bordered={false}
-                />
-            </div>
-        </div>
+            </Container>
+        </>
     )
 }

@@ -43,11 +43,11 @@ export default function AddProductModal({
             </div>
 
             <Form form={form} layout="vertical">
-                <Form.Item label={isEdit ? 'Items Name' : 'Product Name'} name="productName" rules={[{ required: true }]}>
+                <Form.Item label={isEdit ? 'Items Name' : 'Product Name'} name="productName" >
                     <Input placeholder="Item name here" />
                 </Form.Item>
 
-                <Form.Item label="Category" name="category" rules={[{ required: true }]}>
+                <Form.Item label="Category" name="category" >
                     <Select placeholder="Select Category">
                         <Select.Option value="Rings">Rings</Select.Option>
                         <Select.Option value="Necklace">Necklace</Select.Option>
@@ -57,7 +57,7 @@ export default function AddProductModal({
 
                 <Row gutter={16}>
                     <Col span={12}>
-                        <Form.Item label="Price" name="price" rules={[{ required: true }]}>
+                        <Form.Item label="Price" name="price" >
                             <Input prefix="$86" />
                         </Form.Item>
                     </Col>
@@ -104,7 +104,7 @@ export default function AddProductModal({
                     </div>
                 </Form.Item>
 
-                <Form.Item label="Stock Status" name="stockStatus" rules={[{ required: true }]}>
+                <Form.Item label="Stock Status" name="stockStatus" >
                     <Radio.Group>
                         <Radio value="In Stock">In Stock</Radio>
                         <Radio value="Stock Out">Stock Out</Radio>

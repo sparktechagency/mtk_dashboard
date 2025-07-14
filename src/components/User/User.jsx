@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Table, Avatar, Input, Button, Space } from 'antd';
-import { SearchOutlined, StopOutlined } from '@ant-design/icons';
 import './User.css'
-import { Link } from 'react-router-dom';
-const { Search } = Input;
+import Container from '../SharedComponents/Container';
+import BackButton from '../SharedComponents/BackButton';
+import SearchButton from '../SharedComponents/SearchButton';
+import CustomPagination from '../SharedComponents/CustomPagination';
+
 
 // Dummy data
 const data = Array.from({ length: 10 }, (_, index) => ({
@@ -21,7 +23,7 @@ const data = Array.from({ length: 10 }, (_, index) => ({
     'Saint Cloud, FL 349', 'Vineland, NJ 08360', 'Castleton On Hudson', 'Rockford, IL 61109',
     'Anna Maria, FL 346', 'Mountain View, C 3'
   ][index],
-  avatar: `/images/users/user${index + 1}.png`, 
+  avatar: `/images/users/user${index + 1}.png`,
 }));
 
 // Columns
@@ -30,16 +32,16 @@ const columns = [
     title: 'SL No.',
     dataIndex: 'sl',
     key: 'sl',
-    
+
   },
   {
     title: 'Full Name',
     key: 'name',
     render: (_, record) => (
       <Space>
-        <Avatar src={record.avatar} 
-        style={{ width: 48, height: 48, borderRadius: 8 }}
-        shape="square"
+        <Avatar src={record.avatar}
+          style={{ width: 48, height: 48, borderRadius: 8 }}
+          shape="square"
         />
         {record.name}
       </Space>
@@ -65,12 +67,12 @@ const columns = [
   {
     title: 'Action',
     key: 'action',
-    
+
     render: () => (
-      
+
       <a><img src="/public/images/users/danger.png" alt="Danger" /></a>
     ),
-    
+
   },
 ];
 
@@ -78,80 +80,25 @@ const columns = [
 export default function User() {
   const [currentPage, setCurrentPage] = useState(1);
   return (
-    <div className="pl-6 pt-6 pr-12 bg-[#FCF7E6]  md:ml-[300px] md:w-[1620px] min-h-screen">
-      <div className='bg-white p-6 rounded-[8px] shadow-lg'>
-        <div className="mb-6 flex justify-between items-center ">
-          <div className='flex gap-2 items-center'>
-            <Link to="/"><img src="/public/images/users/Frame.png" alt="" /></Link>
+    <>
+      <Container>
+        <div className='bg-white p-6 rounded-[8px] shadow-lg '>
+          <div className="mb-6 flex justify-between items-center ">
+            <BackButton text="User Management"></BackButton>
+            <SearchButton></SearchButton>
 
-            <h2 className="text-[20px] font-[Inter] font-semibold "> User Management</h2>
           </div>
-          <Input
-            className="custom-search"
-            placeholder="Search here..."
-            prefix={<SearchOutlined style={{ color: '#E4AF00', fontSize: 20 }} />}
-            onPressEnter={(e) => console.log(e.target.value)}
-            style={{ width: 300, height: 44 }}
+
+          <Table
+            className='custom-table'
+            columns={columns}
+            dataSource={data}
+            pagination={CustomPagination({ currentPage, setCurrentPage})}
+            bordered={false}
           />
-
         </div>
+      </Container>
 
-        <Table
-          className='custom-table'
-          columns={columns}
-          dataSource={data}
-
-
-           pagination={{
-            // className: 'flex justify-center items-center gap-1',
-            position: ['bottomCenter'],
-            current: currentPage,
-            total: 1000,
-            pageSize: 10,
-            onChange: (page) => setCurrentPage(page),
-            showSizeChanger: false,
-            showLessItems: true,
-            itemRender: (page, type, originalElement) => {
-              if (type === 'page') {
-                if ([1, 2, 3, 100].includes(page)) {
-                  return (
-                    <span className={page === currentPage ? 'custom-page-active' : 'custom-page'}>
-                      {page}
-                      {page !== 100 && page !== 3 ? ' ,' : ''}
-                    </span>
-                  );
-                }
-                if (page === 4) {
-                  return <span className="custom-page"> </span>;
-                }
-                return null;
-              }
-
-              if (type === 'prev') {
-                return (
-                  <span className="pagination-btn">
-                    <span className="arrow">{originalElement}</span>
-                    <span className="label">Previous</span>
-                  </span>
-                );
-              }
-
-              if (type === 'next') {
-                return (
-                  <span className="pagination-btn">
-                    <span className="label">Next</span>
-                    <span className="arrow">{originalElement}</span>
-                  </span>
-                );
-              }
-
-              return originalElement;
-            },
-          }}
-          bordered={false}
-        />
-      </div>
-
-    </div>
+    </>
   )
 }

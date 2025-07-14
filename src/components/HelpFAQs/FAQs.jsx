@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import AddFAQModal from './AddFAQModal';
+import Container from '../SharedComponents/Container';
 
 const faqs = [
     {
@@ -37,8 +38,9 @@ export default function FAQs() {
         setIsModalVisible(false);
     }
     return (
-        <div className="pl-12 pt-12 pr-12 bg-[#FCF7E6]  ml-[300px] w-[1620px] min-h-screen">
-            <div className="rounded-[8px] bg-white shadow-lg p-12 ">
+        <>
+            <Container>
+                <div className="rounded-[8px] bg-white shadow-lg p-12 ">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-2">
@@ -51,7 +53,7 @@ export default function FAQs() {
 
 
                 {/* FAQ Grid */}
-                <div className="grid grid-cols-2 gap-x-20 gap-y-10">
+                <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-20 gap-y-10 px-10 py-8">
                     {faqs.map((faq, index) => (
                         <div key={faq.id} className="relative pr-8">
                             <span className="text-[14px] text-black font-medium font-[Inter]">Question no: {faq.id}</span>
@@ -96,6 +98,7 @@ export default function FAQs() {
                 </div>
 
             </div>
-        </div>
+            </Container>
+        </>
     )
 }

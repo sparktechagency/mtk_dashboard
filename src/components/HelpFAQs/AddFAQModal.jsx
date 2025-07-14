@@ -51,7 +51,7 @@ export default function AddFAQModal({
                 <Form.Item
                     label={fieldLabel}
                     name={fieldName}
-                    rules={[{ required: true, message: `Please enter ${fieldLabel.toLowerCase()}` }]}
+                    // rules={[{ required: true, message: `Please enter ${fieldLabel.toLowerCase()}` }]}
                 >
                     <Input placeholder={placeholder}
                         style={{
@@ -68,7 +68,7 @@ export default function AddFAQModal({
                 <Form.Item
                     label='Answer'
                     name={fieldName}
-                    rules={[{ required: true, message: `Please enter ${fieldLabel.toLowerCase()}` }]}
+                    // rules={[{ required: true, message: `Please enter ${fieldLabel.toLowerCase()}` }]}
                 >
                     <TextArea
                         style={{

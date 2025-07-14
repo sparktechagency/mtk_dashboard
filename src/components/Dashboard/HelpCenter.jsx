@@ -162,7 +162,7 @@ export default function HelpCenter() {
 
       <div className="flex items-center justify-center">
         <div className="w-full bg-white rounded-2xl shadow-lg overflow-hidden">
-          <div className="flex justify-between ml-4 mr-12 mt-6 mb-4">
+          <div className="flex justify-between pl-4 pr-12 pt-6 pb-4">
             <h2 className="inter-semibold">Help Center</h2>
             <Link to="/help-center" className="font-[Inter] text-blue-700">
               View all

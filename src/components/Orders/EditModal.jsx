@@ -45,7 +45,7 @@ export default function EditModal({
       </div>
 
       <Form form={form} layout="vertical">
-        <Form.Item label="Order Status" name="status" rules={[{ required: true }]}>
+        <Form.Item label="Order Status" name="status" >
           <Radio.Group className="flex flex-wrap gap-4 text-[#E4AF00]">
             <Radio value="In Progress">In Progress</Radio>
             <Radio value="Shipped">Shipped</Radio>
@@ -54,7 +54,7 @@ export default function EditModal({
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item label="Payment Status" name="payment" rules={[{ required: true }]}>
+        <Form.Item label="Payment Status" name="payment" >
           <Radio.Group className="flex gap-6 text-[#E4AF00]">
             <Radio value="Paid">Paid</Radio>
             <Radio value="Pending">Pending</Radio>
