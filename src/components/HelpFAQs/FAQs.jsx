@@ -4,6 +4,8 @@ import { Button } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import AddFAQModal from './AddFAQModal';
 import Container from '../SharedComponents/Container';
+import BackButton from '../SharedComponents/BackButton';
+import PrimaryButton from '../SharedComponents/PrimaryButton';
 
 const faqs = [
     {
@@ -39,14 +41,12 @@ export default function FAQs() {
     }
     return (
         <>
-            <Container>
+           
                 <div className="rounded-[8px] bg-white shadow-lg p-12 ">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-6">
-                    <div className="flex items-center gap-2">
-                        <Link to="/"><img src="/public/images/users/Frame.png" alt="" /></Link>
-                        <h2 className="text-[20px] font-[Inter] font-semibold">FAQs</h2>
-                    </div>
+        
+                    <BackButton text="FAQs"></BackButton>
 
 
                 </div>
@@ -72,25 +72,12 @@ export default function FAQs() {
 
                 {/* Button End */}
                 <div className="flex justify-center mt-32">
-                    <Button
-                        type="primary"
-                        icon={<PlusOutlined />}
-                        onClick={showModal}
-                        style={{
-                            backgroundColor: '#E4AF00',
-                            border: 'none',
-                            color: '#FEFEFE',
-                            borderRadius: 4,
-                            height: '48px',
-                            padding: '0 44px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            fontFamily: 'Inter, sans-serif',
-                            fontSize: 16,
-                        }}
-                    >
-                        Add FAQ
-                    </Button>
+                    
+                    <PrimaryButton 
+                    text="Add FAQ" 
+                    icon={<PlusOutlined />} 
+                    onClick={showModal}>
+                    </PrimaryButton>
 
                     {/* Show Modal */}
                     <AddFAQModal open={isModalVisible} onCancel={handleCancel} />
@@ -98,7 +85,7 @@ export default function FAQs() {
                 </div>
 
             </div>
-            </Container>
+           
         </>
     )
 }

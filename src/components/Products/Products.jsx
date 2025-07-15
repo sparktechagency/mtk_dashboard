@@ -8,7 +8,7 @@ import AddProductModal from './AddProductModal';
 import Container from '../SharedComponents/Container';
 import BackButton from '../SharedComponents/BackButton';
 import PrimaryButton from '../SharedComponents/PrimaryButton';
-import CustomPagination from '../SharedComponents/CustomPagination';
+import CustomPagination from '../SharedComponents/CustomPagination/CustomPagination';
 
 const data = [
   {
@@ -222,7 +222,7 @@ export default function Products() {
 
   return (
     <>
-      <Container>
+      
         <div className='bg-white p-6 rounded-[8px] shadow-lg'>
         <div className="mb-6 flex justify-between items-center ">
          <BackButton text="Products"></BackButton>
@@ -274,7 +274,7 @@ export default function Products() {
 
 
       </div>
-      </Container>
+      
 
     </>
   )

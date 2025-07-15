@@ -16,14 +16,9 @@
   padding-bottom: 6px !important;
 }
 
-.custom-search {
-  margin-right: 52px;
-  border: 1px solid #e4af00 !important;
-  border-radius: 6px;
-  padding: 2 !important;
-}
+
 /* Move the icon before text */
-.custom-search .ant-input-group-addon {
+ .ant-input-group-addon {
   background-color: transparent;
 
   padding: 0 10px;
@@ -47,7 +42,7 @@
   font-family: 'Inter', sans-serif !important;
   font-weight: 600;
   color: #000; /* Optional: make header text solid black */
-  border-bottom: 1px solid #e5e7eb; /* Optional: soft underline */
+  
 }
 
 /* Table body cell styling */
@@ -61,52 +56,3 @@
 
 
 
-/* Highlighted active page */
-
-
-/* Regular page */
-.custom-page {
-  margin: 0 4px;
-  font-weight: 500;
-}
-
-/* Pagination buttons (Previous/Next) */
-.pagination-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 500;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.pagination-btn .label {
-  color: #333;
-}
-
-.pagination-btn .arrow {
-  font-size: 14px;
-}
-
-
-/* Center the entire pagination block */
-.ant-pagination {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 8px;
-}
-
-/* Ensure page items are aligned nicely */
-.custom-page,
-.custom-page-active,
-.pagination-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Optional: prevent spacing inconsistency */
-.ant-pagination-item {
-  margin-inline: 0 !important;
-}

@@ -69,7 +69,7 @@ export default function Category() {
 
     return (
         <>
-            <Container>
+         
                 <div className="rounded-[8px] bg-white shadow-lg p-12">
                     {/* Header */}
                     <div className="flex justify-between items-center mb-6">
@@ -113,7 +113,7 @@ export default function Category() {
                         bordered={false}
                     />
                 </div>
-            </Container>
+            
         </>
     )
 }

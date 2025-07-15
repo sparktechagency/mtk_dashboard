@@ -20,12 +20,12 @@ import AboutUs from "./components/Settings/AboutUs.jsx";
 import TermsConditions from "./components/Settings/TermsConditions.jsx";
 import PrivacyPolicy from "./components/Settings/PrivacyPolicy.jsx";
 import Profile from "./components/Profile/Profile.jsx";
-
+import HelpCenterPage from "./components/Dashboard/HelpCenterPage/HelpCenterPage.jsx"
 import Login from "./components/Logout/Login.jsx";
 import ForgetPassword from "./components/Logout/ForgetPassword.jsx";
 import CheckYourEmail from "./components/Logout/CheckYourEmail.jsx";
 import SetPassword from "./components/Logout/SetPassword.jsx";
-import HelpCenterPage from "./components/HelpCenterPage/HelpCenterPage.jsx";
+
 
 
 const router = createBrowserRouter([
@@ -67,6 +67,7 @@ const router = createBrowserRouter([
         element: <HelpSupport></HelpSupport>,
 
       },
+
       {
         path: "/FAQs",
         element: <FAQs></FAQs>,

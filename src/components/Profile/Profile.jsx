@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Tabs, Input, Avatar } from 'antd';
 import BackButton from '../SharedComponents/BackButton';
-import SavedButton from '../SharedComponents/SavedButton';
+
 import './profile.css';
 import Container from '../SharedComponents/Container';
+import PrimaryButton from '../SharedComponents/PrimaryButton';
 
 const { TabPane } = Tabs;
 const { Password } = Input;
@@ -50,13 +51,11 @@ export default function Profile() {
 
   return (
     <>
-      <Container>
-        <div className="rounded-[8px] bg-white shadow-lg p-12">
+      
+        <div className="rounded-[8px] bg-white shadow-lg p-12  ">
           {/* Back link */}
-          <div className="flex items-center gap-2">
-            <BackButton />
-            <h2 className="text-[20px] font-[Inter] font-semibold">Profile</h2>
-          </div>
+
+          <BackButton text="Profile" />
 
           {/* Avatar and name */}
           <div className="flex flex-col items-center">
@@ -76,6 +75,7 @@ export default function Profile() {
             className="mt-4 custom-tabs"
             tabBarStyle={{ borderBottom: 'none' }}
           >
+            {/* Edit Profile Section */}
             <TabPane tab="Edit Profile" key="1">
               <h3 className="text-center text-[24px] font-[Inter] font-medium mb-6">
                 Edit Your Profile
@@ -122,11 +122,12 @@ export default function Profile() {
                   />
                 </div>
                 <div className="flex justify-center text-center pt-4">
-                  <SavedButton />
+                  <PrimaryButton text="Save Change"></PrimaryButton>
                 </div>
               </div>
             </TabPane>
 
+            {/* Change Password Section */}
             <TabPane tab="Change Password" key="2">
               <h3 className="text-center text-[24px] font-[Inter] font-medium mb-6">
                 Change Password
@@ -157,13 +158,13 @@ export default function Profile() {
                   </div>
                 ))}
                 <div className="flex justify-center text-center pt-16">
-                  <SavedButton />
+                  <PrimaryButton text="Save Change"></PrimaryButton>
                 </div>
               </div>
             </TabPane>
           </Tabs>
         </div>
-      </Container>
+      
     </>
   );
 }

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Table, Input, Button } from 'antd';
 import { SearchOutlined, EyeOutlined, RollbackOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import HelpDetailsModal from '../Dashboard/HelpDetailsModal';
-import ReplyModal from '../Dashboard/ReplyModal';
+import HelpDetailsModal from '../HelpDetailsModal';
+import ReplyModal from '../ReplyModal';
 import './helpCenterPage.css';
-import Container from '../SharedComponents/Container';
-import BackButton from '../SharedComponents/BackButton';
-import SearchButton from '../SharedComponents/SearchButton';
-import CustomPagination from '../SharedComponents/CustomPagination';
+import Container from '../../SharedComponents/Container';
+import BackButton from '../../SharedComponents/BackButton';
+import SearchButton from '../../SharedComponents/SearchButton';
+import CustomPagination from '../../SharedComponents/CustomPagination/CustomPagination';
 
 export default function HelpCenterPage() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -179,7 +179,7 @@ export default function HelpCenterPage() {
 
   return (
     <>
-      <Container>
+     
         <div className="bg-white p-6 rounded-[8px] shadow-lg">
           <div className="mb-6 flex justify-between items-center">
             <BackButton text="Help Center"></BackButton>
@@ -206,7 +206,7 @@ export default function HelpCenterPage() {
             placeholder="Type question here"
           />
         </div>
-      </Container>
+   
     </>
   );
 }

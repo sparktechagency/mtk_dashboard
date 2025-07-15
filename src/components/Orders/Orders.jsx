@@ -6,7 +6,7 @@ import EditModal from './EditModal';
 import Container from '../SharedComponents/Container';
 import BackButton from '../SharedComponents/BackButton';
 import SearchButton from '../SharedComponents/SearchButton';
-import CustomPagination from '../SharedComponents/CustomPagination';
+import CustomPagination from '../SharedComponents/CustomPagination/CustomPagination';
 
 
 const { Search } = Input;
@@ -260,7 +260,7 @@ export default function Orders() {
 
 
     <>
-      <Container>
+    
         <div className="bg-white p-6 rounded-[8px] shadow-lg">
           <div className="mb-6 flex justify-between items-center">
             <BackButton text="Order Management"></BackButton>
@@ -276,7 +276,7 @@ export default function Orders() {
             bordered={false}
           />
         </div>
-      </Container>
+     
 
       {/* View Modal */}
       <DetailsModal open={isModalVisible} onCancel={handleCancel} order={selectedOrder} />

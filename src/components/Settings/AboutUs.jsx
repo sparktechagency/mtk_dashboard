@@ -1,21 +1,22 @@
 
 import BackButton from '../SharedComponents/BackButton';
 import FontFormatSection from '../SharedComponents/FontFormatSection';
-import SavedButton from '../SharedComponents/SavedButton';
+
 import Intro from '../SharedComponents/Intro';
 import Details from '../SharedComponents/Details';
-import Container from '../SharedComponents/Container';
+
+import PrimaryButton from '../SharedComponents/PrimaryButton';
 export default function AboutUs() {
   return (
     <>
-            <Container>
+        
               <div className="rounded-[8px] bg-white shadow-lg p-12 ">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-6">
-                    <div className="flex items-center gap-2">
-                       <BackButton></BackButton>
-                        <h2 className="text-[20px] font-[Inter] font-semibold">About Us</h2>
-                    </div>
+                   
+                      
+                      <BackButton text="About Us"></BackButton>
+
 
                     {/* justify end */}
                    <FontFormatSection></FontFormatSection>
@@ -35,11 +36,11 @@ export default function AboutUs() {
 
                 {/* Button End */}
                 <div className="flex justify-center mt-24">
-                    <SavedButton></SavedButton>
+                    <PrimaryButton text="Save Change"></PrimaryButton>
                 </div>
 
             </div>
-            </Container>
+            
         </>
   )
 }

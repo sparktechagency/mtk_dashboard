@@ -22,16 +22,16 @@ export default function ProductDetailsModal({ open, onClose }) {
   return (
     <Modal
       open={open}
-      onCancel={onClose}
+      closable={false}
       footer={null}
       width={650}
       centered
       style={{ padding: '24px 32px' }}
-      closeIcon={<span style={{ color: '#FBBE2F', fontWeight: '', fontSize:'24px'}}>×</span>}
+      
     >
        <div className="flex justify-between items-center mb-6">
               <h2 className="text-[20px] font-semibold font-[Inter] mx-auto">Details</h2>
-              
+              <CloseIcon onClick={onClose} />
             </div>
 
       {/* Images */}

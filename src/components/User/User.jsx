@@ -4,7 +4,7 @@ import './User.css'
 import Container from '../SharedComponents/Container';
 import BackButton from '../SharedComponents/BackButton';
 import SearchButton from '../SharedComponents/SearchButton';
-import CustomPagination from '../SharedComponents/CustomPagination';
+import CustomPagination from '../SharedComponents/CustomPagination/CustomPagination';
 
 
 // Dummy data
@@ -81,7 +81,7 @@ export default function User() {
   const [currentPage, setCurrentPage] = useState(1);
   return (
     <>
-      <Container>
+   
         <div className='bg-white p-6 rounded-[8px] shadow-lg '>
           <div className="mb-6 flex justify-between items-center ">
             <BackButton text="User Management"></BackButton>
@@ -97,7 +97,7 @@ export default function User() {
             bordered={false}
           />
         </div>
-      </Container>
+      
 
     </>
   )

@@ -11,6 +11,8 @@ import {
 } from '@ant-design/icons';
 import { Button, Menu } from 'antd';
 
+import './sidebar.css'
+
 
 
 const items = [
@@ -48,7 +50,7 @@ const items = [
 export default function Sidebar() {
     // const [size, setSize] = useState('large');
     return (
-        <div className=' lg:w-[300px] min-h-screen flex flex-col justify-between '>
+        <div className=' min-h-screen flex flex-col justify-between '>
 
             {/* Top Section */}
             <div >
@@ -72,7 +74,7 @@ export default function Sidebar() {
 
 
             {/* Bottom Section */}
-            <div className=" ">
+            <div className="mr-2 ">
                 <Link to="/login">
                 <Button
                     className="logout-button inter-medium "

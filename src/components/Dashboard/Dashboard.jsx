@@ -11,7 +11,7 @@ import Container from '../SharedComponents/Container';
 export default function Dashboard() {
     return (
         <>
-            <Container>
+           
                 {/* Dashboard top */}
                 <div className=' grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-8  pb-8'>
                     <div>
@@ -46,11 +46,10 @@ export default function Dashboard() {
                 </div>
 
                 {/* Dashboard bottom */}
-                <div className='pb-8'>
+                <div className=''>
                     <HelpCenter></HelpCenter>
                 </div>
-            </Container>
-
+          
 
         </>
     )

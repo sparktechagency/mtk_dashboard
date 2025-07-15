@@ -1,24 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'antd';
+
 import Container from '../SharedComponents/Container';
 import FontFormatSection from '../SharedComponents/FontFormatSection'
+import BackButton from '../SharedComponents/BackButton';
+import PrimaryButton from '../SharedComponents/PrimaryButton';
 export default function HelpSupport() {
     return (
         <>
-            <Container>
+            
                 <div className="rounded-[8px] bg-white shadow-lg p-12 ">
                     {/* Header */}
                     <div className="flex justify-between items-center mb-6">
-                        <div className="flex items-center gap-2">
-                            <Link to="/"><img src="/public/images/users/Frame.png" alt="" /></Link>
-                            <h2 className="text-[20px] font-[Inter] font-semibold">Help & Support</h2>
-                        </div>
+                        
+                        <BackButton text="Help & Support"></BackButton>
 
                         {/* justify end */}
-                        <div>
-                            <FontFormatSection></FontFormatSection>
-                        </div>
+                        <FontFormatSection></FontFormatSection>
+
                     </div>
 
 
@@ -39,27 +36,13 @@ export default function HelpSupport() {
 
                     {/* Button End */}
                     <div className="flex justify-center mt-24">
-                        <Button
-                            type="primary"
-                            style={{
-                                backgroundColor: '#E4AF00',
-                                border: 'none',
-                                color: '#FEFEFE',
-                                borderRadius: 4,
-                                height: '48px',
-                                padding: '0 44px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                fontFamily: 'Inter, sans-serif',
-                                fontSize: 16,
-                            }}
-                        >
-                            Save Change
-                        </Button>
+                        
+                        <PrimaryButton text="Save Change"></PrimaryButton>
                     </div>
 
                 </div>
-            </Container>
+           
         </>
     )
 }
+

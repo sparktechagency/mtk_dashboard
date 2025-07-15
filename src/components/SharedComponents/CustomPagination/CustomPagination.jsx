@@ -1,4 +1,4 @@
-
+import './customPagination.css'
 export default function CustomPagination({ currentPage, setCurrentPage, total = 1000, pageSize = 10 }) {
   return {
     position: ['bottomCenter'],

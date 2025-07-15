@@ -37,7 +37,7 @@ export default function Notification() {
   const [currentPage, setCurrentPage] = useState(1);
   return (
     <>
-      <Container>
+     
         <div className="rounded-[8px] bg-white shadow-lg p-12">
 
           {/* Header */}
@@ -120,7 +120,7 @@ export default function Notification() {
             />
           </div>
         </div>
-      </Container>
+      
     </>
   )
 }
