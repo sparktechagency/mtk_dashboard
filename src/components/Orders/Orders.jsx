@@ -7,6 +7,8 @@ import Container from '../SharedComponents/Container';
 import BackButton from '../SharedComponents/BackButton';
 import SearchButton from '../SharedComponents/SearchButton';
 import CustomPagination from '../SharedComponents/CustomPagination/CustomPagination';
+import ViewSign from '/images/view.png'
+import EditSign from '/images/edit.png'
 
 
 const { Search } = Input;
@@ -20,7 +22,7 @@ const data = [
     address: 'West Greenwich, RI7',
     payment: 'Paid',
     status: 'Completed',
-    avatar: '/public/images/users/user1.png',
+    avatar: '/images/users/user1.png',
   },
   {
     key: '2',
@@ -30,7 +32,7 @@ const data = [
     address: 'Jericho, NY 11753',
     payment: 'Pending',
     status: 'Canceled',
-    avatar: '/public/images/users/user2.png',
+    avatar: '/images/users/user2.png',
   },
   {
     key: '3',
@@ -40,7 +42,7 @@ const data = [
     address: 'Aurora, OR 97002',
     payment: 'Paid',
     status: 'Completed',
-    avatar: '/public/images/users/user3.png',
+    avatar: '/images/users/user3.png',
   },
   {
     key: '4',
@@ -50,7 +52,7 @@ const data = [
     address: 'Midland Park, NJ 072',
     payment: 'Paid',
     status: 'Shipped',
-    avatar: '/public/images/users/user4.png',
+    avatar: '/images/users/user4.png',
   },
   {
     key: '5',
@@ -60,7 +62,7 @@ const data = [
     address: 'Saint Cloud, FL 349',
     payment: 'Pending',
     status: 'Completed',
-    avatar: '/public/images/users/user5.png',
+    avatar: '/images/users/user5.png',
   },
   {
     key: '6',
@@ -70,7 +72,7 @@ const data = [
     address: 'Vineland, NJ 08360',
     payment: 'Paid',
     status: 'In Progress',
-    avatar: '/public/images/users/user6.png',
+    avatar: '/images/users/user6.png',
   },
   {
     key: '7',
@@ -80,7 +82,7 @@ const data = [
     address: 'Castleton On Hudson',
     payment: 'Pending',
     status: 'Canceled',
-    avatar: '/public/images/users/user7.png',
+    avatar: '/images/users/user7.png',
   },
   {
     key: '8',
@@ -90,7 +92,7 @@ const data = [
     address: 'Rockford, IL 61109',
     payment: 'Paid',
     status: 'Shipped',
-    avatar: '/public/images/users/user8.png',
+    avatar: '/images/users/user8.png',
   },
   {
     key: '9',
@@ -100,7 +102,7 @@ const data = [
     address: 'Anna Maria, FL 346',
     payment: 'Paid',
     status: 'Completed',
-    avatar: '/public/images/users/user9.png',
+    avatar: '/images/users/user9.png',
   },
   {
     key: '10',
@@ -110,7 +112,7 @@ const data = [
     address: 'Mountain View, C 3',
     payment: 'Pending',
     status: 'Shipped',
-    avatar: '/public/images/users/user10.png',
+    avatar: '/images/users/user10.png',
   },
 ];
 
@@ -245,10 +247,10 @@ export default function Orders() {
       render: (_, record) => (
         <Space>
           <a type="text" onClick={() => handleView(record)}>
-            <img src="/public/images/view.png" alt="view" />
+            <img src={ViewSign} alt="view" />
           </a>
           <a type="text" onClick={() => handleEdit(record)}>
-            <img src="/public/images/edit.png" alt="edit" />
+            <img src={EditSign} alt="edit" />
           </a>
         </Space>
       ),

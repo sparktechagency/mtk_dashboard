@@ -3,8 +3,11 @@ import { Tabs, Input, Avatar } from 'antd';
 import BackButton from '../SharedComponents/BackButton';
 
 import './profile.css';
-import Container from '../SharedComponents/Container';
 import PrimaryButton from '../SharedComponents/PrimaryButton';
+import adminImg from '/images/admin.png'
+import cameraSign from '/images/camera.png'
+import viewSign from '/images/view.png'
+import notViewSign from '/images/notView.png'
 
 const { TabPane } = Tabs;
 const { Password } = Input;
@@ -60,9 +63,9 @@ export default function Profile() {
           {/* Avatar and name */}
           <div className="flex flex-col items-center">
             <div className="relative">
-              <Avatar size={96} src="/images/admin.png" />
+              <Avatar size={96} src={adminImg} />
               <div className="absolute bottom-0 right-0">
-                <img src="/images/camera.png" alt="camera" />
+                <img src={cameraSign} alt="camera" />
               </div>
             </div>
             <h2 className="mt-2 text-[30px] font-[Inter] font-medium">Mr. Admin</h2>
@@ -144,9 +147,9 @@ export default function Profile() {
                       onChange={handleChange}
                       iconRender={(visible) =>
                         visible ? (
-                          <a><img src="/public/images/view.png" alt="view" style={{ width: 18 }} /></a>
+                          <a><img src={viewSign} alt="view" style={{ width: 18 }} /></a>
                         ) : (
-                          <a> <img src="/public/images/notView.png" alt="not view" style={{ width: 18 }} /></a>
+                          <a> <img src={notViewSign} alt="not view" style={{ width: 18 }} /></a>
                         )
                       }
                       style={{

@@ -3,6 +3,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Space, Button } from 'antd';
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Link } from 'react-router-dom';
+import ProfileImg from '/images/robert_smith.png'
 export default function Navbar() {
   return (
     <div className='flex items-center gap-3 my-[24px] pr-12 justify-end'> 
@@ -10,7 +11,7 @@ export default function Navbar() {
         <Link to="/notifications"><IoMdNotificationsOutline className='text-[#E4AF00] h-[24px] w-[24px] '/></Link>
         
       </div>
-      <img className='h-[44px] w-[44px] rounded-full' src="/public/images/robert_smith.png" alt="image" />
+      <img className='h-[44px] w-[44px] rounded-full' src={ProfileImg} alt="image" />
       
       
        <Button color="default" variant="link" className='poppins-medium'>

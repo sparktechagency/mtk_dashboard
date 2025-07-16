@@ -7,6 +7,8 @@ import Container from '../SharedComponents/Container';
 import BackButton from '../SharedComponents/BackButton';
 import PrimaryButton from '../SharedComponents/PrimaryButton';
 
+import DeleteSign from '/images/delete-yellow.png'
+
 const faqs = [
     {
         id: 1,
@@ -60,7 +62,7 @@ export default function FAQs() {
                             <div className='flex justify-between'>
                                 <h3 className="mt-1 text-[16px] font-semibold text-black font-[Inter]">{faq.question}</h3>
                                 <Button style={{ border: 'none', boxShadow: 'none' }}
-                                    className="p-0"><img className='w-[24px] h-[24px]' src="/public/images/delete-yellow.png" alt="delete" /></Button>
+                                    className="p-0"><img className='w-[24px] h-[24px]' src={DeleteSign} alt="delete" /></Button>
                             </div>
                             <p className="mt-2 text-[#333333] text-[15px] leading-[28px] font-[Inter]">{faq.answer}</p>
                             {/* <DeleteOutlined className="absolute top-0 right-0 text-[#E4AF00] cursor-pointer" /> */}

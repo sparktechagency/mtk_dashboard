@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Modal, Form, Input, Select, Checkbox, Radio, Upload, Row, Col, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import CloseIcon from '../SharedComponents/CloseIcon';

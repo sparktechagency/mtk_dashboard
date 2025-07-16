@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { Input } from 'antd';
-
+import viewSign from '/images/view.png'
+import notViewSign from '/images/notView.png'
 const { Password } = Input;
 
 export default function PasswordInput({ name, placeholder, value, onChange, label }) {
@@ -18,9 +19,9 @@ export default function PasswordInput({ name, placeholder, value, onChange, labe
         onChange={onChange}
         iconRender={(visible) =>
           visible ? (
-            <a><img src="/images/view.png" alt="view" style={{ width: 18 }} /></a> 
+            <a><img src={viewSign} alt="view" style={{ width: 18 }} /></a> 
           ) : (
-            <a><img src="/images/notView.png" alt="not view" style={{ width: 18 }} /></a>
+            <a><img src={notViewSign} alt="not view" style={{ width: 18 }} /></a>
           )
         }
         style={{

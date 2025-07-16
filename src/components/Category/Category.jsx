@@ -7,7 +7,8 @@ import AddModal from './AddModal';
 import Container from '../SharedComponents/Container';
 import BackButton from '../SharedComponents/BackButton';
 import PrimaryButton from '../SharedComponents/PrimaryButton';
-
+import  editSign  from '/images/edit.png';
+import  deleteSign  from '/images/delete.png';
 export default function Category() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
@@ -58,9 +59,9 @@ export default function Category() {
             render: (_, record) => (
                 <Space>
                     <a onClick={() => handleEdit(record)}>
-                        <img src="/public/images/edit.png" alt="edit" />
+                        <img src={editSign} alt="edit" />
                     </a>
-                    <a><img src="/public/images/delete.png" alt="delete" /></a>
+                    <a><img src={deleteSign} alt="delete" /></a>
                 </Space>
             )
 

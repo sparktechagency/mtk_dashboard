@@ -4,6 +4,8 @@ import { EyeOutlined, RollbackOutlined } from '@ant-design/icons';
 import HelpDetailsModal from './HelpDetailsModal';
 import ReplyModal from './ReplyModal'; // ✅ import your reply modal here
 import { Link } from 'react-router-dom';
+import viewSign from '/images/view.png';
+import replySign from '/images/reply.png';
 
 export default function HelpCenter() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -116,9 +118,9 @@ export default function HelpCenter() {
         <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
          
            <a  onClick={() => handleView(record)}
-            type="primary"> <img src="/public/images/view.png" alt="view" /></a>
+            type="primary"> <img src={viewSign} alt="view" /></a>
           <a  onClick={() => handleReply(record)}
-            type="primary"><img src="/public/images/reply.png" alt="reply" /></a>
+            type="primary"><img src={replySign} alt="reply" /></a>
         </div>
       ),
     },

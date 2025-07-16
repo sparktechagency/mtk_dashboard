@@ -5,7 +5,10 @@ import { Outlet } from 'react-router-dom';
 import Graph from './Graph';
 import FlexBox from './FlexBox';
 import Container from '../SharedComponents/Container';
-
+import ProfileUserImg from '/images/profile-user.png';
+import LayerOneImg from '/images/Layer_1.png';
+import GroupImg from '/images/Group.png';
+import LayerTwoImg from '/images/Layer_2.png';
 
 
 export default function Dashboard() {
@@ -15,19 +18,19 @@ export default function Dashboard() {
                 {/* Dashboard top */}
                 <div className=' grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-8  pb-8'>
                     <div>
-                        <FlexBox text="Total User" img="/images/profile-user.png" amount="852,650"></FlexBox>
+                        <FlexBox text="Total User" img={ProfileUserImg} amount="852,650"></FlexBox>
                     </div>
 
                     <div >
-                        <FlexBox text="Order Completed" img="/images/Layer_1.png" amount="4,782"></FlexBox>
+                        <FlexBox text="Order Completed" img={LayerOneImg} amount="4,782"></FlexBox>
                     </div>
 
                     <div>
-                        <FlexBox text="Total Income" img="/images/Group.png" amount="$2,500"></FlexBox>
+                        <FlexBox text="Total Income" img={GroupImg} amount="$2,500"></FlexBox>
                     </div>
 
                     <div>
-                        <FlexBox text="Total Products" img="/images/Layer_2.png" amount="358"></FlexBox>
+                        <FlexBox text="Total Products" img={LayerTwoImg} amount="358"></FlexBox>
                     </div>
 
                 </div>

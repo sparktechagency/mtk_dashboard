@@ -9,6 +9,9 @@ import Container from '../SharedComponents/Container';
 import BackButton from '../SharedComponents/BackButton';
 import PrimaryButton from '../SharedComponents/PrimaryButton';
 import CustomPagination from '../SharedComponents/CustomPagination/CustomPagination';
+import viewSign from '/images/view.png';
+import EditSign from '/images/edit.png';
+import DeleteSign from "/images/delete.png";
 
 const data = [
   {
@@ -191,7 +194,7 @@ export default function Products() {
             }}
             style={{ cursor: 'pointer' }}
           >
-            <img src="/public/images/view.png" alt="view" />
+            <img src={viewSign} alt="view" />
           </a>
         </Space>
       ),
@@ -210,9 +213,9 @@ export default function Products() {
               setIsAddModalOpen(true);
             }}
           >
-            <img src="/public/images/edit.png" alt="edit" style={{ cursor: 'pointer' }} />
+            <img src={EditSign} alt="edit" style={{ cursor: 'pointer' }} />
           </a>
-          <a><img src="/public/images/delete.png" alt="delete" /></a>
+          <a><img src={DeleteSign} alt="delete" /></a>
         </Space>
       ),
     },

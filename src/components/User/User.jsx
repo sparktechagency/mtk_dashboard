@@ -5,7 +5,7 @@ import Container from '../SharedComponents/Container';
 import BackButton from '../SharedComponents/BackButton';
 import SearchButton from '../SharedComponents/SearchButton';
 import CustomPagination from '../SharedComponents/CustomPagination/CustomPagination';
-
+import dangerSign from '/images/users/danger.png'
 
 // Dummy data
 const data = Array.from({ length: 10 }, (_, index) => ({
@@ -70,7 +70,7 @@ const columns = [
 
     render: () => (
 
-      <a><img src="/public/images/users/danger.png" alt="Danger" /></a>
+      <a><img src={dangerSign} alt="Danger" /></a>
     ),
 
   },

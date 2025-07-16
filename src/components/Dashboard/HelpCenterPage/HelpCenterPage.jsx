@@ -10,6 +10,9 @@ import BackButton from '../../SharedComponents/BackButton';
 import SearchButton from '../../SharedComponents/SearchButton';
 import CustomPagination from '../../SharedComponents/CustomPagination/CustomPagination';
 
+import viewSign from '/images/view.png';
+import replySign from '/images/reply.png';
+
 export default function HelpCenterPage() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -169,9 +172,9 @@ export default function HelpCenterPage() {
         <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
 
           <a onClick={() => handleView(record)}
-            type="primary"> <img src="/public/images/view.png" alt="view" /></a>
+            type="primary"> <img src={viewSign} alt="view" /></a>
           <a onClick={() => handleReply(record)}
-            type="primary"><img src="/public/images/reply.png" alt="reply" /></a>
+            type="primary"><img src={replySign} alt="reply" /></a>
         </div>
       ),
     },

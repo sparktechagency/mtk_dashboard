@@ -4,11 +4,11 @@ import CloseIcon from '../SharedComponents/CloseIcon';
 const { Title, Text, Paragraph } = Typography;
 
 const productImages = [
-  '/public/images/shirts/shirt1.jpg',
-  '/public/images/shirts/shirt2.jpg',
-  '/public/images/shirts/shirt3.jpg',
-  '/public/images/shirts/shirt4.jpg',
-  '/public/images/shirts/shirt5.jpg',
+  '/images/shirts/shirt1.jpg',
+  '/images/shirts/shirt2.jpg',
+  '/images/shirts/shirt3.jpg',
+  '/images/shirts/shirt4.jpg',
+  '/images/shirts/shirt5.jpg',
   
 ];
 

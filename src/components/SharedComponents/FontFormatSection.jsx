@@ -1,11 +1,13 @@
 import React from 'react'
-
+import fontSign from '/images/Help/Font_Size.png'
+import formatSign from '/images/Help/format.png'
+import sectionSign from '/images/Help/Section.png'
 export default function FontFormatSection() {
     return (
         <div className='flex gap-2'>
-            <img src="/public/images/Help/Font Size.png" alt="" />
-            <img src="/public/images/Help/format.png" alt="" />
-            <img src="/public/images/Help/Section 3.png" alt="" />
+            <img src={fontSign} alt="" />
+            <img src={formatSign} alt="" />
+            <img src={sectionSign} alt="" />
         </div>
     )
 }

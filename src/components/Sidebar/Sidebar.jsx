@@ -10,7 +10,7 @@ import {
     
 } from '@ant-design/icons';
 import { Button, Menu } from 'antd';
-
+import logo from '/images/triplem_logo.png'
 import './sidebar.css'
 
 
@@ -56,7 +56,7 @@ export default function Sidebar() {
             <div >
                 {/* Logo */}
                 <div>
-                    <img className=' md:w-[252px] h-[80px] object-cover mt-[16px] mb-[24px]' src="/public/images/triplem_logo.png" alt="logo" />
+                    <img className=' md:w-[252px] h-[80px] object-cover mt-[16px] mb-[24px]' src={logo} alt="logo" />
                 </div>
 
                 {/* Menu */}
