@@ -12,13 +12,12 @@ export const menuItems = [
   { path: "/employers", label: "Employers", icon: UserCheck },
   { 
     path: "",
-    label: "Subscriptions",
+    label: "Help & FAQ",
     icon: MdSubscriptions,
     hasArrow: true,
     children: [
-      { path: "/subscribers", label: "Subscribers" },
-      { path: "/packages", label: "Packages" },
-      { path: "/transactions", label: "Transactions" },
+      { path: "/help", label: "Help & Support" },
+      { path: "/faqs", label: "FAQS" },
     ],
   },
   { path: "/category", label: "Category", icon: MdCategory },

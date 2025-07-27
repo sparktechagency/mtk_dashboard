@@ -12,7 +12,6 @@ import CandidatesPage from "../pages/dashboard/CandidatesPage";
 import ContactPage from "../pages/dashboard/ContactPage";
 import BlogsPage from "../pages/dashboard/BlogsPage";
 import SubscribersPage from "../pages/dashboard/SubscribersPage";
-import PackagesPage from "../pages/dashboard/PackagesPage";
 import AboutUsPage from "../pages/settings/AboutUsPage";
 import PrivacyPolicyPage from "../pages/settings/PrivacyPolicyPage";
 import TermsConditionPage from "../pages/settings/TermsConditionPage";
@@ -30,6 +29,8 @@ import BlogDetailsPage from "../pages/dashboard/BlogDetailsPage";
 import CreatePlanPackage from "../pages/dashboard/CreatePlanPackage";
 import TransactionsPage from "../pages/dashboard/TransactionsPage";
 import CandidateDetailsPage from "../pages/dashboard/CandidateDetailsPage";
+import HelpPage from "../pages/help/HelpPage";
+import FaqsPage from "../pages/help/FaqsPage";
 
 const router = createBrowserRouter([
   {
@@ -73,8 +74,12 @@ const router = createBrowserRouter([
         element: <SubscriberDetailsPage />,
       },
       {
-        path: "packages",
-        element: <PackagesPage />,
+        path: "help",
+        element: <HelpPage />,
+      },
+      {
+        path: "faqs",
+        element: <FaqsPage />,
       },
       {
         path: "transactions",

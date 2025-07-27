@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 const ForgotPasswordPage = () => {
   return (
     <>
-      <div className="w-full max-w-md bg-white py-6 px-4 md:px-6 shadow-md rounded-md">
+      <div className="w-full max-w-md bg-white py-6 lg:py-24 px-4 md:px-6 shadow-md rounded-md">
         <div className="flex items-center mb-3">
           <Link
             to="/auth/signin"
