@@ -1,7 +1,6 @@
 // AddModal.jsx
-import React, { useEffect } from 'react';
-import { Modal, Form, Input, Button } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
+import { Modal, Form, Input} from 'antd';
 import CloseIcon from '../SharedComponents/CloseIcon';
 import CancelButton from '../SharedComponents/CancelButton';
 import AddButton from '../SharedComponents/AddButton';
