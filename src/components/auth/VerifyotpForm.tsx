@@ -116,7 +116,7 @@ const VerifyotpForm = () => {
     dispatch(SetVerifyOtpError(""))
     forgotPasswordVerifyOtp({
       email: getEmail(),
-      code: otp,
+      otp
     });
   };
 
@@ -124,7 +124,7 @@ const VerifyotpForm = () => {
   return (
     <>
     {VerifyOtpError && <Error message={VerifyOtpError} />}
-      <div className="space-y-4">
+      <div className="space-y-4 mt-1">
         {/* Code Inputs */}
         <div className="flex justify-center gap-3 mb-6">
           {code.map((digit, idx) => (

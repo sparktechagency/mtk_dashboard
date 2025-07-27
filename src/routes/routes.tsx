@@ -6,18 +6,15 @@ import AuthLayout from "../components/AuthLayout/AuthLayout";
 import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 import VerifyOtpPage from "../pages/auth/VerifyOtpPage";
 import ResetPasswordPage from "../pages/auth/ResetPasswordPage";
-import EmployersPage from "../pages/dashboard/EmployersPage";
 import CategoryPage from "../pages/dashboard/CategoryPage";
 import CandidatesPage from "../pages/dashboard/CandidatesPage";
 import ContactPage from "../pages/dashboard/ContactPage";
 import BlogsPage from "../pages/dashboard/BlogsPage";
-import SubscribersPage from "../pages/dashboard/SubscribersPage";
 import AboutUsPage from "../pages/settings/AboutUsPage";
 import PrivacyPolicyPage from "../pages/settings/PrivacyPolicyPage";
 import TermsConditionPage from "../pages/settings/TermsConditionPage";
 import JobDetailsPage from "../pages/dashboard/JobDetailsPage";
 import JobPostsPage from "../pages/dashboard/JobPostsPage";
-import SubscriberDetailsPage from "../pages/dashboard/SubscriberDetailsPage";
 import CreateBlogPage from "../pages/dashboard/CreateBlogPage";
 import EditBlogPage from "../pages/dashboard/EditBlogPage";
 import ProfilePage from "../pages/settings/ProfilePage";
@@ -25,12 +22,10 @@ import ChangePasswordPage from "../pages/settings/ChangePasswordPage";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import AdminsPage from "../pages/dashboard/AdminsPage";
-import BlogDetailsPage from "../pages/dashboard/BlogDetailsPage";
-import CreatePlanPackage from "../pages/dashboard/CreatePlanPackage";
-import TransactionsPage from "../pages/dashboard/TransactionsPage";
 import CandidateDetailsPage from "../pages/dashboard/CandidateDetailsPage";
 import HelpPage from "../pages/help/HelpPage";
 import FaqsPage from "../pages/help/FaqsPage";
+import NotFoundRoute from "./NotFoundRoute";
 
 const router = createBrowserRouter([
   {
@@ -44,10 +39,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <DashboardPage />,
-      },
-      {
-        path: "employers",
-        element: <EmployersPage />,
       },
       {
         path: "admins",
@@ -66,28 +57,12 @@ const router = createBrowserRouter([
         element: <CategoryPage />,
       },
       {
-        path: "subscribers",
-        element: <SubscribersPage />,
-      },
-      {
-        path: "subscribers/details/:id",
-        element: <SubscriberDetailsPage />,
-      },
-      {
         path: "help",
         element: <HelpPage />,
       },
       {
         path: "faqs",
         element: <FaqsPage />,
-      },
-      {
-        path: "transactions",
-        element: <TransactionsPage />,
-      },
-       {
-        path: "add-plan",
-        element: <CreatePlanPackage />,
       },
       {
         path: "contacts",
@@ -104,10 +79,6 @@ const router = createBrowserRouter([
       {
         path: "update-blog/:id",
         element: <EditBlogPage />,
-      },
-      {
-        path: "blog-details/:id",
-        element: <BlogDetailsPage />,
       },
       {
         path: "profile",
@@ -171,7 +142,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <h1>Not Found Page</h1>,
+    element: <NotFoundRoute/>,
   },
 ]);
 

@@ -7,8 +7,6 @@ const LoginPage = () => {
         <h2 className="text-3xl md:text-3xl font-bold mb-6 text-title text-center">
           Login to Account
         </h2>
-        {/* <p className="text-gray-600 mb-6">Welcome back! please enter your details</p> */}
-
         {/* Login Form */}
         <LoginForm />
       </div>

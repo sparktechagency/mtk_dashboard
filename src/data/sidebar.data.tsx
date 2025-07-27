@@ -9,7 +9,6 @@ export const menuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/admins", label: "Admins", icon: GrUserAdmin },
   { path: "/candidates", label: "Candidates", icon: PiStudentBold },
-  { path: "/employers", label: "Employers", icon: UserCheck },
   { 
     path: "",
     label: "Help & FAQ",

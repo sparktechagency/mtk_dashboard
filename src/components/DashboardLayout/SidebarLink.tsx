@@ -33,8 +33,8 @@ const SidebarLink = ({ menuItem }: TProps) => {
       <div>
         <div onClick={toggleOpen} className={`flex w-full justify-between items-center cursor-pointer rounded-md ${
               active
-                ? "bg-slate-700 text-white"
-                : "text-black hover:bg-slate-700 hover:text-white"
+                ? "bg-primary text-white"
+                : "text-black hover:bg-[#f5c542] hover:text-[#1a1a1a]"
             }`}>
           <div
             className={`flex items-center px-4 py-2.5 text-md rounded-md transition-colors group `}
@@ -42,7 +42,7 @@ const SidebarLink = ({ menuItem }: TProps) => {
             <span
               className={`mr-3 hover:text-emerald-400 ${
                 active
-                  ? "text-emerald-400"
+                  ? "text-white"
                   : "text-black group-hover:text-white"
               }`}
             >

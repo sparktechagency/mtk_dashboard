@@ -5,7 +5,7 @@ import React from "react";
 const PublicRoute = ({children}: {children: React.ReactNode}) => {
 
     if(getToken() ){
-        return (<Navigate to="/" />);
+        return <Navigate to="/" replace/>;
     }else{
         return children;
     }

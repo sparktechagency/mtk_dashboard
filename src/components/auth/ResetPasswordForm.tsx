@@ -12,6 +12,7 @@ import Error from "../validation/Error";
 import CustomInput from "../form/CustomInput";
 import PasswordStrength from "../validation/PasswordStrength";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { getEmail, getOtp } from "../../helper/SessionHelper";
 
 type TFormValues = z.infer<typeof resetPasswordSchema>;
 
@@ -36,7 +37,11 @@ const ResetPasswordForm = () => {
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
     dispatch(SetResetPasswordError(""));
-    forgotPasswordReset(data);
+    forgotPasswordReset({
+      email: getEmail(),
+      otp: getOtp(),
+      password: data.newPassword
+    });
   };
 
 
