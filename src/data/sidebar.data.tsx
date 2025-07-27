@@ -1,4 +1,4 @@
-import { LayoutDashboard, UserCheck} from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 import {
     SettingOutlined
   } from '@ant-design/icons';

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import TagTypes from "../../../constant/tagType.constant.ts";
 import {
-  getEmail,
   setEmail,
   setOtp,
   setToken,
@@ -28,6 +27,7 @@ export const authApi = apiSlice.injectEndpoints({
         try {
           const res = await queryFulfilled;
           const token = res?.data?.data?.accessToken;
+            localStorage.clear();
             setToken(token);
             SuccessToast("Login Success");
             setTimeout(() => {
@@ -81,7 +81,7 @@ export const authApi = apiSlice.injectEndpoints({
     }),
     forgotPasswordResendOtp: builder.mutation({
       query: (data) => ({
-        url: "/auth/forgot-resend",
+        url: "/auth/forgot-pass-send-otp",
         method: "POST",
         body: data,
       }),
@@ -92,12 +92,7 @@ export const authApi = apiSlice.injectEndpoints({
           SuccessToast("OTP is sent successfully");
         } catch (err: any) {
           const message = err?.error?.data?.message || "Something Went Wrong";
-          if(message === "Cannot read properties of null (reading 'email')"){
-            ErrorToast("Couldn't find this email address");
-          }
-          else{
-            ErrorToast(message);
-          }
+          ErrorToast(message);
         }
       },
     }),

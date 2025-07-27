@@ -6,6 +6,7 @@ import Error from "../validation/Error";
 import { SetVerifyOtpError } from "../../redux/features/auth/authSlice";
 import { getEmail } from "../../helper/SessionHelper";
 import { useNavigate } from "react-router-dom";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 const VerifyotpForm = () => {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ const VerifyotpForm = () => {
   useEffect(() => {
     if (!resendLoading && resendSuccess) {
       setSeconds(60);
+      setCanResend(false);
       // Restart countdown
       const timer = setInterval(() => {
         setSeconds((prev) => {
@@ -81,10 +83,9 @@ const VerifyotpForm = () => {
 
   const handleResend = () => {
     if (!canResend) return;
-    // trigger resend OTP logic here
-    setSeconds(60);
-    setCanResend(false);
-    forgotPasswordResendOtp("")
+    forgotPasswordResendOtp({
+      email: getEmail()
+    })
   };
 
 
@@ -146,9 +147,16 @@ const VerifyotpForm = () => {
         <button
           onClick={handleVerify}
           disabled={isDisabled || isLoading}
-          className="w-full bg-primary hover:bg-[#2b4773] cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100 disabled:cursor-not-allowed"
+          className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-[#2b4773] cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100 disabled:cursor-not-allowed"
         >
-          {isLoading ? "Verifying..." : "Verify"}
+          {isLoading ? (
+            <>
+              <CgSpinnerTwo className="animate-spin" fontSize={16} />
+              Verifying...
+            </>
+          ) : (
+            "Verify"
+          )}
         </button>
         {/* Resend & Timer */}
         <div className="text-center text-sm mb-6">
@@ -157,7 +165,9 @@ const VerifyotpForm = () => {
               onClick={handleResend}
               className="text-blue-600 font-medium hover:underline"
             >
-              Resend Code
+              {
+                resendLoading ? "Sending..." : "Resend"
+              }
             </button>
           ) : (
             <span className="text-gray-500">
