@@ -1,7 +1,6 @@
 import { Table, ConfigProvider } from "antd";
 import EditCategoryModal from "../modal/category/EditCategoryModal";
 import type { ICategory } from "../../types/category.type";
-import { baseUrl } from "../../redux/features/api/apiSlice";
 import DeleteCategoryModal from "../modal/category/DeleteCategoryModal";
 
 
@@ -14,8 +13,7 @@ type TDataSource = {
   key: number;
   serial: number;
   _id: string;
-  category: string;
-  image: string;
+  name: string;
 }
 
 
@@ -25,8 +23,7 @@ const CategoryTable = ( { categories }: TProps) => {
         key: index,
         serial: Number(index+1),
         _id: category?._id,
-        category: category?.category,
-        image: baseUrl+category?.image
+        name: category?.name
   }))
 
   const columns = [
@@ -38,8 +35,8 @@ const CategoryTable = ( { categories }: TProps) => {
     },
     {
       title: "Title",
-      dataIndex: "category",
-      key: "category",
+      dataIndex: "name",
+      key: "name",
       width: "22.5%",
     },
     {

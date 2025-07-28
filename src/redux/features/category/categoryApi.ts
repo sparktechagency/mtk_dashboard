@@ -10,7 +10,6 @@ export const categoryApi = apiSlice.injectEndpoints({
     getCategories: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
-
         if (args !== undefined && args.length > 0) {
           args.forEach((item: IParam) => {
             if (item.value) {
@@ -19,13 +18,13 @@ export const categoryApi = apiSlice.injectEndpoints({
           });
         }
         return {
-          url: "/dashboard/all-category",
+          url: "/category/get-categories",
           method: "GET",
           params: params,
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.users],
+      providesTags: [TagTypes.categories],
     }),
     createCategory: builder.mutation({
       query: (data) => ({
