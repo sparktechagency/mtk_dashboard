@@ -8,7 +8,7 @@ import { GrUserAdmin } from "react-icons/gr";
 export const menuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/admins", label: "Admins", icon: GrUserAdmin },
-  { path: "/candidates", label: "Candidates", icon: PiStudentBold },
+  { path: "/users", label: "Users", icon: PiStudentBold },
   { 
     path: "",
     label: "Help & FAQ",

@@ -1,12 +1,12 @@
-import CandidateList from "../../components/candidate/CandidateList";
+import UserList from "../../components/user/UserList";
 
-const CandidatesPage = () => {
+const UsersPage = () => {
   return (
     <>
       <div>
         <div className="bg-white shadow rounded-lg h-full overflow-hidden">
           <div className="w-full h-full flex flex-col">
-            <CandidateList/>
+            <UserList/>
           </div>
         </div>
       </div>
@@ -14,4 +14,4 @@ const CandidatesPage = () => {
   );
 };
 
-export default CandidatesPage;
+export default UsersPage;

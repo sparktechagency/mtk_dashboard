@@ -79,7 +79,7 @@ const CreateCategoryModal = () => {
                   ${
                     isLoading
                       ? "bg-disabled cursor-not-allowed"
-                      : "bg-primary hover:bg-disabled active:bg-blue-800"
+                      : "bg-primary hover:bg-disabled"
                   } transition-colors duration-200 flex items-center justify-center gap-x-2 focus:outline-none focus:ring-blue-500`}
                   >
                     {isLoading ? (

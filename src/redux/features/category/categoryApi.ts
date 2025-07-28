@@ -51,7 +51,7 @@ export const categoryApi = apiSlice.injectEndpoints({
     }),
     updateCategory: builder.mutation({
       query: ({id, data }) => ({
-        url: `/dashboard/edit-category/${id}`,
+        url: `/category/update-category/${id}`,
         method: "PATCH",
         body: data,
       }),
@@ -78,7 +78,7 @@ export const categoryApi = apiSlice.injectEndpoints({
     }),
     deleteCategory: builder.mutation({
       query: (id) => ({
-        url: `/dashboard/delete-category/${id}`,
+        url: `/category/delete-category/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: (result) => {

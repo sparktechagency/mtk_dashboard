@@ -117,28 +117,24 @@ export const authApi = apiSlice.injectEndpoints({
       },
     }),
     changeStatus: builder.mutation({
-      query: (data) => ({
-        url: `/auth/block`,
+      query: ({id, data}) => ({
+        url: `/auth/change-status/${id}`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.candidates, TagTypes.employers];
+          return [TagTypes.users, TagTypes.admins];
         }
         return [];
       },
-      async onQueryStarted({is_block, role}, { queryFulfilled }) {
+      async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast(`${role==="USER" ? "Candidate" : "Employer"} is ${is_block ? "blocked" : "activated"} successfully`)
+          SuccessToast("Update Success");
         } catch (err:any) {
-          const status = err?.error?.status;
-          if (status === 404) {
-            ErrorToast(err?.error?.data?.message);
-          } else {
-            ErrorToast("Something Went Wrong!");
-          }
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          ErrorToast(message);
         }
       },
     }),

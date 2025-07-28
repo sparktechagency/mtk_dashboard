@@ -3,18 +3,16 @@ import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
 import { useChangeStatusMutation } from "../../../redux/features/auth/authApi";
+import type { TBlockStatus } from "../../../types/user.type";
 
 type TProps ={
-  email:string;
-  status: boolean;
-  role: "USER" | "EMPLOYER"
+  userId:string;
+  status: TBlockStatus;
 }
 
-const ChangeStatusModal = ({ email, status, role }: TProps) => {
+const ChangeStatusModal = ({ userId, status }: TProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [ changeStatus, { isLoading, isSuccess }] = useChangeStatusMutation();
-
-
 
   useEffect(() => {
     if (isSuccess) {
@@ -25,9 +23,10 @@ const ChangeStatusModal = ({ email, status, role }: TProps) => {
 
  const handleClick = () => {
    changeStatus({
-     email,
-     role,
-     is_block: status ? false : true
+     id: userId,
+     data : {
+      status: status==="blocked" ? "unblocked" : "blocked"
+     }
    });
  };
 
@@ -42,7 +41,7 @@ const ChangeStatusModal = ({ email, status, role }: TProps) => {
         <FiEdit size={14} />
       </button>
       <Modal
-        title={`Are you sure, you want to ${status ? "active" : "block"}?`}
+        title={`Are you sure, you want to ${status==="blocked" ? "active" : "block"}?`}
         open={modalOpen}
         onCancel={() => setModalOpen(false)}
         maskClosable={false}

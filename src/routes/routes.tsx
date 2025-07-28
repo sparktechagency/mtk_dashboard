@@ -7,7 +7,7 @@ import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 import VerifyOtpPage from "../pages/auth/VerifyOtpPage";
 import ResetPasswordPage from "../pages/auth/ResetPasswordPage";
 import CategoryPage from "../pages/dashboard/CategoryPage";
-import CandidatesPage from "../pages/dashboard/CandidatesPage";
+import CandidatesPage from "../pages/dashboard/UsersPage";
 import ContactPage from "../pages/dashboard/ContactPage";
 import BlogsPage from "../pages/dashboard/BlogsPage";
 import AboutUsPage from "../pages/settings/AboutUsPage";
@@ -26,6 +26,7 @@ import CandidateDetailsPage from "../pages/dashboard/CandidateDetailsPage";
 import HelpPage from "../pages/help/HelpPage";
 import FaqsPage from "../pages/help/FaqsPage";
 import NotFoundRoute from "./NotFoundRoute";
+import UsersPage from "../pages/dashboard/UsersPage";
 
 const router = createBrowserRouter([
   {
@@ -45,8 +46,8 @@ const router = createBrowserRouter([
         element: <AdminsPage />,
       },
       {
-        path: "candidates",
-        element: <CandidatesPage />,
+        path: "users",
+        element: <UsersPage />,
       },
       {
         path: "candidate-details/:id",
@@ -142,7 +143,8 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <NotFoundRoute/>,
+    element: <h1>This is Not Found Page</h1>
+    //element: <NotFoundRoute/>,
   },
 ]);
 

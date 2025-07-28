@@ -1,14 +1,12 @@
 import React from "react";
 import { Table, ConfigProvider, Pagination } from "antd";
 import ChangeStatusModal from "../modal/auth/ChangeStatusModal";
-import type { TCandidataDataSource, TCandidate } from "../../types/candidate.type";
 import type { IMeta } from "../../types/global.type";
-import profile_placeholder from "../../assets/images/profile_placeholder.png";
-import { baseUrl } from "../../redux/features/api/apiSlice";
+import type { IUser, IUserDataSource, TBlockStatus } from "../../types/user.type";
 
 
-interface CandidateTableProps {
-  candidates: TCandidate[];
+interface UserTableProps {
+  users: IUser[];
   meta: IMeta;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -17,8 +15,8 @@ interface CandidateTableProps {
 }
 
 
-const CandidateTable: React.FC<CandidateTableProps> = ({
-  candidates,
+const UserTable: React.FC<UserTableProps> = ({
+  users,
   meta,
   currentPage,
   setCurrentPage,
@@ -26,14 +24,14 @@ const CandidateTable: React.FC<CandidateTableProps> = ({
   setPageSize,
 }) => {
 
-  const dataSource: TCandidataDataSource[] = candidates?.map((candidate, index) => ({
+  const dataSource: IUserDataSource[] = users?.map((user, index) => ({
     key: index,
     serial: Number(index + 1) + (currentPage - 1) * pageSize,
-    _id: candidate?._id,
-    name: candidate?.name,
-    email: candidate?.email,
-    profile_image: candidate?.profile_image,
-    is_block: candidate?.authId?.is_block
+    _id: user?._id,
+    fullName: user?.fullName,
+    email: user?.email,
+    phone: user?.phone,
+    status: user?.status
   }));
 
 
@@ -46,30 +44,9 @@ const CandidateTable: React.FC<CandidateTableProps> = ({
     },
     {
       title: "Name",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "fullName",
+      key: "fullName",
       width: "22.5%",
-    },
-    {
-      title: "Image",
-      dataIndex: "profile_image",
-      key: "profile_image",
-      render: (val?:string) => {
-        const imgPath = val ? baseUrl+val : "/images/profile_placeholder.png";
-        return (
-           <div className="flex items-center gap-2">
-          <img
-            src={imgPath || profile_placeholder}
-            alt="profile"
-            className="w-[45px] h-[45px] rounded-lg"
-            onError={(e) => {
-              e.currentTarget.onerror = null;
-              e.currentTarget.src = profile_placeholder;
-            }}
-            />
-        </div>
-        )
-      } 
     },
     {
       title: "Email",
@@ -78,42 +55,36 @@ const CandidateTable: React.FC<CandidateTableProps> = ({
       width: "22.5%",
     },
     {
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+      width: "22.5%",
+    },
+    {
       title: "Status",
-      dataIndex: "is_block",
-      key: "is_block",
+      dataIndex: "status",
+      key: "status",
       width: "15%",
-      render: (val: boolean, record: { email: string; }) => {
+      render: (status: TBlockStatus, record: IUser) => {
         const statusStyles = {
           blocked: "bg-red-100 text-red-700 border border-red-300",
-          active: "bg-green-100 text-green-700 border border-green-300",
+          unblocked: "bg-green-100 text-green-700 border border-green-300",
         };
 
-        const bgColor = val ? statusStyles.blocked : statusStyles.active;
+        const bgColor = status=== "blocked" ? statusStyles.blocked : statusStyles.unblocked;
 
         return (
           <div className="flex items-center gap-2">
             <button
               className={`${bgColor} w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
             >
-              {val ?  "Blocked" : "Active"}
+              {status === "blocked" ?  "Blocked" : "Active"}
             </button>
-            <ChangeStatusModal email={record.email} status={val} role="USER"/>
+            <ChangeStatusModal userId={record?._id} status={status}/>
           </div>
         );
       },
     },
-    // {
-    //   title: "Action",
-    //   key: "_id",
-    //   width: "5%",
-    //   render: (candidateId: string) => (
-    //     <div className="flex justify-center">
-    //       <Link to={`/candidate-details/${candidateId}`} className="text-gray-600 hover:text-gray-900">
-    //         <Eye size={20} />
-    //       </Link>
-    //     </div>
-    //   ),
-    // },
   ];
 
   const handlePagination = (page: number, PageSize: number) => {
@@ -159,4 +130,4 @@ const CandidateTable: React.FC<CandidateTableProps> = ({
   );
 };
 
-export default CandidateTable;
+export default UserTable;

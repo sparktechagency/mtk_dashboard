@@ -1,33 +1,32 @@
-/* eslint-disable prefer-const */
 import React, { useEffect, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import { FaSearch } from "react-icons/fa";
-import CandidateTable from "./CandidateTable";
-import { useGetCandidatesQuery } from "../../redux/features/candidate/candidateApi";
+import UserTable from "./UserTable";
+import { useGetUsersQuery } from "../../redux/features/user/userApi";
 
-const CandidateList = () => {
+const UserList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isError } = useGetCandidatesQuery([
+  const { data, isLoading, isError } = useGetUsersQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
   ]);
 
   //debounced handle
-  useEffect(() => {
-    let timeoutId;
-    clearTimeout(timeoutId); 
-    timeoutId = setTimeout(() => {
-      setSearchTerm(searchQuery);
-    }, 600);
-  }, [searchQuery]);
+ useEffect(() => {
+  const timeoutId = setTimeout(() => {
+    setSearchTerm(searchQuery);
+  }, 600);
 
-  const candidates = data?.data?.result || [];
-  const meta = data?.data?.meta || {};
+  return () => clearTimeout(timeoutId); // cleanup for debounce
+}, [searchQuery]);
+
+  const users = data?.data || [];
+  const meta = data?.meta || {};
 
   let content: React.ReactNode;
 
@@ -38,8 +37,8 @@ const CandidateList = () => {
   if (!isLoading && !isError) {
     content = (
       <div className="flex-1 overflow-hidden">
-        <CandidateTable
-          candidates={candidates}
+        <UserTable
+          users={users}
           meta={meta}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
@@ -58,7 +57,7 @@ const CandidateList = () => {
     <>
       <div className="p-4 flex justify-between">
         <h1 className="text-xl font-medium text-gray-800">
-          Total Candidate List
+          Total User List
         </h1>
         <div className="flex items-center gap-12">
           <h1 className="text-lg">
@@ -83,4 +82,4 @@ const CandidateList = () => {
   );
 };
 
-export default CandidateList;
+export default UserList;

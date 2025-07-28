@@ -1,6 +1,5 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
-import ImageUpload from "../../form/ImageUpload";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { useUpdateCategoryMutation } from "../../../redux/features/category/categoryApi";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +12,6 @@ import { SetCategoryUpdateError } from "../../../redux/features/category/categor
 import Error from "../../validation/Error";
 import { Edit } from "lucide-react";
 import type { ICategory } from "../../../types/category.type";
-import icon_placeholder from "../../../assets/images/icon_placeholder.jpg";
 
 
 type TFormValues = z.infer<typeof categorySchema>;
@@ -27,35 +25,13 @@ const EditCategoryModal = ({ category }: TProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const { CategoryUpdateError } = useAppSelector((state) => state.category);
   const [ updateCategory, { isLoading, isSuccess }] = useUpdateCategoryMutation();
-  const { handleSubmit, control, setValue, clearErrors, setError, formState: { errors } } = useForm<TFormValues>({
+  const { handleSubmit, control, setValue} = useForm<TFormValues>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
-      category: category?.category,
-      icon: category?.image
+      name: category?.name
     }
   });
 
-  const [image, setImage] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(category?.image || icon_placeholder);
-
-  
-
-  useEffect(() => {
-    if (image !=null) {
-      setValue("icon", "This is icon");
-      clearErrors("icon");
-    }
-  }, [image, setValue, setError, clearErrors]);
-
-
-
-  const setIconError = () => {
-    setValue("icon", "");
-    setError("icon", {
-      type: "manual",
-      message: "Icon is required",
-    });
-  };
 
 
     //if success
@@ -68,14 +44,9 @@ const EditCategoryModal = ({ category }: TProps) => {
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
     dispatch(SetCategoryUpdateError(""));
-    const formData = new FormData();
-    formData.append("category", data.category);
-    if(image){
-      formData.append("image", image as File);
-    }
     updateCategory({
       id: category?._id,
-      data: formData
+      data
     });
   };
 
@@ -91,8 +62,7 @@ const EditCategoryModal = ({ category }: TProps) => {
       <Modal
         open={modalOpen}
         onCancel={() => {
-          setValue("category", category?.category);
-          setPreview(category?.image || icon_placeholder);
+          setValue("name", category?.name);
           setModalOpen(false)
         }}
         maskClosable={false}
@@ -107,30 +77,21 @@ const EditCategoryModal = ({ category }: TProps) => {
                {CategoryUpdateError && <Error message={CategoryUpdateError} />}
               <form onSubmit={handleSubmit(onSubmit)}>
                 <CustomInput
-                  label="Category Title"
-                  name="category"
+                  label="Title"
+                  name="name"
                   type="text"
                   control={control}
                   placeholder="Enter title"
                 />
-                <div className="mb-6 mt-2">
-                   <ImageUpload preview={preview} setPreview={setPreview} image={image} setImage={setImage} title="Category Icon" setIconError={setIconError}/>
-                  {
-                    errors?.icon && (
-                      <p className="mt-1 text-sm text-red-500">{errors?.icon?.message}</p>
-                    )
-                  }
-                </div>
-
-                <div className="flex justify-end">
+                <div className="flex justify-end mt-4">
                   <button
                     type="submit"
                     disabled={isLoading}
                     className={`px-4 py-2 w-full rounded-lg text-white font-medium 
                   ${
                     isLoading
-                      ? "bg-blue-400 cursor-not-allowed"
-                      : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800"
+                      ? "bg-disabled cursor-not-allowed"
+                      : "bg-primary hover:bg-disabled"
                   } transition-colors duration-200 flex items-center justify-center gap-x-2 focus:outline-none focus:ring-blue-500`}
                   >
                     {isLoading ? (
@@ -139,7 +100,7 @@ const EditCategoryModal = ({ category }: TProps) => {
                         Processing...
                       </>
                     ) : (
-                      "Save Changes"
+                      "Save Change"
                     )}
                   </button>
                 </div>
