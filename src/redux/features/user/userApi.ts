@@ -4,9 +4,8 @@ import TagTypes from "../../../constant/tagType.constant";
 import { ErrorToast, SuccessToast } from "../../../helper/ValidationHelper";
 import type { IParam } from "../../../types/global.type";
 import { apiSlice } from "../api/apiSlice";
-import { SetCategoryCreateError } from "./categorySlice";
 
-export const categoryApi = apiSlice.injectEndpoints({
+export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCategories: builder.query({
       query: (args) => {
@@ -29,7 +28,7 @@ export const categoryApi = apiSlice.injectEndpoints({
     }),
     createCategory: builder.mutation({
       query: (data) => ({
-        url: "/category/create-category",
+        url: "/dashboard/create-category",
         method: "POST",
         body: data,
       }),
@@ -39,13 +38,18 @@ export const categoryApi = apiSlice.injectEndpoints({
         }
         return [];
       },
-      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(_arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Category is added successfully");
+          SuccessToast("Category is created successfully");
         } catch (err: any) {
-          const message = err?.error?.data?.message || "Something Went Wrong";
-          dispatch(SetCategoryCreateError(message));
+          const message = err?.error?.data?.message || "Something went wrong";
+          if(message === "Invalid file type"){
+            ErrorToast("Please, Upload png, jpeg, jpg formate file")
+          }
+          else{
+            ErrorToast(message);
+          }
         }
       },
     }),
@@ -100,4 +104,4 @@ export const categoryApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetCategoriesQuery, useCreateCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation } = categoryApi;
+export const { useGetCategoriesQuery, useCreateCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation } = userApi;

@@ -12,7 +12,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
   prepareHeaders: async (headers) => {
     if (getToken()) {
-      headers.set("Authorization", `Bearer ${getToken() as string}`);
+      headers.set("Authorization", getToken() as string);
     }
     return headers;
   },
@@ -25,7 +25,7 @@ export const apiSlice = createApi({
     if (result?.error?.status === 401) {
       localStorage.clear();
       ErrorToast("Authorization Expired");
-      window.location.href = "/";
+      //window.location.href = "/";
     }
     return result;
   },

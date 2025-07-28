@@ -6,7 +6,7 @@ export const categoryRegex = /^[A-Za-z\s'.\-&,()]+$/; //only contain letters, sp
 
 
 export const categorySchema = z.object({
-  category: z
+  name: z
     .string({
       invalid_type_error: "Title must be string",
       required_error: "Title is required",
@@ -16,13 +16,6 @@ export const categorySchema = z.object({
       categoryRegex,
       "Title only contain letters and valid symbols (' . - & , ( )) are allowed."
     )
-    .trim(),
-  icon: z
-    .string({
-      invalid_type_error: "Image must be File",
-      required_error: "Icon is required",
-    })
-    .min(1, "Icon is required")
     .trim(),
 });
 
