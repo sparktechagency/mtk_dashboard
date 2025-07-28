@@ -4,7 +4,7 @@ import TagTypes from "../../../constant/tagType.constant";
 import { ErrorToast, SuccessToast } from "../../../helper/ValidationHelper";
 import type { IParam } from "../../../types/global.type";
 import { apiSlice } from "../api/apiSlice";
-import { SetCategoryCreateError } from "./categorySlice";
+import { SetCategoryCreateError, SetCategoryUpdateError } from "./categorySlice";
 
 export const categoryApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -61,18 +61,13 @@ export const categoryApi = apiSlice.injectEndpoints({
         }
         return [];
       },
-      async onQueryStarted(_arg, { queryFulfilled }) {
+      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           await queryFulfilled;
           SuccessToast("Category is updated successfully");
         } catch (err: any) {
           const message = err?.error?.data?.message || "Something went wrong";
-          if(message === "Invalid file type"){
-            ErrorToast("Please, Upload png, jpeg, jpg formate file")
-          }
-          else{
-            ErrorToast(message);
-          }
+          dispatch(SetCategoryUpdateError(message));
         }
       },
     }),

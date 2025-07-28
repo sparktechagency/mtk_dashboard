@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import TagTypes from "../../../constant/tagType.constant";
-import { ErrorToast, SuccessToast } from "../../../helper/ValidationHelper";
+import { ErrorToast } from "../../../helper/ValidationHelper";
 import type { IParam } from "../../../types/global.type";
 import { apiSlice } from "../api/apiSlice";
+import { SetUser } from "./userSlice";
 
 export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -26,82 +27,25 @@ export const userApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.users],
     }),
-    createCategory: builder.mutation({
-      query: (data) => ({
-        url: "/dashboard/create-category",
-        method: "POST",
-        body: data,
+    getMe: builder.query({
+      query: () => ({
+        url: "/user/get-me",
+        method: "GET",
       }),
-      invalidatesTags: (result) => {
-        if (result?.success) {
-          return [TagTypes.categories];
-        }
-        return [];
-      },
-      async onQueryStarted(_arg, { queryFulfilled }) {
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.me],
+      async onQueryStarted(_arg, { queryFulfilled, dispatch}) {
         try {
-          await queryFulfilled;
-          SuccessToast("Category is created successfully");
-        } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          if(message === "Invalid file type"){
-            ErrorToast("Please, Upload png, jpeg, jpg formate file")
-          }
-          else{
-            ErrorToast(message);
-          }
-        }
-      },
-    }),
-    updateCategory: builder.mutation({
-      query: ({id, data }) => ({
-        url: `/dashboard/edit-category/${id}`,
-        method: "PATCH",
-        body: data,
-      }),
-      invalidatesTags: (result) => {
-        if (result?.success) {
-          return [TagTypes.categories];
-        }
-        return [];
-      },
-      async onQueryStarted(_arg, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          SuccessToast("Category is updated successfully");
-        } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          if(message === "Invalid file type"){
-            ErrorToast("Please, Upload png, jpeg, jpg formate file")
-          }
-          else{
-            ErrorToast(message);
-          }
-        }
-      },
-    }),
-    deleteCategory: builder.mutation({
-      query: (id) => ({
-        url: `/dashboard/delete-category/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: (result) => {
-        if (result?.success) {
-          return [TagTypes.categories];
-        }
-        return [];
-      },
-      async onQueryStarted(_arg, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          SuccessToast("Category is deleted successfully");
-        } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          ErrorToast(message);
+          const res = await queryFulfilled;
+          const data = res?.data?.data;
+          dispatch(SetUser(data))
+        } catch(err:any){
+        const message = err?.error?.data?.message || "Something went wrong";
+         ErrorToast(message);
         }
       },
     }),
   }),
 });
 
-export const { useGetUsersQuery, useCreateCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation } = userApi;
+export const { useGetUsersQuery, useGetMeQuery } = userApi;

@@ -1,12 +1,18 @@
-import { Table, ConfigProvider } from "antd";
+import { Table, ConfigProvider, Pagination } from "antd";
 import EditCategoryModal from "../modal/category/EditCategoryModal";
 import type { ICategory } from "../../types/category.type";
 import DeleteCategoryModal from "../modal/category/DeleteCategoryModal";
+import type { IMeta } from "../../types/global.type";
 
 
 
 type TProps = {
-  categories: ICategory[]
+  categories: ICategory[];
+  meta: IMeta;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  pageSize: number;
+  setPageSize: React.Dispatch<React.SetStateAction<number>>;
 }
 
 type TDataSource = {
@@ -17,13 +23,19 @@ type TDataSource = {
 }
 
 
-const CategoryTable = ( { categories }: TProps) => {
+const CategoryTable = ({
+  categories, meta,
+  currentPage,
+  setCurrentPage,
+  pageSize,
+  setPageSize
+}: TProps) => {
 
-  const dataSource: TDataSource[] = categories?.map((category, index)=> ({
-        key: index,
-        serial: Number(index+1),
-        _id: category?._id,
-        name: category?.name
+  const dataSource: TDataSource[] = categories?.map((category, index) => ({
+    key: index,
+    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    _id: category?._id,
+    name: category?.name
   }))
 
   const columns = [
@@ -46,15 +58,18 @@ const CategoryTable = ( { categories }: TProps) => {
       width: "15%",
       render: (val: string, record: ICategory) => (
         <div className="flex items-center gap-3">
-          <EditCategoryModal category={record}/>
-          <DeleteCategoryModal categoryId={val}/>
+          <EditCategoryModal category={record} />
+          <DeleteCategoryModal categoryId={val} />
         </div>
       ),
     },
   ];
 
 
-
+  const handlePagination = (page: number, PageSize: number) => {
+    setCurrentPage(page);
+    setPageSize(PageSize);
+  };
 
   return (
     <ConfigProvider
@@ -80,6 +95,16 @@ const CategoryTable = ( { categories }: TProps) => {
           className="employer-table"
         />
       </div>
+      {meta?.total > 0 && (
+        <div className="p-8 bg-white shadow-md flex justify-center">
+          <Pagination
+            onChange={handlePagination}
+            current={currentPage}
+            pageSize={pageSize}
+            total={meta?.total}
+          />
+        </div>
+      )}
     </ConfigProvider>
   );
 };
