@@ -7,18 +7,18 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import type { z } from "zod";
 import CustomInput from "../../form/CustomInput";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { SetCategoryCreateError } from "../../../redux/features/category/categorySlice";
 import Error from "../../validation/Error";
 import { useCreateColorMutation } from "../../../redux/features/color/colorApi";
 import CustomColorField from "../../form/CustomColorField";
 import { colorSchema } from "../../../schemas/color.schema";
+import { SetColorCreateError } from "../../../redux/features/color/colorSlice";
 
 type TFormValues = z.infer<typeof colorSchema>;
 
 const CreateColorModal = () => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
-  const { CategoryCreateError } = useAppSelector((state) => state.category);
+  const { ColorCreateError } = useAppSelector((state) => state.color);
   const [createColor, { isLoading, isSuccess, reset }] = useCreateColorMutation();
   const { handleSubmit, control, setValue } = useForm<TFormValues>({
     resolver: zodResolver(colorSchema),
@@ -36,7 +36,7 @@ const CreateColorModal = () => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    dispatch(SetCategoryCreateError(""));
+    dispatch(SetColorCreateError(""));
     createColor(data);
   };
 
@@ -52,8 +52,10 @@ const CreateColorModal = () => {
       <Modal
         open={modalOpen}
         onCancel={() => {
+          setValue("name", "");
+          setValue("hexCode", "");
           setModalOpen(false);
-          dispatch(SetCategoryCreateError(""));
+          dispatch(SetColorCreateError(""));
         }}
         maskClosable={false}
         footer={false}
@@ -64,14 +66,14 @@ const CreateColorModal = () => {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                 Add Color
               </h2>
-               {CategoryCreateError && <Error message={CategoryCreateError} />}
+               {ColorCreateError && <Error message={ColorCreateError} />}
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <CustomInput
-                  label="Title"
+                  label="Color Name"
                   name="name"
                   type="text"
                   control={control}
-                  placeholder="Enter title"
+                  placeholder="Enter color name"
                 />
                 <CustomColorField
                   label="Choose Color"

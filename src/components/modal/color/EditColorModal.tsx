@@ -3,18 +3,19 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { categorySchema } from "../../../schemas/category.schema";
 import type { z } from "zod";
 import CustomInput from "../../form/CustomInput";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { SetCategoryUpdateError } from "../../../redux/features/category/categorySlice";
 import Error from "../../validation/Error";
 import { Edit } from "lucide-react";
 import type { IColor } from "../../../types/color.type";
 import { useUpdateColorMutation } from "../../../redux/features/color/colorApi";
+import CustomColorField from "../../form/CustomColorField";
+import { colorSchema } from "../../../schemas/color.schema";
+import { SetColorUpdateError } from "../../../redux/features/color/colorSlice";
 
 
-type TFormValues = z.infer<typeof categorySchema>;
+type TFormValues = z.infer<typeof colorSchema>;
 
 type TProps = {
   color: IColor
@@ -23,12 +24,13 @@ type TProps = {
 const EditColorModal = ({ color }: TProps) => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
-  const { CategoryUpdateError } = useAppSelector((state) => state.category);
+  const { ColorUpdateError } = useAppSelector((state) => state.color);
   const [ updateColor, { isLoading, isSuccess }] = useUpdateColorMutation();
   const { handleSubmit, control, setValue} = useForm<TFormValues>({
-    resolver: zodResolver(categorySchema),
+    resolver: zodResolver(colorSchema),
     defaultValues: {
-      name: color?.name
+      name: color?.name,
+      hexCode: color?.hexCode
     }
   });
 
@@ -43,7 +45,7 @@ const EditColorModal = ({ color }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    dispatch(SetCategoryUpdateError(""));
+    dispatch(SetColorUpdateError(""));
     updateColor({
       id: color?._id,
       data
@@ -74,14 +76,27 @@ const EditColorModal = ({ color }: TProps) => {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                 Update Color
               </h2>
-               {CategoryUpdateError && <Error message={CategoryUpdateError} />}
-              <form onSubmit={handleSubmit(onSubmit)}>
+               {ColorUpdateError && <Error message={ColorUpdateError} />}
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <CustomInput
-                  label="Title"
+                  label="Color Name"
                   name="name"
                   type="text"
                   control={control}
+                  placeholder="Enter color name"
+                />
+                <CustomColorField
+                  label="Choose Color"
+                  name="hexCode"
+                  control={control}
                   placeholder="Enter title"
+                />
+                <CustomInput
+                  label="Color Hex Code"
+                  name="hexCode"
+                  type="text"
+                  control={control}
+                  placeholder="e.g., #fff or #ffffff"
                 />
                 <div className="flex justify-end mt-4">
                   <button
@@ -100,7 +115,7 @@ const EditColorModal = ({ color }: TProps) => {
                         Processing...
                       </>
                     ) : (
-                      "Save Change"
+                      "Save Changes"
                     )}
                   </button>
                 </div>

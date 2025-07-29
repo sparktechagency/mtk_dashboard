@@ -4,7 +4,7 @@ import TagTypes from "../../../constant/tagType.constant";
 import { ErrorToast, SuccessToast } from "../../../helper/ValidationHelper";
 import type { IParam } from "../../../types/global.type";
 import { apiSlice } from "../api/apiSlice";
-import { SetCategoryCreateError, SetCategoryUpdateError } from "../category/categorySlice";
+import { SetColorCreateError, SetColorUpdateError } from "./colorSlice";
 
 export const colorApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -45,7 +45,7 @@ export const colorApi = apiSlice.injectEndpoints({
           SuccessToast("Color is added successfully");
         } catch (err: any) {
           const message = err?.error?.data?.message || "Something Went Wrong";
-          dispatch(SetCategoryCreateError(message));
+          dispatch(SetColorCreateError(message));
         }
       },
     }),
@@ -67,7 +67,7 @@ export const colorApi = apiSlice.injectEndpoints({
           SuccessToast("Color is updated successfully");
         } catch (err: any) {
           const message = err?.error?.data?.message || "Something went wrong";
-          dispatch(SetCategoryUpdateError(message));
+          dispatch(SetColorUpdateError(message));
         }
       },
     }),
@@ -85,7 +85,7 @@ export const colorApi = apiSlice.injectEndpoints({
       async onQueryStarted(_arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Category is deleted successfully");
+          SuccessToast("Color is deleted successfully");
         } catch (err: any) {
           const message = err?.error?.data?.message || "Something went wrong";
           ErrorToast(message);

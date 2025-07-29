@@ -16,7 +16,7 @@ const DeleteCategoryModal = ({ categoryId }: TProps) => {
     useDeleteCategoryMutation();
 
   useEffect(() => {
-    if (!isLoading && isSuccess) {
+    if (!isLoading) {
       setModalOpen(false);
     }
   }, [isLoading, isSuccess]);

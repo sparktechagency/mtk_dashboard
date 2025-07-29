@@ -16,7 +16,7 @@ const DeleteColorModal = ({ colorId }: TProps) => {
     useDeleteColorMutation();
 
   useEffect(() => {
-    if (!isLoading && isSuccess) {
+    if (!isLoading) {
       setModalOpen(false);
     }
   }, [isLoading, isSuccess]);
