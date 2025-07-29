@@ -25,60 +25,60 @@ export const colorApi = apiSlice.injectEndpoints({
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.categories],
+      providesTags: [TagTypes.colors],
     }),
-    createCategory: builder.mutation({
+    createColor: builder.mutation({
       query: (data) => ({
-        url: "/category/create-category",
+        url: "/color/create-color",
         method: "POST",
         body: data,
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories];
+          return [TagTypes.colors];
         }
         return [];
       },
       async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           await queryFulfilled;
-          SuccessToast("Category is added successfully");
+          SuccessToast("Color is added successfully");
         } catch (err: any) {
           const message = err?.error?.data?.message || "Something Went Wrong";
           dispatch(SetCategoryCreateError(message));
         }
       },
     }),
-    updateCategory: builder.mutation({
+    updateColor: builder.mutation({
       query: ({id, data }) => ({
-        url: `/category/update-category/${id}`,
+        url: `/color/update-color/${id}`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories];
+          return [TagTypes.colors];
         }
         return [];
       },
       async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           await queryFulfilled;
-          SuccessToast("Category is updated successfully");
+          SuccessToast("Color is updated successfully");
         } catch (err: any) {
           const message = err?.error?.data?.message || "Something went wrong";
           dispatch(SetCategoryUpdateError(message));
         }
       },
     }),
-    deleteCategory: builder.mutation({
+    deleteColor: builder.mutation({
       query: (id) => ({
-        url: `/category/delete-category/${id}`,
+        url: `/color/delete-color/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories];
+          return [TagTypes.colors];
         }
         return [];
       },
@@ -95,4 +95,4 @@ export const colorApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetColorsQuery, useCreateCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation } = colorApi;
+export const { useGetColorsQuery, useCreateColorMutation, useUpdateColorMutation, useDeleteColorMutation } = colorApi;

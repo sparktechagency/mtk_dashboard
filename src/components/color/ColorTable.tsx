@@ -1,9 +1,8 @@
 import { Table, ConfigProvider, Pagination } from "antd";
-import EditCategoryModal from "../modal/category/EditCategoryModal";
-import type { ICategory } from "../../types/category.type";
-import DeleteCategoryModal from "../modal/category/DeleteCategoryModal";
 import type { IMeta } from "../../types/global.type";
 import type { IColor, TColorDataSource } from "../../types/color.type";
+import EditColorModal from "../modal/color/EditColorModal";
+import DeleteColorModal from "../modal/color/DeleteColorModal";
 
 
 
@@ -65,10 +64,10 @@ const ColorTable = ({
       dataIndex: "_id",
       key: "action",
       width: "15%",
-      render: (val: string, record: ICategory) => (
+      render: (val: string, record: IColor) => (
         <div className="flex items-center gap-3">
-          <EditCategoryModal category={record} />
-          <DeleteCategoryModal categoryId={val} />
+          <EditColorModal color={record} />
+          <DeleteColorModal colorId={val} />
         </div>
       ),
     },

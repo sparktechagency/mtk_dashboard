@@ -12,10 +12,6 @@ export const categorySchema = z.object({
       required_error: "Title is required",
     })
     .min(1, "Title is required")
-    .regex(
-      categoryRegex,
-      "Title only contain letters and valid symbols (' . - & , ( )) are allowed."
-    )
     .trim(),
 });
 

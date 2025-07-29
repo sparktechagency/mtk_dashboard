@@ -1,5 +1,5 @@
 import ColorList from "../../components/color/ColorList"
-import CreateCategoryModal from "../../components/modal/category/CreateCategoryModal"
+import CreateColorModal from "../../components/modal/color/CreateColorModal"
 
 const ColorsPage = () => {
   return (
@@ -11,7 +11,7 @@ const ColorsPage = () => {
               <h1 className="text-xl font-medium text-gray-800">
                 Color List
               </h1>
-              <CreateCategoryModal/>
+              <CreateColorModal/>
             </div>
             <div className="flex-1 overflow-hidden">
               <ColorList />
