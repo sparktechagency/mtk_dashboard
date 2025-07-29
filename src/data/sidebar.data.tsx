@@ -3,7 +3,7 @@ import {
     SettingOutlined
   } from '@ant-design/icons';
 import { MdCategory, MdContactPhone, MdSubscriptions } from "react-icons/md";
-import { PiStudentBold } from "react-icons/pi";
+import { PiResize, PiStudentBold } from "react-icons/pi";
 import { GrUserAdmin } from "react-icons/gr";
 import { IoIosColorFilter } from "react-icons/io";
 export const menuItems = [
@@ -12,6 +12,7 @@ export const menuItems = [
   { path: "/users", label: "Users", icon: PiStudentBold },
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/colors", label: "Colors", icon: IoIosColorFilter },
+  { path: "/sizes", label: "Sizes", icon: PiResize },
   { path: "/contacts", label: "Contact", icon: MdContactPhone },
   {
     path: "",

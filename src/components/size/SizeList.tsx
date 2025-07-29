@@ -1,17 +1,14 @@
 import { useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
-import ColorTable from "./ColorTable";
-import { useGetColorsQuery } from "../../redux/features/color/colorApi";
+import SizeTable from "./SizeTable";
+import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
 
-const ColorList = () => {
+const SizeList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isError } = useGetColorsQuery([
-    { name: "page", value: currentPage },
-    { name: "limit", value: pageSize }
-  ]);
-  const colors = data?.data || [];
+  const { data, isLoading, isError } = useGetSizesQuery(undefined);
+  const sizes = data?.data || [];
   const meta = data?.meta || {};
 
   if (isLoading) {
@@ -19,8 +16,8 @@ const ColorList = () => {
   }
 
   if (!isLoading && !isError) {
-    return <ColorTable
-      colors={colors}
+    return <SizeTable
+      sizes={sizes}
       meta={meta}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
@@ -34,4 +31,4 @@ const ColorList = () => {
   }
 };
 
-export default ColorList;
+export default SizeList;

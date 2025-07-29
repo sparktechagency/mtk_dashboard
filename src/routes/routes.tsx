@@ -26,6 +26,7 @@ import HelpPage from "../pages/help/HelpPage";
 import FaqsPage from "../pages/help/FaqsPage";
 import UsersPage from "../pages/dashboard/UsersPage";
 import ColorsPage from "../pages/dashboard/ColorsPage";
+import SizesPage from "../pages/dashboard/SizesPage";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "colors",
         element: <ColorsPage />,
+      },
+      {
+        path: "sizes",
+        element: <SizesPage />,
       },
       {
         path: "help",

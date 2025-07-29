@@ -1,14 +1,11 @@
 import { Table, ConfigProvider, Pagination } from "antd";
-import EditCategoryModal from "../modal/category/EditCategoryModal";
-import type { ICategory } from "../../types/category.type";
-import DeleteCategoryModal from "../modal/category/DeleteCategoryModal";
 import type { IMeta } from "../../types/global.type";
-import type { IColor, TColorDataSource } from "../../types/color.type";
+import type { ISize } from "../../types/size.type";
 
 
 
 type TProps = {
-  colors: IColor[];
+  sizes: ISize[];
   meta: IMeta;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -16,9 +13,16 @@ type TProps = {
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
 }
 
+type TDataSource = {
+  key: number;
+  serial: number;
+  _id: string;
+  size: string;
+}
 
-const ColorTable = ({
-  colors, 
+
+const SizeTable = ({
+  sizes, 
   meta,
   currentPage,
   setCurrentPage,
@@ -26,12 +30,11 @@ const ColorTable = ({
   setPageSize
 }: TProps) => {
 
-  const dataSource: TColorDataSource[] = colors?.map((color, index) => ({
+  const dataSource: TDataSource[] = sizes?.map((size, index) => ({
     key: index,
     serial: Number(index + 1) + (currentPage - 1) * pageSize,
-    _id: color?._id,
-    name: color?.name,
-    hexCode: color?.hexCode
+    _id: size?._id,
+    size: size?.size
   }))
 
   const columns = [
@@ -42,35 +45,22 @@ const ColorTable = ({
       width: "10%",
     },
     {
-      title: "Title",
-      dataIndex: "name",
-      key: "name",
+      title: "Size",
+      dataIndex: "size",
+      key: "size",
       width: "22.5%",
-    },
-    {
-      title: "Color",
-      dataIndex: "hexCode",
-      key: "hexCode",
-      width: "22%",
-      render: (val: string) => (
-        <div
-          className="w-5 h-5 rounded-full border border-gray-300"
-          style={{ backgroundColor: val }}
-          title={"color"}
-        />
-      ),
     },
     {
       title: "Action",
       dataIndex: "_id",
       key: "action",
       width: "15%",
-      render: (val: string, record: ICategory) => (
-        <div className="flex items-center gap-3">
-          <EditCategoryModal category={record} />
-          <DeleteCategoryModal categoryId={val} />
-        </div>
-      ),
+      // render: (val: string, record: ICategory) => (
+      //   <div className="flex items-center gap-3">
+      //     <EditCategoryModal category={record} />
+      //     <DeleteCategoryModal categoryId={val} />
+      //   </div>
+      // ),
     },
   ];
 
@@ -118,4 +108,4 @@ const ColorTable = ({
   );
 };
 
-export default ColorTable;
+export default SizeTable;
