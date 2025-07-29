@@ -26,8 +26,8 @@ const ContactList = () => {
     }, 600);
   }, [searchQuery]);
 
-  const contacts = data?.data?.result || [];
-  const meta = data?.data?.meta || {};
+  const contacts = data?.data || [];
+  const meta = data?.meta || {};
 
   let content: React.ReactNode;
 

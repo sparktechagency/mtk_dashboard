@@ -26,7 +26,7 @@ const ReplyModal = ({ contactId }: TProps) => {
   //if success
    useEffect(() => {
     if (!isLoading && isSuccess) {
-      setValue("reply", "");
+      setValue("replyText", "");
       setModalOpen(false);
     }
   }, [isLoading, isSuccess, reset, setValue]);
@@ -51,7 +51,7 @@ const ReplyModal = ({ contactId }: TProps) => {
         open={modalOpen}
         onCancel={() => {
           setModalOpen(false);
-          setValue("reply", "");
+          setValue("replyText", "");
         }}
         maskClosable={false}
         footer={false}
@@ -65,7 +65,7 @@ const ReplyModal = ({ contactId }: TProps) => {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <CustomTextArea
                   label="Message"
-                  name="reply"
+                  name="replyText"
                   control={control}
                   placeholder="write a message..."
                 />

@@ -5,11 +5,15 @@ import {
 import { MdCategory, MdContactPhone, MdSubscriptions } from "react-icons/md";
 import { PiStudentBold } from "react-icons/pi";
 import { GrUserAdmin } from "react-icons/gr";
+import { IoIosColorFilter } from "react-icons/io";
 export const menuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/admins", label: "Admins", icon: GrUserAdmin },
   { path: "/users", label: "Users", icon: PiStudentBold },
-  { 
+  { path: "/category", label: "Category", icon: MdCategory },
+  { path: "/colors", label: "Colors", icon: IoIosColorFilter },
+  { path: "/contacts", label: "Contact", icon: MdContactPhone },
+  {
     path: "",
     label: "Help & FAQ",
     icon: MdSubscriptions,
@@ -19,8 +23,6 @@ export const menuItems = [
       { path: "/faqs", label: "FAQS" },
     ],
   },
-  { path: "/category", label: "Category", icon: MdCategory },
-  { path: "/contacts", label: "Contact", icon: MdContactPhone },
   {
     icon: SettingOutlined,
     label: "Settings",

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 
 export const replySchema = z.object({
-  reply: z
+  replyText: z
     .string({
       invalid_type_error: "message must be string",
       required_error: "Write a reply message",

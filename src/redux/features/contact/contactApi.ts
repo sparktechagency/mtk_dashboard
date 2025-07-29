@@ -19,7 +19,7 @@ export const contactApi = apiSlice.injectEndpoints({
           });
         }
         return {
-          url: "/dashboard/contact_all",
+          url: "/contact/get-contacts",
           method: "GET",
           params: params,
         };
@@ -29,7 +29,7 @@ export const contactApi = apiSlice.injectEndpoints({
     }),
     replyContact: builder.mutation({
       query: ({id, data }) => ({
-        url: `/dashboard/replay_contact_us/${id}`,
+        url: `/contact/reply/${id}`,
         method: "PATCH",
         body: data,
       }),

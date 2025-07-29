@@ -28,10 +28,6 @@ const ViewContactModal = ({ contact }: TProps) => {
       >
         <div className="max-w-2xl mx-auto p-6">
       <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
-        {/* Subject */}
-        <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-800">Subject: {contact?.subject}</h2>
-        </div>
         {/* Original Message */}
         <div className="p-6 border-b border-gray-100">
           <div className="flex items-center gap-2 mb-2">
@@ -54,9 +50,9 @@ const ViewContactModal = ({ contact }: TProps) => {
                 Reply
               </span>
             </div>
-            <div className={`${contact?.reply ? 'border-green-400 bg-green-50' : 'bg-red-50 border-red-400'} border-l-4  rounded-lg p-4`}>
+            <div className={`${contact?.replyText ? 'border-green-400 bg-green-50' : 'bg-red-50 border-red-400'} border-l-4  rounded-lg p-4`}>
               <p className="text-gray-800 leading-relaxed">
-                {contact?.reply ? contact?.reply : "There is no reply message"}
+                {contact?.replyText ? contact?.replyText : "There is no reply message"}
               </p>
             </div>
           </div>

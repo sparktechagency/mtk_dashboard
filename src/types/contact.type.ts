@@ -3,8 +3,9 @@ export type TContact = {
   _id: string;
   name: string;
   email: string;
-  subject: string;
+  phone: string;
   message: string;
-  reply: string | null;
+  replyText: string;
   createdAt: string; 
+  replyAt: string;
 };

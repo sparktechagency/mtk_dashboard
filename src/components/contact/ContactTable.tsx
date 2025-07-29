@@ -38,9 +38,10 @@ const ContactTable : React.FC<CandidateTableProps> = ({
     name: contact?.name,
     email: contact?.email,
     message: contact?.message,
-    subject: contact?.subject,
-    reply: contact?.reply,
+    phone: contact?.phone,
+    replyText: contact?.replyText,
     createdAt: contact?.createdAt,
+    replyAt: contact?.replyAt,
   }));
 
   const columns = [
@@ -51,27 +52,16 @@ const ContactTable : React.FC<CandidateTableProps> = ({
       width: "5%",
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      width: "15%",
-    },
-    {
       title: "Email",
       dataIndex: "email",
       key: "email",
       width: "17%",
     },
-    {
-      title: "Subject",
-      dataIndex: "subject",
-      key: "subject",
-      width: "17.5%",
-      render: (text: string) => (
-        <>
-          <p className="truncate">{text}</p>
-        </>
-      ),
+     {
+      title: "Contact Number",
+      dataIndex: "phone",
+      key: "phone",
+      width: "15%",
     },
     {
       title: "Message",
@@ -101,6 +91,27 @@ const ContactTable : React.FC<CandidateTableProps> = ({
       },
     },
     {
+      title: "Reply Date",
+      dataIndex: "replyAt",
+      key: "replyAt",
+      width: "12%",
+      render: (val: string) => {
+        if (val) {
+          const { bg, text, border } = getColorClassForDate(val.split('T')[0]);
+          return (
+            <button
+              className={`text-sm px-2 py-1 rounded ${bg} ${text} ${border} border cursor-default`}
+            >
+              {val.split('T')[0]}
+            </button>
+          );
+        }
+        else{
+          return <span className="text-red-500">Not replied yet.</span>
+        }
+      },
+    },
+    {
       title: "Action",
       key: "_id",
       dataIndex: "_id",
@@ -109,7 +120,7 @@ const ContactTable : React.FC<CandidateTableProps> = ({
       render: (contactId: string, contact: TContact) => (
         <div className="flex justify-center gap-2">
           <ViewContactModal contact={contact}/>
-          {contact?.reply ? (
+          {contact?.replyText ? (
             <button className="bg-blue-300 hover:bg-blue-400 p-2 text-white rounded-full cursor-not-allowed">
               <Reply size={18} />
             </button>

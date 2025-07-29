@@ -7,7 +7,6 @@ import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 import VerifyOtpPage from "../pages/auth/VerifyOtpPage";
 import ResetPasswordPage from "../pages/auth/ResetPasswordPage";
 import CategoryPage from "../pages/dashboard/CategoryPage";
-import CandidatesPage from "../pages/dashboard/UsersPage";
 import ContactPage from "../pages/dashboard/ContactPage";
 import BlogsPage from "../pages/dashboard/BlogsPage";
 import AboutUsPage from "../pages/settings/AboutUsPage";
@@ -25,8 +24,8 @@ import AdminsPage from "../pages/dashboard/AdminsPage";
 import CandidateDetailsPage from "../pages/dashboard/CandidateDetailsPage";
 import HelpPage from "../pages/help/HelpPage";
 import FaqsPage from "../pages/help/FaqsPage";
-import NotFoundRoute from "./NotFoundRoute";
 import UsersPage from "../pages/dashboard/UsersPage";
+import ColorsPage from "../pages/dashboard/ColorsPage";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "category",
         element: <CategoryPage />,
+      },
+      {
+        path: "colors",
+        element: <ColorsPage />,
       },
       {
         path: "help",
