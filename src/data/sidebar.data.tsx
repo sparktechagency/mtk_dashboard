@@ -13,7 +13,8 @@ export const menuItems = [
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/colors", label: "Colors", icon: IoIosColorFilter },
   { path: "/sizes", label: "Sizes", icon: PiResize },
-  { path: "/contacts", label: "Contact  List", icon: MdContactPhone },
+  { path: "/information", label: "Contact Information", icon: MdContactPhone },
+  { path: "/contacts", label: "Contact List", icon: MdContactPhone },
   {
     path: "",
     label: "Help & FAQ",
