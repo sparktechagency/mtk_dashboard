@@ -15,8 +15,8 @@ export const informationApi = apiSlice.injectEndpoints({
       providesTags: [TagTypes.information],
     }),
     updateInformation: builder.mutation({
-      query: ({id, data }) => ({
-        url: `/information/createupdate-information/${id}`,
+      query: (data) => ({
+        url: `/information/create-update-information`,
         method: "PATCH",
         body: data,
       }),

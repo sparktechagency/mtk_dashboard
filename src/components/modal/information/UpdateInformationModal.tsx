@@ -1,35 +1,28 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
-import { useUpdateCategoryMutation } from "../../../redux/features/category/categoryApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import type { z } from "zod";
 import CustomInput from "../../form/CustomInput";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { SetCategoryUpdateError } from "../../../redux/features/category/categorySlice";
-import Error from "../../validation/Error";
 import { Edit } from "lucide-react";
-import type { ICategory } from "../../../types/category.type";
 import { informationSchema } from "../../../schemas/information.schema";
+import type { IInformation } from "../../../types/information.type";
+import { useUpdateInformationMutation } from "../../../redux/features/information/informationApi";
 
 
 type TFormValues = z.infer<typeof informationSchema>;
 
 type TProps = {
-  category: ICategory
+  information: IInformation
 }
 
-const UpdateInformationModal = ({ category }: TProps) => {
-  const dispatch = useAppDispatch();
+const UpdateInformationModal = ({ information }: TProps) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const { CategoryUpdateError } = useAppSelector((state) => state.category);
-  const [ updateCategory, { isLoading, isSuccess }] = useUpdateCategoryMutation();
+  const [ updateInformation, { isLoading, isSuccess }] = useUpdateInformationMutation();
   const { handleSubmit, control, setValue} = useForm<TFormValues>({
     resolver: zodResolver(informationSchema),
-    defaultValues: {
-      email: category?.name
-    }
+    defaultValues: information
   });
 
 
@@ -43,11 +36,7 @@ const UpdateInformationModal = ({ category }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    dispatch(SetCategoryUpdateError(""));
-    updateCategory({
-      id: category?._id,
-      data
-    });
+    updateInformation(data);
   };
 
   return (
@@ -59,7 +48,9 @@ const UpdateInformationModal = ({ category }: TProps) => {
       <Modal
         open={modalOpen}
         onCancel={() => {
-          setValue("name", category?.name);
+          setValue("email", information.email);
+          setValue("phone", information.phone);
+          setValue("address", information.address);
           setModalOpen(false)
         }}
         maskClosable={false}
@@ -71,7 +62,6 @@ const UpdateInformationModal = ({ category }: TProps) => {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                 Update Information
               </h2>
-               {CategoryUpdateError && <Error message={CategoryUpdateError} />}
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <CustomInput label="Email" name="email" type="text" control={control} placeholder="Enter email address"/>
                 <CustomInput label="Contact Number" name="phone" type="text" control={control} placeholder="Enter contact number"/>

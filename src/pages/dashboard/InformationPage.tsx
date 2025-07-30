@@ -18,10 +18,7 @@ const InformationPage = () => {
   if (!isLoading && information?.email) {
     return (
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-md border border-gray-200 p-6 relative">
-        <UpdateInformationModal category={{
-          _id: "4345",
-          name: "erfe"
-        }} />
+        <UpdateInformationModal information={information}/>
 
         <div className="mb-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-1">Contact Information</h2>
