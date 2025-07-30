@@ -4,10 +4,10 @@ import DeleteBlogModal from "../modal/blog/DeleteBlogModal";
 import type { IMeta } from "../../types/global.type";
 import { Link } from "react-router-dom";
 import blog_placeholder from "../../assets/images/blog_placeholder.png";
-import type { IProduct, TProductDataSource } from "../../types/product.type";
+import type { IProduct, TProductDataSource, TProductStatus, TStockStatus } from "../../types/product.type";
 import { FaStar } from "react-icons/fa";
-import ChangeStatusModal from "../modal/auth/ChangeStatusModal";
-import type { IUser, TBlockStatus } from "../../types/user.type";
+import ChangeProductStatusModal from "../modal/product/ChangeProductStatusModal";
+import ChangeStockStatusModal from "../modal/product/ChangeStockStatusModal";
 
 
 type TProps = {
@@ -22,18 +22,19 @@ type TProps = {
 
 const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, setPageSize }: TProps) => {
 
-    const dataSource: TProductDataSource[] = products?.map((product, index) => ({
-      key: index,
-      serial: Number(index+1) + ((currentPage-1)*pageSize),
-      _id: product?._id,
-      name: product?.name,
-      categoryName: product?.categoryName,
-      currentPrice: product?.currentPrice,
-      originalPrice: product?.originalPrice,
-      image: product?.images?.length > 0 ? product?.images[0] : blog_placeholder,
-      ratings: product?.ratings,
-      status: product?.status
-    }));
+  const dataSource: TProductDataSource[] = products?.map((product, index) => ({
+    key: index,
+    serial: Number(index + 1) + ((currentPage - 1) * pageSize),
+    _id: product?._id,
+    name: product?.name,
+    categoryName: product?.categoryName,
+    currentPrice: product?.currentPrice,
+    originalPrice: product?.originalPrice,
+    image: product?.images?.length > 0 ? product?.images[0] : blog_placeholder,
+    ratings: product?.ratings,
+    status: product?.status,
+    stockStatus: product?.stockStatus
+  }));
 
 
 
@@ -55,7 +56,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
         </>
       ),
     },
-     {
+    {
       title: "Image",
       dataIndex: "image",
       key: "image",
@@ -71,7 +72,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
               e.currentTarget.onerror = null;
               e.currentTarget.src = blog_placeholder;
             }}
-            />
+          />
         </>
       ),
     },
@@ -79,28 +80,27 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Category",
       dataIndex: "categoryName",
       key: "categoryName",
-      width: "10%",
+      width: "7%",
     },
     {
       title: "Price",
       dataIndex: "currentPrice",
       key: "currentPrice",
       width: "5%",
-      align: "center"
+      align: 'center' as const
     },
     {
       title: "Original Price",
-      dataIndex: "currentPrice",
-      key: "currentPrice",
+      dataIndex: "originalPrice",
+      key: "originalPrice",
       width: "7%",
-      align: "center"
+      align: 'center' as const
     },
     {
       title: "Ratings",
       dataIndex: "ratings",
       key: "ratings",
-      width: "10%",
-      align: "center",
+      width: "5%",
       render: (value: number) => (
         <>
           <div className="flex items-center gap-1 justify-center">
@@ -114,14 +114,14 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Status",
       dataIndex: "status",
       key: "status",
-      width: "15%",
-      render: (status: TBlockStatus, record: IUser) => {
+      width: "10%",
+      render: (status: TProductStatus, record: TProductDataSource) => {
         const statusStyles = {
-          blocked: "bg-red-100 text-red-700 border border-red-300",
-          unblocked: "bg-green-100 text-green-700 border border-green-300",
+          hidden: "bg-red-100 text-red-700 border border-red-300",
+          visible: "bg-green-100 text-green-700 border border-green-300",
         };
 
-        const bgColor = status=== "blocked" ? statusStyles.blocked : statusStyles.unblocked;
+        const bgColor = status === "visible" ? statusStyles.visible : statusStyles.hidden;
 
         return (
           <div className="flex items-center gap-2">
@@ -130,10 +130,36 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
             >
               {status}
             </button>
-            <ChangeStatusModal userId={record?._id} status={status}/>
+            <ChangeProductStatusModal productId={record?._id} status={status} />
           </div>
         );
       },
+    },
+    {
+      title: "Stock Status",
+      dataIndex: "stockStatus",
+      key: "stockStatus",
+      width: "10%",
+      render: (status: TStockStatus, record: TProductDataSource) => {
+        const statusStyles = {
+          in_stock: "bg-blue-100 text-blue-800 border border-blue-300",
+          stock_out: "bg-gray-200 text-gray-700 border border-gray-400",
+          up_coming: "bg-yellow-100 text-yellow-800 border border-yellow-300",
+        };
+
+        const bgColor = statusStyles[status] || "bg-neutral-100 text-neutral-700 border";
+
+        return (
+          <div className="flex items-center gap-2">
+            <button
+              className={`${bgColor} capitalize w-28 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
+            >
+              {status.replace("_", " ")}
+            </button>
+            <ChangeStockStatusModal productId={record?._id} stockStatus={status} />
+          </div>
+        );
+      }
     },
     {
       title: "View",
@@ -143,7 +169,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       render: (blogId: string) => (
         <div className="flex items-center gap-2">
           <Link
-            to={`/blog-details/${blogId}`}
+            to={`/update-product/${blogId}`}
             className="bg-gray-600 hover:bg-gray-700 p-2 text-white rounded-full"
           >
             <Eye size={18} />
@@ -156,14 +182,14 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       dataIndex: "_id",
       key: "action",
       width: "7%",
-      render: (blogId: string)  => (
+      render: (blogId: string) => (
         <div className="flex items-center gap-2">
-          <Link
-            to={`/update-blog/${blogId}`}
+          <button
+            // to={`/update-product/${blogId}`}
             className="bg-green-600 hover:bg-green-700 p-2 text-white rounded-full"
           >
             <Edit size={18} />
-          </Link>
+          </button>
           <DeleteBlogModal blogId={blogId} />
         </div>
       ),
@@ -172,7 +198,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
 
 
 
-  const handlePagination = (page:number, PageSize:number) => {
+  const handlePagination = (page: number, PageSize: number) => {
     setCurrentPage(page);
     setPageSize(PageSize)
   }

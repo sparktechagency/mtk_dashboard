@@ -2,7 +2,7 @@
 const FaqsPage = () => {
   return (
     <>
-     <h1>This is Faqs Page</h1>
+     <h1>We are working</h1>
     </>
   )
 }

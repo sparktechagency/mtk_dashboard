@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   CategoryCreateError: "",
-  CategoryUpdateError: ""
+  CategoryUpdateError: "",
+  categoryOptions: []
 };
 
 const categorySlice = createSlice({
@@ -14,13 +15,17 @@ const categorySlice = createSlice({
     },
     SetCategoryUpdateError: (state, action) => {
       state.CategoryUpdateError = action.payload;
+    },
+    SetCategoryOptions: (state, action) => {
+      state.categoryOptions = action.payload;
     }
   },
 });
 
 export const {
   SetCategoryCreateError,
-  SetCategoryUpdateError
+  SetCategoryUpdateError,
+  SetCategoryOptions
 } = categorySlice.actions;
 
 const categorySliceReducer = categorySlice.reducer;

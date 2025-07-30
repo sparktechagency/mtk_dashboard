@@ -6,6 +6,7 @@ import { MdCategory, MdContactPhone, MdSubscriptions } from "react-icons/md";
 import { PiResize, PiStudentBold } from "react-icons/pi";
 import { GrUserAdmin } from "react-icons/gr";
 import { IoIosColorFilter } from "react-icons/io";
+import { RiProductHuntLine } from "react-icons/ri";
 export const menuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/admins", label: "Admins", icon: GrUserAdmin },
@@ -13,7 +14,7 @@ export const menuItems = [
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/colors", label: "Colors", icon: IoIosColorFilter },
   { path: "/sizes", label: "Sizes", icon: PiResize },
-  { path: "/products", label: "Products", icon: PiResize },
+  { path: "/products", label: "Products", icon: RiProductHuntLine },
   { path: "/information", label: "Contact Information", icon: MdContactPhone },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
   {

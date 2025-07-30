@@ -1,6 +1,6 @@
-import CreateBlogForm from "../../components/blog/CreateBlogForm"
+import CreateProductForm from "../../components/product/CreateProductForm";
 
-const CreateBlogPage = () => {
+const CreateProductPage = () => {
   return (
     <>
       <div>
@@ -8,11 +8,11 @@ const CreateBlogPage = () => {
           <div className="w-full h-full flex flex-col">
             <div className="p-4 flex justify-between">
               <h1 className="text-xl font-medium text-gray-900">
-                Add New Blog
+                Add New Product
               </h1>
             </div>
             <div className="flex-1 overflow-hidden p-4">
-              <CreateBlogForm/>
+              <CreateProductForm/>
             </div>
           </div>
         </div>
@@ -21,4 +21,4 @@ const CreateBlogPage = () => {
   )
 }
 
-export default CreateBlogPage
+export default CreateProductPage;

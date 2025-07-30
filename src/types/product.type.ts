@@ -1,4 +1,6 @@
 
+export type TProductStatus = "visible" | "hidden";
+export type TStockStatus = 'in_stock' | 'stock_out' | 'up_coming';
 
 export type IProduct = {
   _id: string;
@@ -11,8 +13,8 @@ export type IProduct = {
   ratings: number;
   totalReview: number;
   images: string[];
-  status: "visible" | "hidden";
-  stockStatus: "in_stock" | "out_of_stock";
+  status: TProductStatus;
+  stockStatus: TStockStatus;
 };
 
 
@@ -21,14 +23,14 @@ export type TProductDataSource = {
   serial: number;
    _id: string;
   name: string;
-  categoryId: string;
+ // categoryId: string;
   categoryName: string;
   currentPrice: number;
   originalPrice: number;
-  discount: string;
+  //discount: string;
   ratings: number;
-  totalReview: number;
+  //totalReview: number;
   image: string;
-  status: "visible" | "hidden";
-  stockStatus: "in_stock" | "out_of_stock";
+  status: TProductStatus,
+  stockStatus: TStockStatus;
 }

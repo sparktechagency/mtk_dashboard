@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   ColorCreateError: "",
-  ColorUpdateError: ""
+  ColorUpdateError: "",
+  colorOptions: []
 };
 
 const colorSlice = createSlice({
@@ -14,13 +15,17 @@ const colorSlice = createSlice({
     },
     SetColorUpdateError: (state, action) => {
       state.ColorUpdateError = action.payload;
+    },
+    SetColorOptions: (state, action) => {
+      state.colorOptions = action.payload;
     }
   },
 });
 
 export const {
   SetColorCreateError,
-  SetColorUpdateError
+  SetColorUpdateError,
+  SetColorOptions
 } = colorSlice.actions;
 
 const colorSliceSliceReducer = colorSlice.reducer;

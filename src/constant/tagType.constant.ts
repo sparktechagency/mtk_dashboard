@@ -25,7 +25,10 @@ const TagTypes = {
     transactions: "Transactions",
     colors: "Colors",
     information: "Information",
-    products: "Products"
+    products: "Products",
+    product: "Product",
+    sizes: "Sizes",
+    colorDropDown: "ColorDropDown"
 }
 
 export default TagTypes;

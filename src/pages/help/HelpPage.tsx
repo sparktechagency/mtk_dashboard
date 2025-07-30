@@ -2,7 +2,7 @@
 const HelpPage = () => {
   return (
     <>
-      This is Help Page
+      We are working
     </>
   )
 }

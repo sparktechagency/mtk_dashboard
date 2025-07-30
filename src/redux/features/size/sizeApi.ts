@@ -3,8 +3,10 @@
 import TagTypes from "../../../constant/tagType.constant";
 import { ErrorToast, SuccessToast } from "../../../helper/ValidationHelper";
 import type { IParam } from "../../../types/global.type";
+import type { ISize } from "../../../types/size.type";
 import { apiSlice } from "../api/apiSlice";
 import { SetCategoryCreateError, SetCategoryUpdateError } from "../category/categorySlice";
+import { SetSizeOptions } from "./sizeSlice";
 
 export const sizeApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -25,7 +27,21 @@ export const sizeApi = apiSlice.injectEndpoints({
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.categories],
+      providesTags: [TagTypes.sizes],
+      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
+        try {
+          const res = await queryFulfilled;
+          const data = res?.data?.data;
+          const options = data?.map((s: ISize) => ({
+            value: s._id,
+            label: s.size,
+          }))
+          dispatch(SetSizeOptions(options))
+        } catch (err: any) {
+          const message = err?.error?.data?.message || "Something went wrong";
+          ErrorToast(message);
+        }
+      },
     }),
     createCategory: builder.mutation({
       query: (data) => ({

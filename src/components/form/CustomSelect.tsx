@@ -11,10 +11,11 @@ type TProps = {
     label: string;
     value: string;
   }[];
-  disabled?:boolean
+  disabled?:boolean,
+  blankOption?: boolean
 };
 
-const CustomSelect = ({ label, name, control, options, disabled=false }: TProps) => {
+const CustomSelect = ({ label, name, control, options, disabled=false, blankOption=true }: TProps) => {
   return (
     <>
       <div>
@@ -36,7 +37,11 @@ const CustomSelect = ({ label, name, control, options, disabled=false }: TProps)
                           : "border-gray-300 focus:border-blue-500"
                       }`}
                 >
-                  <option value="">Select {label}</option>
+                  {
+                    blankOption && (
+                      <option value="">Select {label}</option>
+                    )
+                  }
                   {options.map((option, index) => (
                     <option key={index} value={option.value}>
                       {option.label}

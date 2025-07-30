@@ -2,9 +2,10 @@
 
 import TagTypes from "../../../constant/tagType.constant";
 import { ErrorToast, SuccessToast } from "../../../helper/ValidationHelper";
+import type { IColor } from "../../../types/color.type";
 import type { IParam } from "../../../types/global.type";
 import { apiSlice } from "../api/apiSlice";
-import { SetColorCreateError, SetColorUpdateError } from "./colorSlice";
+import { SetColorCreateError, SetColorOptions, SetColorUpdateError } from "./colorSlice";
 
 export const colorApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -27,6 +28,28 @@ export const colorApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.colors],
     }),
+    getColorDropDown: builder.query({
+      query: () => ({
+        url: "/color/get-color-drop-down",
+        method: "GET",
+      }),
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.colorDropDown],
+      async onQueryStarted(_arg, { queryFulfilled, dispatch}) {
+        try {
+          const res = await queryFulfilled;
+          const data = res?.data?.data;
+          const options = data?.map((c:IColor)=> ({
+            value:c._id,
+            label: c.name,
+          }))
+          dispatch(SetColorOptions(options))
+        } catch(err:any){
+        const message = err?.error?.data?.message || "Something went wrong";
+         ErrorToast(message);
+        }
+      },
+    }),
     createColor: builder.mutation({
       query: (data) => ({
         url: "/color/create-color",
@@ -35,7 +58,7 @@ export const colorApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.colors];
+          return [TagTypes.colors, TagTypes.colorDropDown];
         }
         return [];
       },
@@ -95,4 +118,4 @@ export const colorApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetColorsQuery, useCreateColorMutation, useUpdateColorMutation, useDeleteColorMutation } = colorApi;
+export const { useGetColorsQuery, useGetColorDropDownQuery, useCreateColorMutation, useUpdateColorMutation, useDeleteColorMutation } = colorApi;

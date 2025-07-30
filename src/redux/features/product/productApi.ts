@@ -27,93 +27,104 @@ export const productApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.products],
     }),
-    createBlog: builder.mutation({
+    createProduct: builder.mutation({
       query: (data) => ({
-        url: "/dashboard/blog_create",
+        url: "/product/create-product",
         method: "POST",
         body: data,
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.blogs];
+          return [TagTypes.products];
         }
         return [];
       },
       async onQueryStarted(_arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Blog is created successfully");
+          SuccessToast("Product is created successfully");
         } catch (err: any) {
-          const message = err?.error?.data?.message;
-          if(message === "Invalid file type"){
-            ErrorToast("Please, Upload png, jpeg, jpg formate file")
-          }
-          else{
-            ErrorToast(message);
-          }
+          const message = err?.error?.data?.message || "Something Went Wrong";    
+          ErrorToast(message);
         }
       },
     }),
-    getSingleBlog: builder.query({
+    getSingleProduct: builder.query({
       query: (id) => ({
-        url: `/dashboard/get_blog_details/${id}`,
+        url: `/product/get-single-product/${id}`,
         method: "GET",
       }),
       keepUnusedDataFor: 600,
       providesTags: (_result, _error, arg) => [
-        { type: TagTypes.blog, id: arg },
+        { type: TagTypes.product, id: arg },
       ],
       async onQueryStarted(_arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-        } catch (err: any) {
-          console.log(err)
+        }catch{
           ErrorToast("Server error is occured");
         }
       },
     }),
-    updateBlog: builder.mutation({
+    changeProductStatus: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/dashboard/update_blog/${id}`,
+        url: `/product/update-product/${id}`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags: (result, _success, arg) => {
         if (result?.success) {
-          return [TagTypes.blogs, { type: TagTypes.blog, id: arg.id }];
+          return [TagTypes.products, { type: TagTypes.product, id: arg.id }];
         }
         return [];
       },
       async onQueryStarted(_arg, { queryFulfilled }) {
-        try {
+       try {
           await queryFulfilled;
-          SuccessToast("Blog is updated successfully");
-        } catch (err: any) {
-          const message = err?.error?.data?.message;
-         if(message === "Invalid file type"){
-            ErrorToast("Please, Upload png, jpeg, jpg formate file")
-          }
-          else{
-            ErrorToast(message);
-          }
+          SuccessToast("Update Success");
+        } catch (err:any) {
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          ErrorToast(message);
         }
       },
     }),
-    deleteBlog: builder.mutation({
+    updateProduct: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/product/update-product/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result, _success, arg) => {
+        if (result?.success) {
+          return [TagTypes.products, { type: TagTypes.product, id: arg.id }];
+        }
+        return [];
+      },
+      async onQueryStarted(_arg, { queryFulfilled }) {
+       try {
+          await queryFulfilled;
+          SuccessToast("Update Success");
+        } catch (err:any) {
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          ErrorToast(message);
+        }
+      },
+    }),
+    deleteProduct: builder.mutation({
       query: (id) => ({
-        url: `/dashboard/delete_blog/${id}`,
+        url: `/product/delete-product/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.blogs];
+          return [TagTypes.products];
         }
         return [];
       },
       async onQueryStarted(_arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Category is deleted successfully");
+          SuccessToast("Product is deleted successfully");
         } catch (err: any) {
           const message = err?.error?.data?.message;
           ErrorToast(message);
@@ -123,4 +134,4 @@ export const productApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetProductsQuery, useGetSingleBlogQuery, useCreateBlogMutation, useDeleteBlogMutation, useUpdateBlogMutation } = productApi;
+export const { useGetProductsQuery, useGetSingleProductQuery, useCreateProductMutation, useDeleteProductMutation, useChangeProductStatusMutation, useUpdateProductMutation } = productApi;

@@ -8,13 +8,11 @@ import VerifyOtpPage from "../pages/auth/VerifyOtpPage";
 import ResetPasswordPage from "../pages/auth/ResetPasswordPage";
 import CategoryPage from "../pages/dashboard/CategoryPage";
 import ContactPage from "../pages/dashboard/ContactPage";
-import BlogsPage from "../pages/dashboard/BlogsPage";
 import AboutUsPage from "../pages/settings/AboutUsPage";
 import PrivacyPolicyPage from "../pages/settings/PrivacyPolicyPage";
 import TermsConditionPage from "../pages/settings/TermsConditionPage";
 import JobDetailsPage from "../pages/dashboard/JobDetailsPage";
 import JobPostsPage from "../pages/dashboard/JobPostsPage";
-import CreateBlogPage from "../pages/dashboard/CreateBlogPage";
 import EditBlogPage from "../pages/dashboard/EditBlogPage";
 import ProfilePage from "../pages/settings/ProfilePage";
 import ChangePasswordPage from "../pages/settings/ChangePasswordPage";
@@ -28,7 +26,9 @@ import UsersPage from "../pages/dashboard/UsersPage";
 import ColorsPage from "../pages/dashboard/ColorsPage";
 import SizesPage from "../pages/dashboard/SizesPage";
 import InformationPage from "../pages/dashboard/InformationPage";
-import ProductsPage from "../pages/dashboard/ProductsPage";
+import ProductsPage from "../pages/product/ProductsPage";
+import CreateProductPage from "../pages/product/CreateProductPage";
+import NotFoundRoute from "./NotFoundRoute";
 
 const router = createBrowserRouter([
   {
@@ -84,16 +84,12 @@ const router = createBrowserRouter([
         element: <ContactPage />,
       },
       {
-        path: "blogs",
-        element: <BlogsPage />,
-      },
-      {
         path: "products",
         element: <ProductsPage />,
       },
       {
-        path: "create-blog",
-        element: <CreateBlogPage />,
+        path: "add-product",
+        element: <CreateProductPage />,
       },
       {
         path: "update-blog/:id",
@@ -161,8 +157,8 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <h1>This is Not Found Page</h1>
-    //element: <NotFoundRoute/>,
+    // element: <h1>This is Not Found Page</h1>
+    element: <NotFoundRoute/>,
   },
 ]);
 

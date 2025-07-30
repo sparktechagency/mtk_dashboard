@@ -59,3 +59,7 @@
 .employer-table .ant-pagination-next .ant-pagination-item-link {
   transition: all 0.2s ease;
 }
+
+.ant-select-selection-overflow {
+  padding: 5px;
+}

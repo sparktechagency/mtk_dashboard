@@ -74,7 +74,7 @@ const ProductList = () => {
              />
            </div>
            <button
-             onClick={() => navigate("/create-blog")}
+             onClick={() => navigate("/add-product")}
              className="bg-primary px-3 py-1.5 text-white cursor-pointer rounded-md hover:bg-[#2b4773] duration-200"
            >
              {" "}
