@@ -1,4 +1,3 @@
-import RecentEmployerList from "../../components/dashboard/RecentEmployerList";
 import StatsSection from "../../components/dashboard/StatsSection";
 import IncomeOverviewChart from "../../components/summary/IncomeOverviewChart";
 import JobOverviewChart from "../../components/summary/JobOverviewChart";
@@ -13,9 +12,9 @@ const DashboardPage = () => {
           <JobOverviewChart/>
           <IncomeOverviewChart/>
         </div>
-         <div className="mt-4">
+         {/* <div className="mt-4">
           <RecentEmployerList/>
-         </div>
+         </div> */}
       </div>
     </>
   );

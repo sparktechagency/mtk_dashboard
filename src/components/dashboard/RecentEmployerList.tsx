@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useGetEmployersQuery } from "../../redux/features/employer/employerApi"
 import RecentEmployersLoading from "../loader/RecentEmployersLoading"
 import RecentEmployerTable from "./RecentEmployerTable";
-import ServerErrorCard from "../card/ServerErrorCard";
+// import ServerErrorCard from "../card/ServerErrorCard";
 
 
 
@@ -34,7 +34,8 @@ const RecentEmployerList = () =>{
     }
   
     if (!isLoading && isError) {
-      content = <ServerErrorCard />;
+      // content = <ServerErrorCard />;
+      content = <h1>Working</h1>
     }
 
 

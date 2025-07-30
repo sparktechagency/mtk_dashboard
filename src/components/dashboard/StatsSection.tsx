@@ -14,7 +14,8 @@ const StatsSection = () => {
   }
 
   if (!isLoading && isError) {
-    return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
+    return <h1>Working</h1>
+    // return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
   }
 
   if (!isLoading && !isError && stats) {

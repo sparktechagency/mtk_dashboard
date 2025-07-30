@@ -1,6 +1,5 @@
 import React from "react";
 import { Table, ConfigProvider } from "antd";
-import ChangeStatusModal from "../modal/auth/ChangeStatusModal";
 import profile_placeholder from "../../assets/images/profile_placeholder.png";
 import { baseUrl } from "../../redux/features/api/apiSlice";
 import type { TEmployer, TEmployerDataSource } from "../../types/employer.type";
@@ -75,31 +74,31 @@ const RecentEmployerTable : React.FC<EmployerTableProps> = ({
         <p className="truncate">{val}</p>
       )
     },
-     {
-      title: "Status",
-      dataIndex: "is_block",
-      key: "is_block",
-      width: "15%",
-      render: (val: boolean, record: { email: string; }) => {
-        const statusStyles = {
-          blocked: "bg-red-100 text-red-700 border border-red-300",
-          active: "bg-green-100 text-green-700 border border-green-300",
-        };
+    //  {
+    //   title: "Status",
+    //   dataIndex: "is_block",
+    //   key: "is_block",
+    //   width: "15%",
+    //   render: (val: boolean, record: { email: string; }) => {
+    //     const statusStyles = {
+    //       blocked: "bg-red-100 text-red-700 border border-red-300",
+    //       active: "bg-green-100 text-green-700 border border-green-300",
+    //     };
 
-        const bgColor = val ? statusStyles.blocked : statusStyles.active;
+    //     const bgColor = val ? statusStyles.blocked : statusStyles.active;
 
-        return (
-          <div className="flex items-center gap-2">
-            <button
-              className={`${bgColor} w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
-            >
-              {val ?  "Blocked" : "Active"}
-            </button>
-            <ChangeStatusModal email={record.email} status={val} role="EMPLOYER"/>
-          </div>
-        );
-      },
-    },
+    //     return (
+    //       <div className="flex items-center gap-2">
+    //         <button
+    //           className={`${bgColor} w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
+    //         >
+    //           {val ?  "Blocked" : "Active"}
+    //         </button>
+    //         {/* <ChangeStatusModal email={record.email} status={"blocked"} role="EMPLOYER"/> */}
+    //       </div>
+    //     );
+    //   },
+    // },
     {
       title: "Subscription Status",
       dataIndex: "subscription_status",

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import AdminTable from "./AdminTable";
 import { useGetAdminsQuery } from "../../redux/features/admin/adminApi";
@@ -36,7 +35,8 @@ const AdminList = () => {
   }
 
   if (!isLoading && isError) {
-    content = <ServerErrorCard />;
+    // content = <ServerErrorCard />;
+    content = <h1>We are working</h1>
   }
 
   return (

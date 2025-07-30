@@ -41,7 +41,7 @@ const IncomeOverviewChart = () => {
     }
   
     if (!isLoading && isError) {
-      return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
+      // return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
     }
 
 
@@ -49,7 +49,7 @@ const IncomeOverviewChart = () => {
   return (
     <div className="md:p-6 bg-white rounded-lg shadow-sm">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">Subscription Overview</h2>
+        <h2 className="text-xl font-bold">Order Overview</h2>
         <select
           className="border rounded px-2 py-1 bg-white"
           value={selectedYear}
