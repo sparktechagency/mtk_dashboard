@@ -28,6 +28,7 @@ import UsersPage from "../pages/dashboard/UsersPage";
 import ColorsPage from "../pages/dashboard/ColorsPage";
 import SizesPage from "../pages/dashboard/SizesPage";
 import InformationPage from "../pages/dashboard/InformationPage";
+import ProductsPage from "../pages/dashboard/ProductsPage";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "blogs",
         element: <BlogsPage />,
+      },
+      {
+        path: "products",
+        element: <ProductsPage />,
       },
       {
         path: "create-blog",

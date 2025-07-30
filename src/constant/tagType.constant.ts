@@ -24,7 +24,8 @@ const TagTypes = {
     admins: "Admins",
     transactions: "Transactions",
     colors: "Colors",
-    information: "Information"
+    information: "Information",
+    products: "Products"
 }
 
 export default TagTypes;
