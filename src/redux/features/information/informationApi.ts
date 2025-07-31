@@ -32,6 +32,7 @@ export const informationApi = apiSlice.injectEndpoints({
           SuccessToast("Information is updated successfully");
         } catch (err: any) {
           const message = err?.error?.data?.message || "Something went wrong";
+          console.log(message)
           ErrorToast(message)
         }
       },

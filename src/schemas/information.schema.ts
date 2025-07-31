@@ -22,5 +22,25 @@ export const informationSchema = z.object({
       required_error: "address is required",
     })
     .trim()
-    .min(1, "address is required")
+    .min(1, "address is required"),
+  instagram: z
+    .string({
+      invalid_type_error: "instagram must be a valid URL",
+      required_error: "Instagram Link is required"
+    })
+    .min(1, "Instagram Link is required")
+    .trim()
+    .refine((val) => val === "" || z.string().url().safeParse(val).success, {
+      message: "Instagram link must be a valid URL",
+    }),
+  teligram: z
+    .string({
+      invalid_type_error: "teligram must be a valid URL",
+      required_error: "Teligram Link is required"
+    })
+    .min(1, "Teligram Link is required")
+    .trim()
+    .refine((val) => val === "" || z.string().url().safeParse(val).success, {
+      message: "Teligram link must be a valid URL",
+    })
 });

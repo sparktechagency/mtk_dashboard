@@ -35,6 +35,22 @@ export default function InformationLoading() {
             <div className="h-4 bg-gray-200 rounded animate-pulse w-44"></div>
           </div>
         </div>
+        {/* Address */}
+        <div className="flex items-start space-x-3">
+          <div className="h-5 w-5 bg-red-200 rounded animate-pulse mt-0.5"></div>
+          <div className="flex-1 space-y-2">
+            <div className="h-4 bg-gray-200 rounded animate-pulse w-16"></div>
+            <div className="h-4 bg-gray-200 rounded animate-pulse w-44"></div>
+          </div>
+        </div>
+        {/* Address */}
+        <div className="flex items-start space-x-3">
+          <div className="h-5 w-5 bg-red-200 rounded animate-pulse mt-0.5"></div>
+          <div className="flex-1 space-y-2">
+            <div className="h-4 bg-gray-200 rounded animate-pulse w-16"></div>
+            <div className="h-4 bg-gray-200 rounded animate-pulse w-44"></div>
+          </div>
+        </div>
       </div>
     </div>
   )

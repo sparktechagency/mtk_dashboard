@@ -9,6 +9,7 @@ import { Edit } from "lucide-react";
 import { informationSchema } from "../../../schemas/information.schema";
 import type { IInformation } from "../../../types/information.type";
 import { useUpdateInformationMutation } from "../../../redux/features/information/informationApi";
+import CustomTextArea from "../../form/CustomTextArea";
 
 
 type TFormValues = z.infer<typeof informationSchema>;
@@ -51,6 +52,8 @@ const UpdateInformationModal = ({ information }: TProps) => {
           setValue("email", information.email);
           setValue("phone", information.phone);
           setValue("address", information.address);
+          setValue("instagram", information.instagram);
+          setValue("teligram", information.teligram);
           setModalOpen(false)
         }}
         maskClosable={false}
@@ -66,6 +69,8 @@ const UpdateInformationModal = ({ information }: TProps) => {
                 <CustomInput label="Email" name="email" type="text" control={control} placeholder="Enter email address"/>
                 <CustomInput label="Contact Number" name="phone" type="text" control={control} placeholder="Enter contact number"/>
                 <CustomInput label="Address" name="address" type="text" control={control} placeholder="Enter Address"/>
+                <CustomTextArea label="Instagram Link" name="instagram" control={control} placeholder="Enter instagram link"/>
+                <CustomTextArea label="Teligram Link" name="teligram" control={control} placeholder="Enter teligram link"/>
                 <div className="flex justify-end mt-4">
                   <button
                     type="submit"
@@ -83,7 +88,7 @@ const UpdateInformationModal = ({ information }: TProps) => {
                         Processing...
                       </>
                     ) : (
-                      "Save Change"
+                      "Save Changes"
                     )}
                   </button>
                 </div>
