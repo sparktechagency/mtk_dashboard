@@ -110,6 +110,28 @@ export const productApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    updateProductImg: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/product/update-product-img/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result, _success, arg) => {
+        if (result?.success) {
+          return [TagTypes.products, { type: TagTypes.product, id: arg.id }];
+        }
+        return [];
+      },
+      async onQueryStarted(_arg, { queryFulfilled }) {
+       try {
+          await queryFulfilled;
+          SuccessToast("Update Success");
+        } catch (err:any) {
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          ErrorToast(message);
+        }
+      },
+    }),
     deleteProduct: builder.mutation({
       query: (id) => ({
         url: `/product/delete-product/${id}`,
@@ -134,4 +156,4 @@ export const productApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetProductsQuery, useGetSingleProductQuery, useCreateProductMutation, useDeleteProductMutation, useChangeProductStatusMutation, useUpdateProductMutation } = productApi;
+export const { useGetProductsQuery, useGetSingleProductQuery, useCreateProductMutation, useUpdateProductImgMutation, useDeleteProductMutation, useChangeProductStatusMutation, useUpdateProductMutation } = productApi;

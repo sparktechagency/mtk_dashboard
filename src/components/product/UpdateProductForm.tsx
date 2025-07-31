@@ -9,8 +9,8 @@ import CustomSelect from "../form/CustomSelect";
 import CustomQuilEditor from "../form/CustomQuilEditor";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createProductValidationSchema } from "../../schemas/product.schema";
-import { useCreateProductMutation } from "../../redux/features/product/productApi";
+import { updateProductValidationSchema } from "../../schemas/product.schema";
+import { useUpdateProductMutation } from "../../redux/features/product/productApi";
 import { useGetCategoryDropDownQuery } from "../../redux/features/category/categoryApi";
 import CustomMultiSelect from "../form/CustomMultiSelect";
 import { useGetColorDropDownQuery } from "../../redux/features/color/colorApi";
@@ -18,7 +18,7 @@ import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
 import { stockStatusOptions } from "../../data/product.data";
 import type { ISingleProduct } from "../../types/product.type";
 
-type TFormValues = z.infer<typeof createProductValidationSchema>;
+type TFormValues = z.infer<typeof updateProductValidationSchema>;
 
 type TProps = {
     product: ISingleProduct
@@ -33,9 +33,9 @@ const UpdateProductForm = ({ product }: TProps) => {
   const { categoryOptions } = useAppSelector((state) => state.category);
   const { colorOptions } = useAppSelector((state) => state.color);
   const { sizeOptions } = useAppSelector((state) => state.size);
-  const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
+  const [ updateProduct, { isLoading, isSuccess }] = useUpdateProductMutation();
   const { handleSubmit, control } = useForm({
-    resolver: zodResolver(createProductValidationSchema),
+    resolver: zodResolver(updateProductValidationSchema),
       defaultValues: {
           name: product?.name,
           categoryId: product?.categoryId,
@@ -53,35 +53,17 @@ const UpdateProductForm = ({ product }: TProps) => {
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
-      navigate("/blogs")
+      //navigate("/blogs")
     }
   }, [isLoading, isSuccess, navigate])
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    const { colors, sizes, ...rest } = data;
-
-    // if (selectedFiles?.length === 0) {
-    //   ErrorToast("Select minimum one image")
-    // } else {
-
-    //   const formData = new FormData();
-    //   Object.keys(rest).forEach((key) => {
-    //     const value = rest[key as keyof typeof rest];
-    //     if (value !== undefined && value !== null) {
-    //       formData.append(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
-    //     }
-    //   });
-
-    //   if (colors) {
-    //     colors?.forEach((colorId) => formData.append("colors", colorId))
-    //   }
-    //   if (sizes) {
-    //     sizes?.forEach((sizeId) => formData.append("sizes", sizeId))
-    //   }
-    //   selectedFiles.forEach((file) => formData.append("image", file));
-    //   createProduct(formData);
-    // }
+    console.log(data)
+    updateProduct({
+        id: product?._id,
+        data
+    })
   };
 
   return (
@@ -166,14 +148,14 @@ const UpdateProductForm = ({ product }: TProps) => {
           name="introduction"
           control={control}
           height={40}
-          placeholder="Write a blog..."
+          placeholder="Write a short intro..."
         />
         <CustomQuilEditor
           label="Description"
           name="description"
           control={control}
           height={250}
-          placeholder="Write a blog..."
+          placeholder="Write a description..."
         />
 
         <button

@@ -166,10 +166,10 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       dataIndex: "_id",
       key: "_id",
       width: "5%",
-      render: (blogId: string) => (
+      render: (productId: string) => (
         <div className="flex items-center gap-2">
           <Link
-            to={`/update-product/${blogId}`}
+            to={`/product-details/${productId}`}
             className="bg-gray-600 hover:bg-gray-700 p-2 text-white rounded-full"
           >
             <Eye size={18} />

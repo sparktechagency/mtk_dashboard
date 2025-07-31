@@ -28,6 +28,7 @@ import InformationPage from "../pages/dashboard/InformationPage";
 import ProductsPage from "../pages/product/ProductsPage";
 import CreateProductPage from "../pages/product/CreateProductPage";
 import UpdateProductPage from "../pages/product/UpdateProductPage";
+import ProductDetailsPage from "../pages/product/ProductDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
       {
         path: "update-product/:id",
         element: <UpdateProductPage />,
+      },
+      {
+        path: "product-details/:id",
+        element: <ProductDetailsPage />,
       },
       {
         path: "profile",

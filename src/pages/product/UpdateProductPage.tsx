@@ -34,7 +34,7 @@ const UpdateProductPage = () => {
                 </h1>
               </div>
               <div className="flex-1 overflow-hidden p-4 space-y-8">
-                <UpdateImagePreview />
+                <UpdateImagePreview product={product}/>
                 <UpdateProductForm product={product}/>
               </div>
             </div>
