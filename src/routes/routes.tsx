@@ -13,7 +13,6 @@ import PrivacyPolicyPage from "../pages/settings/PrivacyPolicyPage";
 import TermsConditionPage from "../pages/settings/TermsConditionPage";
 import JobDetailsPage from "../pages/dashboard/JobDetailsPage";
 import JobPostsPage from "../pages/dashboard/JobPostsPage";
-import EditBlogPage from "../pages/dashboard/EditBlogPage";
 import ProfilePage from "../pages/settings/ProfilePage";
 import ChangePasswordPage from "../pages/settings/ChangePasswordPage";
 import PrivateRoute from "./PrivateRoute";
@@ -28,7 +27,7 @@ import SizesPage from "../pages/dashboard/SizesPage";
 import InformationPage from "../pages/dashboard/InformationPage";
 import ProductsPage from "../pages/product/ProductsPage";
 import CreateProductPage from "../pages/product/CreateProductPage";
-import NotFoundRoute from "./NotFoundRoute";
+import UpdateProductPage from "../pages/product/UpdateProductPage";
 
 const router = createBrowserRouter([
   {
@@ -92,8 +91,8 @@ const router = createBrowserRouter([
         element: <CreateProductPage />,
       },
       {
-        path: "update-blog/:id",
-        element: <EditBlogPage />,
+        path: "update-product/:id",
+        element: <UpdateProductPage />,
       },
       {
         path: "profile",
@@ -157,8 +156,8 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    // element: <h1>This is Not Found Page</h1>
-    element: <NotFoundRoute/>,
+    element: <h1>This is Not Found Page</h1>
+    // element: <NotFoundRoute/>,
   },
 ]);
 

@@ -182,15 +182,15 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       dataIndex: "_id",
       key: "action",
       width: "7%",
-      render: (blogId: string) => (
+      render: (productId: string) => (
         <div className="flex items-center gap-2">
-          <button
-            // to={`/update-product/${blogId}`}
+          <Link
+            to={`/update-product/${productId}`}
             className="bg-green-600 hover:bg-green-700 p-2 text-white rounded-full"
           >
             <Edit size={18} />
-          </button>
-          <DeleteBlogModal blogId={blogId} />
+          </Link>
+          <DeleteBlogModal blogId={productId} />
         </div>
       ),
     },

@@ -5,8 +5,7 @@ import { ErrorToast, SuccessToast } from "../../../helper/ValidationHelper";
 import type { IParam } from "../../../types/global.type";
 import type { ISize } from "../../../types/size.type";
 import { apiSlice } from "../api/apiSlice";
-import { SetCategoryCreateError, SetCategoryUpdateError } from "../category/categorySlice";
-import { SetSizeOptions } from "./sizeSlice";
+import { SetSizeCreateError, SetSizeOptions } from "./sizeSlice";
 
 export const sizeApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -43,15 +42,15 @@ export const sizeApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    createCategory: builder.mutation({
+    createSize: builder.mutation({
       query: (data) => ({
-        url: "/category/create-category",
+        url: "/size/create-size",
         method: "POST",
         body: data,
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories];
+          return [TagTypes.sizes];
         }
         return [];
       },
@@ -61,47 +60,25 @@ export const sizeApi = apiSlice.injectEndpoints({
           SuccessToast("Category is added successfully");
         } catch (err: any) {
           const message = err?.error?.data?.message || "Something Went Wrong";
-          dispatch(SetCategoryCreateError(message));
+          dispatch(SetSizeCreateError(message));
         }
       },
     }),
-    updateCategory: builder.mutation({
-      query: ({id, data }) => ({
-        url: `/category/update-category/${id}`,
-        method: "PATCH",
-        body: data,
-      }),
-      invalidatesTags: (result) => {
-        if (result?.success) {
-          return [TagTypes.categories];
-        }
-        return [];
-      },
-      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
-        try {
-          await queryFulfilled;
-          SuccessToast("Category is updated successfully");
-        } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          dispatch(SetCategoryUpdateError(message));
-        }
-      },
-    }),
-    deleteCategory: builder.mutation({
+    deleteSize: builder.mutation({
       query: (id) => ({
-        url: `/category/delete-category/${id}`,
+        url: `/size/delete-size/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories];
+          return [TagTypes.sizes];
         }
         return [];
       },
       async onQueryStarted(_arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Category is deleted successfully");
+          SuccessToast("Size is deleted successfully");
         } catch (err: any) {
           const message = err?.error?.data?.message || "Something went wrong";
           ErrorToast(message);
@@ -111,4 +88,4 @@ export const sizeApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetSizesQuery, useCreateCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation } = sizeApi;
+export const { useGetSizesQuery, useCreateSizeMutation, useDeleteSizeMutation } = sizeApi;

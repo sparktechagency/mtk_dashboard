@@ -7,7 +7,7 @@ const CreateProductPage = () => {
         <div className="bg-white rounded-lg shadow h-full overflow-hidden">
           <div className="w-full h-full flex flex-col">
             <div className="p-4 flex justify-between">
-              <h1 className="text-xl font-medium text-gray-900">
+              <h1 className="text-xl font-semibold text-gray-900">
                 Add New Product
               </h1>
             </div>

@@ -33,14 +33,14 @@ export const informationSchema = z.object({
     .refine((val) => val === "" || z.string().url().safeParse(val).success, {
       message: "Instagram link must be a valid URL",
     }),
-  teligram: z
+  telegram: z
     .string({
-      invalid_type_error: "teligram must be a valid URL",
-      required_error: "Teligram Link is required"
+      invalid_type_error: "telegram must be a valid URL",
+      required_error: "Telegram Link is required"
     })
-    .min(1, "Teligram Link is required")
+    .min(1, "Telegram Link is required")
     .trim()
     .refine((val) => val === "" || z.string().url().safeParse(val).success, {
-      message: "Teligram link must be a valid URL",
+      message: "Telegram link must be a valid URL",
     })
 });

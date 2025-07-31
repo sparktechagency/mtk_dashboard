@@ -1,6 +1,7 @@
 import { Table, ConfigProvider, Pagination } from "antd";
 import type { IMeta } from "../../types/global.type";
 import type { ISize } from "../../types/size.type";
+import DeleteSizeModal from "../modal/size/DeleteSizeModal";
 
 
 
@@ -55,12 +56,9 @@ const SizeTable = ({
       dataIndex: "_id",
       key: "action",
       width: "15%",
-      // render: (val: string, record: ICategory) => (
-      //   <div className="flex items-center gap-3">
-      //     <EditCategoryModal category={record} />
-      //     <DeleteCategoryModal categoryId={val} />
-      //   </div>
-      // ),
+      render: (val: string) => (  
+          <DeleteSizeModal sizeId={val} />
+      ),
     },
   ];
 

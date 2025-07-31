@@ -4,5 +4,5 @@ export type IInformation = {
     phone: string;
     address: string;
     instagram: string;
-    teligram: string;
+    telegram: string;
 }

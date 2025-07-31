@@ -1,4 +1,4 @@
-import CreateCategoryModal from "../../components/modal/category/CreateCategoryModal"
+import CreateSizeModal from "../../components/modal/size/CreateSizeModal"
 import SizeList from "../../components/size/SizeList"
 
 const SizesPage = () => {
@@ -11,7 +11,7 @@ const SizesPage = () => {
               <h1 className="text-xl font-medium text-gray-800">
                 Size List
               </h1>
-              <CreateCategoryModal/>
+              <CreateSizeModal/>
             </div>
             <div className="flex-1 overflow-hidden">
               <SizeList />

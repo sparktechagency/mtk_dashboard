@@ -1,29 +1,34 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
+import { useUpdateCategoryMutation } from "../../../redux/features/category/categoryApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { categorySchema } from "../../../schemas/category.schema";
 import type { z } from "zod";
 import CustomInput from "../../form/CustomInput";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { SetCategoryUpdateError } from "../../../redux/features/category/categorySlice";
+import Error from "../../validation/Error";
 import { Edit } from "lucide-react";
-import { informationSchema } from "../../../schemas/information.schema";
-import type { IInformation } from "../../../types/information.type";
-import { useUpdateInformationMutation } from "../../../redux/features/information/informationApi";
-import CustomTextArea from "../../form/CustomTextArea";
 
 
-type TFormValues = z.infer<typeof informationSchema>;
+type TFormValues = z.infer<typeof categorySchema>;
 
 type TProps = {
-  information: IInformation
+    productId: string
 }
 
-const UpdateInformationModal = ({ information }: TProps) => {
+const UpdateProductImageModal = ({ productId }: TProps) => {
+  const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
-  const [ updateInformation, { isLoading, isSuccess }] = useUpdateInformationMutation();
+  const { CategoryUpdateError } = useAppSelector((state) => state.category);
+  const [ updateCategory, { isLoading, isSuccess }] = useUpdateCategoryMutation();
   const { handleSubmit, control, setValue} = useForm<TFormValues>({
-    resolver: zodResolver(informationSchema),
-    defaultValues: information
+    resolver: zodResolver(categorySchema),
+    defaultValues: {
+      name: "name"
+    }
   });
 
 
@@ -37,23 +42,21 @@ const UpdateInformationModal = ({ information }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    updateInformation(data);
+    dispatch(SetCategoryUpdateError(""));
+    updateCategory({
+      id: productId,
+      data
+    });
   };
 
   return (
     <>
-      <button onClick={() => setModalOpen(true)} className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
-        <Edit size={18} />
-      </button>
+      <Edit onClick={() => setModalOpen(true)} className="w-4 h-4 text-red-600 cursor-pointer" />
 
       <Modal
         open={modalOpen}
         onCancel={() => {
-          setValue("email", information.email);
-          setValue("phone", information.phone);
-          setValue("address", information.address);
-          setValue("instagram", information.instagram);
-          setValue("telegram", information.telegram);
+          setValue("name", "name");
           setModalOpen(false)
         }}
         maskClosable={false}
@@ -63,14 +66,17 @@ const UpdateInformationModal = ({ information }: TProps) => {
           <div className="bg-white rounded-xl overflow-hidden transition-all duration-300">
             <div className="p-2">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                Update Information
+                Update Category
               </h2>
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <CustomInput label="Email" name="email" type="text" control={control} placeholder="Enter email address"/>
-                <CustomInput label="Contact Number" name="phone" type="text" control={control} placeholder="Enter contact number"/>
-                <CustomInput label="Address" name="address" type="text" control={control} placeholder="Enter Address"/>
-                <CustomTextArea label="Instagram Link" name="instagram" control={control} placeholder="Enter instagram link"/>
-                <CustomTextArea label="Telegram Link" name="telegram" control={control} placeholder="Enter teligram link"/>
+               {CategoryUpdateError && <Error message={CategoryUpdateError} />}
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <CustomInput
+                  label="Title"
+                  name="name"
+                  type="text"
+                  control={control}
+                  placeholder="Enter title"
+                />
                 <div className="flex justify-end mt-4">
                   <button
                     type="submit"
@@ -88,7 +94,7 @@ const UpdateInformationModal = ({ information }: TProps) => {
                         Processing...
                       </>
                     ) : (
-                      "Save Changes"
+                      "Save Change"
                     )}
                   </button>
                 </div>
@@ -101,4 +107,4 @@ const UpdateInformationModal = ({ information }: TProps) => {
   );
 };
 
-export default UpdateInformationModal;
+export default UpdateProductImageModal;

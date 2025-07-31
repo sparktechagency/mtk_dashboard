@@ -7,7 +7,7 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import type { z } from "zod";
 import CustomSelect from "../form/CustomSelect";
 import CustomQuilEditor from "../form/CustomQuilEditor";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createProductValidationSchema } from "../../schemas/product.schema";
 import { useCreateProductMutation } from "../../redux/features/product/productApi";
@@ -15,25 +15,40 @@ import { useGetCategoryDropDownQuery } from "../../redux/features/category/categ
 import CustomMultiSelect from "../form/CustomMultiSelect";
 import { useGetColorDropDownQuery } from "../../redux/features/color/colorApi";
 import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
-import ProductImageField from "./ProductImageField";
 import { stockStatusOptions } from "../../data/product.data";
-import { ErrorToast } from "../../helper/ValidationHelper";
+import type { ISingleProduct } from "../../types/product.type";
 
 type TFormValues = z.infer<typeof createProductValidationSchema>;
 
+type TProps = {
+    product: ISingleProduct
+}
 
-const CreateProductForm = () => {
+const UpdateProductForm = ({ product }: TProps) => {
   const navigate = useNavigate();
+  const defaultColors = product?.colors?.length > 0 ? product?.colors?.map((cv) => cv._id) : []
   useGetCategoryDropDownQuery(undefined);
-  useGetColorDropDownQuery(undefined);
+  const {isLoading: isColorLoading} = useGetColorDropDownQuery(undefined);
   useGetSizesQuery(undefined);
   const { categoryOptions } = useAppSelector((state) => state.category);
   const { colorOptions } = useAppSelector((state) => state.color);
   const { sizeOptions } = useAppSelector((state) => state.size);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(createProductValidationSchema),
+      defaultValues: {
+          name: product?.name,
+          categoryId: product?.categoryId,
+          currentPrice: String(product.currentPrice),
+          originalPrice: String(product.originalPrice),
+          discount: product?.discount,
+          colors: defaultColors,
+          sizes: product?.sizes?.length > 0 ? product?.sizes?.map((cv) => cv._id) : [],
+          status: product?.status,
+          stockStatus: product?.stockStatus,
+          introduction: product?.introduction,
+          description: product?.description
+      }
   });
 
   useEffect(() => {
@@ -46,27 +61,27 @@ const CreateProductForm = () => {
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
     const { colors, sizes, ...rest } = data;
 
-    if (selectedFiles?.length === 0) {
-      ErrorToast("Select minimum one image")
-    } else {
+    // if (selectedFiles?.length === 0) {
+    //   ErrorToast("Select minimum one image")
+    // } else {
 
-      const formData = new FormData();
-      Object.keys(rest).forEach((key) => {
-        const value = rest[key as keyof typeof rest];
-        if (value !== undefined && value !== null) {
-          formData.append(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
-        }
-      });
+    //   const formData = new FormData();
+    //   Object.keys(rest).forEach((key) => {
+    //     const value = rest[key as keyof typeof rest];
+    //     if (value !== undefined && value !== null) {
+    //       formData.append(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
+    //     }
+    //   });
 
-      if (colors) {
-        colors?.forEach((colorId) => formData.append("colors", colorId))
-      }
-      if (sizes) {
-        sizes?.forEach((sizeId) => formData.append("sizes", sizeId))
-      }
-      selectedFiles.forEach((file) => formData.append("image", file));
-      createProduct(formData);
-    }
+    //   if (colors) {
+    //     colors?.forEach((colorId) => formData.append("colors", colorId))
+    //   }
+    //   if (sizes) {
+    //     sizes?.forEach((sizeId) => formData.append("sizes", sizeId))
+    //   }
+    //   selectedFiles.forEach((file) => formData.append("image", file));
+    //   createProduct(formData);
+    // }
   };
 
   return (
@@ -98,7 +113,7 @@ const CreateProductForm = () => {
             }}
           />
           <CustomInput
-            label="Old Price(optional)"
+            label="Original Price(optional)"
             name="originalPrice"
             type="text"
             control={control}
@@ -108,10 +123,8 @@ const CreateProductForm = () => {
             }}
           />
         </div>
-
-        <ProductImageField selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles}/>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <CustomMultiSelect name="colors" label="Colors (Optional)" control={control} options={colorOptions} disabled={colorOptions?.length === 0} />
+          <CustomMultiSelect name="colors" label="Colors (Optional)" control={control} options={colorOptions} disabled={isColorLoading || colorOptions?.length === 0} />
           <CustomMultiSelect name="sizes" label="Sizes (Optional)" control={control} options={sizeOptions} disabled={sizeOptions?.length === 0} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -129,12 +142,14 @@ const CreateProductForm = () => {
                 value: "hidden"
               }
             ]}
+            blankOption={false}
           />
           <CustomSelect
             label="Stock Status (Optional)"
             name="stockStatus"
             control={control}
             options={stockStatusOptions}
+            blankOption={false}
             />
           <CustomInput
             label="Discount (Optional)"
@@ -171,7 +186,7 @@ const CreateProductForm = () => {
               Processing...
             </>
           ) : (
-            "Add Product"
+            "Save Changes"
           )}
         </button>
       </form>
@@ -179,4 +194,4 @@ const CreateProductForm = () => {
   );
 };
 
-export default CreateProductForm;
+export default UpdateProductForm;
