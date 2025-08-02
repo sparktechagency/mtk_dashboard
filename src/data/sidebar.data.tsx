@@ -4,19 +4,21 @@ import {
   } from '@ant-design/icons';
 import { MdCategory, MdContactPhone, MdSubscriptions } from "react-icons/md";
 import { PiResize, PiStudentBold } from "react-icons/pi";
-import { GrUserAdmin } from "react-icons/gr";
+import { GrUserAdmin, GrCircleInformation } from "react-icons/gr";
 import { IoIosColorFilter } from "react-icons/io";
 import { RiProductHuntLine } from "react-icons/ri";
+import { PiInvoiceBold } from "react-icons/pi";
+
 export const menuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
-  { path: "/orders", label: "Orders", icon: GrUserAdmin },
+  { path: "/orders", label: "Orders", icon: PiInvoiceBold },
   { path: "/admins", label: "Admins", icon: GrUserAdmin },
   { path: "/users", label: "Users", icon: PiStudentBold },
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/colors", label: "Colors", icon: IoIosColorFilter },
   { path: "/sizes", label: "Sizes", icon: PiResize },
   { path: "/products", label: "Products", icon: RiProductHuntLine },
-  { path: "/information", label: "Contact Information", icon: MdContactPhone },
+  { path: "/information", label: "Contact Information", icon: GrCircleInformation },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
   {
     path: "",
