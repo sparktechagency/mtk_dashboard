@@ -30,6 +30,7 @@ import CreateProductPage from "../pages/product/CreateProductPage";
 import UpdateProductPage from "../pages/product/UpdateProductPage";
 import ProductDetailsPage from "../pages/product/ProductDetailsPage";
 import OrdersPage from "../pages/order/OrdersPage";
+import OrderDetailsPage from "../pages/order/OrderDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "orders",
         element: <OrdersPage />,
+      },
+      {
+        path: "order-details/:id",
+        element: <OrderDetailsPage />,
       },
       {
         path: "admins",

@@ -27,36 +27,14 @@ export const orderApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.orders],
     }),
-    createProduct: builder.mutation({
-      query: (data) => ({
-        url: "/product/create-product",
-        method: "POST",
-        body: data,
-      }),
-      invalidatesTags: (result) => {
-        if (result?.success) {
-          return [TagTypes.products];
-        }
-        return [];
-      },
-      async onQueryStarted(_arg, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          SuccessToast("Product is created successfully");
-        } catch (err: any) {
-          const message = err?.error?.data?.message || "Something Went Wrong";    
-          ErrorToast(message);
-        }
-      },
-    }),
-    getSingleProduct: builder.query({
+    getSingleOrder: builder.query({
       query: (id) => ({
-        url: `/product/get-single-product/${id}`,
+        url: `/order/get-single-order/${id}`,
         method: "GET",
       }),
       keepUnusedDataFor: 600,
       providesTags: (_result, _error, arg) => [
-        { type: TagTypes.product, id: arg },
+        { type: TagTypes.order, id: arg },
       ],
       async onQueryStarted(_arg, { queryFulfilled }) {
         try {
@@ -156,4 +134,4 @@ export const orderApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetOrdersQuery, useGetSingleProductQuery, useCreateProductMutation, useUpdateProductImgMutation, useDeleteProductMutation, useChangeProductStatusMutation, useUpdateOrderMutation } = orderApi;
+export const { useGetOrdersQuery, useGetSingleOrderQuery, useUpdateProductImgMutation, useDeleteProductMutation, useChangeProductStatusMutation, useUpdateOrderMutation } = orderApi;

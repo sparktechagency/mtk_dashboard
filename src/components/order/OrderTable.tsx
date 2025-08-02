@@ -94,10 +94,10 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       dataIndex: "_id",
       key: "_id",
       width: "5%",
-      render: (productId: string) => (
+      render: (orderId: string) => (
         <div className="flex items-center gap-2">
           <Link
-            to={`/orders?productId=${productId}`}
+            to={`/order-details/${orderId}`}
             className="bg-gray-600 hover:bg-gray-700 p-2 text-white rounded-full"
           >
             <Eye size={18} />

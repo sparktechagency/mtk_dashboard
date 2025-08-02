@@ -27,3 +27,27 @@ export type TOrderDataSource = {
   paymentStatus: TPaymentStatus; 
   createdAt: string; 
 }
+
+
+export type TOrderProduct = {
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  total: number;
+  image: string;
+  colorName?: string;
+  colorHexCode?: string;
+  size?: string;
+};
+
+export type ISingleOrder = {
+  _id: string;
+  token: string;
+  totalPrice: number;
+  paymentStatus: TPaymentStatus;
+  status: TDeliveryStatus;
+  deliveryAt: string | null;
+  createdAt: string;
+  products: TOrderProduct[];
+};

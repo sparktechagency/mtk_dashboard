@@ -22,7 +22,6 @@ const ProductDetailsPage = () => {
   }
 
   if (!isLoading && !isError && product?._id) {
-
     return (
       <>
         <ProductDetails product={product}/>

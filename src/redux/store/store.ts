@@ -3,7 +3,6 @@ import jobSliceReducer from "../features/job/jobSlice";
 import { apiSlice } from "../features/api/apiSlice";
 import authSliceReducer from "../features/auth/authSlice";
 import categorySliceReducer from "../features/category/categorySlice";
-import blogSliceReducer from "../features/blog/blogSlice";
 import adminSliceReducer from "../features/admin/adminSlice";
 import userSliceReducer from "../features/user/userSlice";
 import colorSliceSliceReducer from "../features/color/colorSlice";
@@ -15,7 +14,6 @@ export const store = configureStore({
     auth: authSliceReducer,
     job: jobSliceReducer,
     category: categorySliceReducer,
-    blog: blogSliceReducer,
     admin: adminSliceReducer,
     user: userSliceReducer,
     color: colorSliceSliceReducer,
