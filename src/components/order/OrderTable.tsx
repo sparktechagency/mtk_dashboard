@@ -1,17 +1,14 @@
 import { Table, ConfigProvider, Pagination } from "antd";
-import { Edit, Eye } from "lucide-react";
-import DeleteBlogModal from "../modal/blog/DeleteBlogModal";
+import { Eye } from "lucide-react";
 import type { IMeta } from "../../types/global.type";
 import { Link } from "react-router-dom";
-import blog_placeholder from "../../assets/images/blog_placeholder.png";
-import type { IProduct, TProductDataSource, TProductStatus, TStockStatus } from "../../types/product.type";
-import { FaStar } from "react-icons/fa";
-import ChangeProductStatusModal from "../modal/product/ChangeProductStatusModal";
-import ChangeStockStatusModal from "../modal/product/ChangeStockStatusModal";
+import type { IOrder, TDeliveryStatus, TOrderDataSource } from "../../types/order.type";
+import StatusBadge from "./StatusBadge";
+import ChangeOrderStatusModal from "../modal/order/ChangeOrderStatusModal";
 
 
 type TProps = {
-  products: IProduct[];
+  orders: IOrder[];
   meta: IMeta,
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
@@ -20,20 +17,19 @@ type TProps = {
 };
 
 
-const OrderTable = ({ products, meta, currentPage, setCurrentPage, pageSize, setPageSize }: TProps) => {
+const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPageSize }: TProps) => {
 
-  const dataSource: TProductDataSource[] = products?.map((product, index) => ({
+  const dataSource: TOrderDataSource[] = orders?.map((order, index) => ({
     key: index,
     serial: Number(index + 1) + ((currentPage - 1) * pageSize),
-    _id: product?._id,
-    name: product?.name,
-    categoryName: product?.categoryName,
-    currentPrice: product?.currentPrice,
-    originalPrice: product?.originalPrice,
-    image: product?.images?.length > 0 ? product?.images[0] : blog_placeholder,
-    ratings: product?.ratings,
-    status: product?.status,
-    stockStatus: product?.stockStatus
+    _id: order?._id,
+    token: order?.token,
+    fullName: order?.fullName,
+    email: order?.email,
+    phone: order?.phone,
+    status: order?.status,
+    paymentStatus: order?.paymentStatus,
+    createdAt: order?.createdAt
   }));
 
 
@@ -46,9 +42,20 @@ const OrderTable = ({ products, meta, currentPage, setCurrentPage, pageSize, set
       width: "3%",
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "title",
+      title: "Token",
+      dataIndex: "token",
+      key: "token",
+      width: "8%",
+      render: (text: string) => (
+        <>
+          <p className="font-bold">{text}</p>
+        </>
+      ),
+    },
+    {
+      title: "Customer",
+      dataIndex: "fullName",
+      key: "fullName",
       width: "12.5%",
       render: (text: string) => (
         <>
@@ -57,109 +64,30 @@ const OrderTable = ({ products, meta, currentPage, setCurrentPage, pageSize, set
       ),
     },
     {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      width: "7.5%",
-      render: (val: string) => (
-        <>
-          {/* <img src={val} alt="icon" className="w-12 h-12 rounded-md" /> */}
-          <img
-            src={val}
-            alt="profile"
-            className="w-[45px] h-[45px] rounded-lg"
-            onError={(e) => {
-              e.currentTarget.onerror = null;
-              e.currentTarget.src = blog_placeholder;
-            }}
-          />
-        </>
-      ),
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      width: "22.5%",
     },
     {
-      title: "Category",
-      dataIndex: "categoryName",
-      key: "categoryName",
-      width: "7%",
-    },
-    {
-      title: "Price",
-      dataIndex: "currentPrice",
-      key: "currentPrice",
-      width: "5%",
-      align: 'center' as const
-    },
-    {
-      title: "Original Price",
-      dataIndex: "originalPrice",
-      key: "originalPrice",
-      width: "7%",
-      align: 'center' as const
-    },
-    {
-      title: "Ratings",
-      dataIndex: "ratings",
-      key: "ratings",
-      width: "5%",
-      render: (value: number) => (
-        <>
-          <div className="flex items-center gap-1 justify-center">
-            <FaStar className="text-yellow-500" size={18} />
-            <span>{value}</span>
-          </div>
-        </>
-      )
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+      width: "12.5%",
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
       width: "10%",
-      render: (status: TProductStatus, record: TProductDataSource) => {
-        const statusStyles = {
-          hidden: "bg-red-100 text-red-700 border border-red-300",
-          visible: "bg-green-100 text-green-700 border border-green-300",
-        };
-
-        const bgColor = status === "visible" ? statusStyles.visible : statusStyles.hidden;
-
+      render: (status: TDeliveryStatus, record: IOrder) => {
         return (
           <div className="flex items-center gap-2">
-            <button
-              className={`${bgColor} capitalize w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
-            >
-              {status}
-            </button>
-            <ChangeProductStatusModal productId={record?._id} status={status} />
+             <StatusBadge status={status}/>
+            <ChangeOrderStatusModal orderId={record?._id} status={status} />
           </div>
         );
       },
-    },
-    {
-      title: "Stock Status",
-      dataIndex: "stockStatus",
-      key: "stockStatus",
-      width: "10%",
-      render: (status: TStockStatus, record: TProductDataSource) => {
-        const statusStyles = {
-          in_stock: "bg-blue-100 text-blue-800 border border-blue-300",
-          stock_out: "bg-gray-200 text-gray-700 border border-gray-400",
-          up_coming: "bg-yellow-100 text-yellow-800 border border-yellow-300",
-        };
-
-        const bgColor = statusStyles[status] || "bg-neutral-100 text-neutral-700 border";
-
-        return (
-          <div className="flex items-center gap-2">
-            <button
-              className={`${bgColor} capitalize w-28 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
-            >
-              {status.replace("_", " ")}
-            </button>
-            <ChangeStockStatusModal productId={record?._id} stockStatus={status} />
-          </div>
-        );
-      }
     },
     {
       title: "View",
@@ -169,7 +97,7 @@ const OrderTable = ({ products, meta, currentPage, setCurrentPage, pageSize, set
       render: (productId: string) => (
         <div className="flex items-center gap-2">
           <Link
-            to={`/product-details/${productId}`}
+            to={`/orders?productId=${productId}`}
             className="bg-gray-600 hover:bg-gray-700 p-2 text-white rounded-full"
           >
             <Eye size={18} />
@@ -177,23 +105,17 @@ const OrderTable = ({ products, meta, currentPage, setCurrentPage, pageSize, set
         </div>
       ),
     },
-    {
-      title: "Action",
-      dataIndex: "_id",
-      key: "action",
-      width: "7%",
-      render: (productId: string) => (
-        <div className="flex items-center gap-2">
-          <Link
-            to={`/update-product/${productId}`}
-            className="bg-green-600 hover:bg-green-700 p-2 text-white rounded-full"
-          >
-            <Edit size={18} />
-          </Link>
-          <DeleteBlogModal blogId={productId} />
-        </div>
-      ),
-    },
+    // {
+    //   title: "Action",
+    //   dataIndex: "_id",
+    //   key: "action",
+    //   width: "7%",
+    //   render: (productId: string) => (
+    //     <div className="flex items-center gap-2">
+    //       <DeleteBlogModal blogId={productId} />
+    //     </div>
+    //   ),
+    // },
   ];
 
 

@@ -4,27 +4,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import type { z } from "zod";
 import { CgSpinnerTwo } from "react-icons/cg";
-import type { TStockStatus } from "../../../types/product.type";
-import { useChangeProductStatusMutation } from "../../../redux/features/product/productApi";
 import { FiEdit } from "react-icons/fi";
 import CustomSelect from "../../form/CustomSelect";
-import { stockStatusOptions } from "../../../data/product.data";
-import { stockStatusSchema } from "../../../schemas/product.schema";
+import { orderStatusOptions } from "../../../data/order.data";
+import type { TDeliveryStatus } from "../../../types/order.type";
+import { orderStatusSchema } from "../../../schemas/order.schema";
+import { useUpdateOrderMutation } from "../../../redux/features/order/orderApi";
 
-type TFormValues = z.infer<typeof stockStatusSchema>;
+type TFormValues = z.infer<typeof orderStatusSchema>;
 
 type TProps = {
-    productId: string;
-    stockStatus: TStockStatus;
+    orderId: string;
+    status: TDeliveryStatus;
 }
 
-const ChangeStockStatusModal = ({ productId, stockStatus }: TProps) => {
+const ChangeOrderStatusModal = ({ orderId, status }: TProps) => {
     const [modalOpen, setModalOpen] = useState(false);
-    const [changeStatus, { isLoading, isSuccess }] = useChangeProductStatusMutation();
+    const [changeStatus, { isLoading, isSuccess }] = useUpdateOrderMutation();
     const { handleSubmit, control } = useForm<TFormValues>({
-        resolver: zodResolver(stockStatusSchema),
+        resolver: zodResolver(orderStatusSchema),
         defaultValues: {
-            stockStatus
+            status
         }
     });
 
@@ -39,7 +39,7 @@ const ChangeStockStatusModal = ({ productId, stockStatus }: TProps) => {
 
     const onSubmit: SubmitHandler<TFormValues> = (data) => {
         changeStatus({
-            id: productId,
+            id: orderId,
             data
         });
     };
@@ -66,14 +66,14 @@ const ChangeStockStatusModal = ({ productId, stockStatus }: TProps) => {
                     <div className="bg-white rounded-xl overflow-hidden transition-all duration-300">
                         <div className="p-2">
                             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                                Update Stock Status
+                                Update Order Status
                             </h2>
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <CustomSelect
-                                    label="Stock Status"
-                                    name="stockStatus"
+                                    label="Status"
+                                    name="status"
                                     control={control}
-                                    options={stockStatusOptions}
+                                    options={orderStatusOptions}
                                     blankOption={false}
                                 />
                                 <div className="flex justify-end mt-4">
@@ -105,4 +105,4 @@ const ChangeStockStatusModal = ({ productId, stockStatus }: TProps) => {
     );
 };
 
-export default ChangeStockStatusModal;
+export default ChangeOrderStatusModal;

@@ -1,6 +1,6 @@
 import type { ISingleProduct } from "../../types/product.type";
 import UpdateProductImageModal from "../modal/product/UpdateProductImageModal";
-import blog_placeholder from "../../assets/images/blog_placeholder.png";
+import product_placeholder from "../../assets/images/product_placeholder.png";
 
 
 type TProps = {
@@ -25,10 +25,10 @@ const UpdateImagePreview = ({ product }: TProps) => {
                             <div key={index} className="relative group">
                                 <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
                                     <img
-                                        src={imgUrl || blog_placeholder}
+                                        src={imgUrl || product_placeholder}
                                         onError={(e) => {
                                             e.currentTarget.onerror = null;
-                                            e.currentTarget.src = blog_placeholder;
+                                            e.currentTarget.src = product_placeholder;
                                         }}
                                         alt={`Preview ${index + 1}`}
                                         className="w-full h-full object-cover"

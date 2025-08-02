@@ -4,15 +4,10 @@ const TagTypes = {
     categories: "Categories",
     me: "Me",
     faq: "Faq",
-    termsConditions: "TermsConditions",
-    privacyPolicy: "PrivacyPolicy",
-    aboutUs: "AboutUs",
     help: "Help",
     total: "Total",
     userGrowth: "UserGrowth",
     packges: "Packages",
-    blogs: "Blogs",
-    blog: "Blog",
     candidates: "Candidates",
     employers: "Employers",
     stats: "Stats",
@@ -29,7 +24,9 @@ const TagTypes = {
     product: "Product",
     sizes: "Sizes",
     colorDropDown: "ColorDropDown",
-    policy: "Policy"
+    policy: "Policy",
+    orders: "Orders",
+    order: "Order"
 }
 
 export default TagTypes;

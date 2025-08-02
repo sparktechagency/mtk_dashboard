@@ -3,27 +3,27 @@ import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { useDeleteBlogMutation } from "../../../redux/features/blog/blogApi";
+import { useDeleteProductMutation } from "../../../redux/features/product/productApi";
 
 type TProps = {
-  blogId: string;
+  productId: string;
 };
 
-const DeleteBlogModal = ({ blogId }: TProps) => {
+const DeleteProductModal = ({ productId }: TProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [deleteBlog, { isLoading, isSuccess }] =
-    useDeleteBlogMutation();
+  const [deleteProduct, { isLoading, isSuccess }] =
+    useDeleteProductMutation();
 
   useEffect(() => {
-    if (!isLoading && isSuccess) {
+    if (!isLoading) {
       setModalOpen(false);
     }
   }, [isLoading, isSuccess]);
 
 
   const handleDelete = () => {
-    deleteBlog(blogId);
+    deleteProduct(productId);
   };
 
   return (
@@ -78,4 +78,4 @@ const DeleteBlogModal = ({ blogId }: TProps) => {
   );
 };
 
-export default DeleteBlogModal;
+export default DeleteProductModal;

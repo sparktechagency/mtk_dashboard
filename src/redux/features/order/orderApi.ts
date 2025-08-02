@@ -7,7 +7,7 @@ import { apiSlice } from "../api/apiSlice";
 
 export const orderApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getProducts: builder.query({
+    getOrders: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
 
@@ -19,13 +19,13 @@ export const orderApi = apiSlice.injectEndpoints({
           });
         }
         return {
-          url: "/product/get-products",
+          url: "/order/get-all-orders",
           method: "GET",
           params: params,
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.products],
+      providesTags: [TagTypes.orders],
     }),
     createProduct: builder.mutation({
       query: (data) => ({
@@ -88,15 +88,15 @@ export const orderApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    updateProduct: builder.mutation({
+    updateOrder: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/product/update-product/${id}`,
+        url: `/order/update-order/${id}`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags: (result, _success, arg) => {
         if (result?.success) {
-          return [TagTypes.products, { type: TagTypes.product, id: arg.id }];
+          return [TagTypes.orders, { type: TagTypes.order, id: arg.id }];
         }
         return [];
       },
@@ -156,4 +156,4 @@ export const orderApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetProductsQuery, useGetSingleProductQuery, useCreateProductMutation, useUpdateProductImgMutation, useDeleteProductMutation, useChangeProductStatusMutation, useUpdateProductMutation } = orderApi;
+export const { useGetOrdersQuery, useGetSingleProductQuery, useCreateProductMutation, useUpdateProductImgMutation, useDeleteProductMutation, useChangeProductStatusMutation, useUpdateOrderMutation } = orderApi;

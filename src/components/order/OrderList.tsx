@@ -3,8 +3,8 @@ import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useGetProductsQuery } from "../../redux/features/product/productApi";
 import OrderTable from "./OrderTable";
+import { useGetOrdersQuery } from "../../redux/features/order/orderApi";
 
 const OrderList = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const OrderList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isError } = useGetProductsQuery([
+  const { data, isLoading, isError } = useGetOrdersQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
@@ -27,7 +27,7 @@ const OrderList = () => {
 }, [searchQuery]);
 
 
-  const products = data?.data || [];
+  const orders = data?.data || [];
   const meta = data?.meta || {};
 
   let content: React.ReactNode;
@@ -39,7 +39,7 @@ const OrderList = () => {
   if (!isLoading && !isError) {
     content = (
       <OrderTable
-        products={products}
+        orders={orders}
         meta={meta}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

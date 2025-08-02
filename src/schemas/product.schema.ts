@@ -205,3 +205,14 @@ export const updateProductValidationSchema = z.object({
       message: "Stock Status must be one of: in_stock', 'stock_out', 'up_coming'",
     })
 });
+
+export const stockStatusSchema = z.object({
+  stockStatus: z.string({
+    invalid_type_error: "Stock Status must be a valid string value.",
+    required_error: "stockStaus is required"
+  })
+    .min(1, "stockStaus is required")
+    .refine((val) => ['in_stock', 'stock_out', 'up_coming'].includes(val), {
+      message: "Stock Status must be one of: in_stock', 'stock_out', 'up_coming'",
+    })
+})

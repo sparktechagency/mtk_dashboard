@@ -1,13 +1,13 @@
 import { Table, ConfigProvider, Pagination } from "antd";
 import { Edit, Eye } from "lucide-react";
-import DeleteBlogModal from "../modal/blog/DeleteBlogModal";
 import type { IMeta } from "../../types/global.type";
 import { Link } from "react-router-dom";
-import blog_placeholder from "../../assets/images/blog_placeholder.png";
+import product_placeholder from "../../assets/images/product_placeholder.png";
 import type { IProduct, TProductDataSource, TProductStatus, TStockStatus } from "../../types/product.type";
 import { FaStar } from "react-icons/fa";
 import ChangeProductStatusModal from "../modal/product/ChangeProductStatusModal";
 import ChangeStockStatusModal from "../modal/product/ChangeStockStatusModal";
+import DeleteProductModal from "../modal/product/DeleteProductModal";
 
 
 type TProps = {
@@ -30,7 +30,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
     categoryName: product?.categoryName,
     currentPrice: product?.currentPrice,
     originalPrice: product?.originalPrice,
-    image: product?.images?.length > 0 ? product?.images[0] : blog_placeholder,
+    image: product?.images?.length > 0 ? product?.images[0] : product_placeholder,
     ratings: product?.ratings,
     status: product?.status,
     stockStatus: product?.stockStatus
@@ -70,7 +70,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
             className="w-[45px] h-[45px] rounded-lg"
             onError={(e) => {
               e.currentTarget.onerror = null;
-              e.currentTarget.src = blog_placeholder;
+              e.currentTarget.src = product_placeholder;
             }}
           />
         </>
@@ -190,7 +190,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
           >
             <Edit size={18} />
           </Link>
-          <DeleteBlogModal blogId={productId} />
+          <DeleteProductModal productId={productId} />
         </div>
       ),
     },
