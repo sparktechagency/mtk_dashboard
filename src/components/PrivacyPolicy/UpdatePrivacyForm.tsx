@@ -4,7 +4,7 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import type { z } from "zod";
 import CustomQuilEditor from "../form/CustomQuilEditor";
 import { policySchema } from "../../schemas/policy.schema";
-import { useCreateUpdatePrivacyPolicyMutation } from "../../redux/features/policy/policyApi";
+import { useCreateUpdatePolicyMutation } from "../../redux/features/policy/policyApi";
 
 type TFormValues = z.infer<typeof policySchema>;
 
@@ -13,7 +13,7 @@ type TProps = {
 }
 
 const UpdatePrivacyForm = ({ description }: TProps) => {
-  const [createUpdatePrivacy, { isLoading }] = useCreateUpdatePrivacyPolicyMutation();
+   const [createUpdatePolicy, { isLoading }] = useCreateUpdatePolicyMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(policySchema),
     defaultValues: {
@@ -23,9 +23,9 @@ const UpdatePrivacyForm = ({ description }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    createUpdatePrivacy({
-      message: "updated",
-      data: data
+   createUpdatePolicy({
+      type: "privacy-policy",
+      content: data.description
     });
   };
 

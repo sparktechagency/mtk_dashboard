@@ -1,14 +1,13 @@
 "use client"
 
 import { FileText } from "lucide-react"
-import CreateTermsForm from "../../components/TermsCondition/CreateTermsForm"
 import PolicyLoading from "../../components/loader/PolicyLoading"
 import UpdateTermsForm from "../../components/TermsCondition/UpdateTermsForm"
-import { useGetTermsConditionsQuery } from "../../redux/features/policy/policyApi"
+import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi"
 import type { ReactNode } from "react"
 
 const TermsConditionPage = () => {
-  const { data, isLoading, isSuccess, error } = useGetTermsConditionsQuery(undefined);
+  const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("terms-condition");
   const terms = data?.data;
 
   let content: ReactNode;
@@ -16,12 +15,12 @@ const TermsConditionPage = () => {
   if (isLoading) {
     return <PolicyLoading />
   }
-  if (!isLoading && error && !terms?._id) {
-    content = <CreateTermsForm />
+  if (!isLoading && isError) {
+    content = <h1>Server Error Occured</h1>
   }
 
-  if (!isLoading && isSuccess && terms?._id) {
-    content = <UpdateTermsForm description={terms?.description} />
+  if (!isLoading && isSuccess && terms?.type) {
+    content = <UpdateTermsForm description={terms?.content} />
   }
 
   return (

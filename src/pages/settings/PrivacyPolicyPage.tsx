@@ -1,14 +1,13 @@
 "use client"
 
 import { FileText } from "lucide-react"
-import { useGetPrivacyPolicyQuery } from "../../redux/features/policy/policyApi";
+import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi";
 import type { ReactNode } from "react";
 import PolicyLoading from "../../components/loader/PolicyLoading";
-import CreatePrivacyForm from "../../components/PrivacyPolicy/CreatePrivacyForm";
 import UpdatePrivacyForm from "../../components/PrivacyPolicy/UpdatePrivacyForm";
 
 const PrivacyPolicyPage = () =>{
-  const { data, isLoading, isSuccess, error } = useGetPrivacyPolicyQuery(undefined);
+  const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("privacy-policy");
   const about = data?.data;
   
     let content: ReactNode;
@@ -16,12 +15,12 @@ const PrivacyPolicyPage = () =>{
     if (isLoading) {
       return <PolicyLoading />
     }
-    if (!isLoading && error && !about?._id) {
-      content = <CreatePrivacyForm />
+    if (!isLoading && isError) {
+      content = <h1>Server Error occured</h1>
     }
   
-    if (!isLoading && isSuccess && about?._id) {
-      content = <UpdatePrivacyForm description={about?.description} />
+    if (!isLoading && isSuccess && about?.type) {
+      content = <UpdatePrivacyForm description={about?.content} />
     }
 
   return (

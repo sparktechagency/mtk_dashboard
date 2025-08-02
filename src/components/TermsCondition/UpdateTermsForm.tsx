@@ -4,7 +4,7 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import type { z } from "zod";
 import CustomQuilEditor from "../form/CustomQuilEditor";
 import { policySchema } from "../../schemas/policy.schema";
-import { useCreateUpdateTermsConditionsMutation } from "../../redux/features/policy/policyApi";
+import { useCreateUpdatePolicyMutation } from "../../redux/features/policy/policyApi";
 
 type TFormValues = z.infer<typeof policySchema>;
 type TProps = {
@@ -12,7 +12,7 @@ type TProps = {
 }
 
 const UpdateTermsForm = ( {description} : TProps ) => {
-  const [createUpdateTerm, { isLoading }] = useCreateUpdateTermsConditionsMutation();
+   const [createUpdatePolicy, { isLoading }] = useCreateUpdatePolicyMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(policySchema),
     defaultValues: {
@@ -22,9 +22,9 @@ const UpdateTermsForm = ( {description} : TProps ) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    createUpdateTerm({
-      message: "updated",
-      data: data
+    createUpdatePolicy({
+      type: "terms-condition",
+      content: data.description
     });
   };
 
@@ -35,7 +35,7 @@ const UpdateTermsForm = ( {description} : TProps ) => {
           label="Description"
           name="description"
           control={control}
-          height={500}
+          height={550}
           placeholder="Write here..."
         />
 

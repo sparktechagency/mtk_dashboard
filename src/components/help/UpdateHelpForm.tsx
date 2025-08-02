@@ -4,22 +4,30 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import type { z } from "zod";
 import CustomQuilEditor from "../form/CustomQuilEditor";
 import { policySchema } from "../../schemas/policy.schema";
-import { useCreateUpdateTermsConditionsMutation } from "../../redux/features/policy/policyApi";
+import { useCreateUpdatePolicyMutation } from "../../redux/features/policy/policyApi";
 
 type TFormValues = z.infer<typeof policySchema>;
 
+type TProps = {
+    description: string;
+}
 
-const CreateTermsForm = () => {
-  const [createUpdateTerm, { isLoading }] = useCreateUpdateTermsConditionsMutation();
+const UpdateHelpForm = ( {description} : TProps) => {
+  const [createUpdatePolicy, { isLoading }] = useCreateUpdatePolicyMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(policySchema),
+    defaultValues: {
+      description
+    }
   });
 
 
+
+
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    createUpdateTerm({
-      message: "added",
-      data: data
+    createUpdatePolicy({
+      type: "help",
+      content: data.description
     });
   };
 
@@ -30,8 +38,8 @@ const CreateTermsForm = () => {
           label="Description"
           name="description"
           control={control}
-          height={500}
-          placeholder="Write here..."
+          height={550}
+          placeholder="Write a description..."
         />
 
         <button
@@ -44,12 +52,12 @@ const CreateTermsForm = () => {
               Processing...
             </>
           ) : (
-            "Save"
+            "Save Change"
           )}
         </button>
-      </form>
+      </form>   
     </>
   );
 };
 
-export default CreateTermsForm;
+export default UpdateHelpForm;

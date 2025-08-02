@@ -84,10 +84,10 @@ export const policyApi = apiSlice.injectEndpoints({
         }
         return [];
       },
-      async onQueryStarted({ message }, { queryFulfilled }) {
+      async onQueryStarted(_arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast(`Terms-Conditions is ${message} successfully`);
+          SuccessToast(`Update Success`);
         } catch (err:any) {
           const message = err?.error?.data?.message;
           ErrorToast(message);
