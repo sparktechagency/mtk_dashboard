@@ -80,7 +80,7 @@ export const colorApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.colors];
+          return [TagTypes.colors, TagTypes.colorDropDown];
         }
         return [];
       },
@@ -101,7 +101,7 @@ export const colorApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.colors];
+          return [TagTypes.colors, TagTypes.colorDropDown];
         }
         return [];
       },

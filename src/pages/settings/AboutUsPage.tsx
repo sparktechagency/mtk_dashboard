@@ -1,14 +1,13 @@
 "use client"
 
 import { FileText } from "lucide-react"
-import CreateAboutForm from "../../components/AboutUs/CreateAboutForm"
-import { useGetAboutUsQuery } from "../../redux/features/policy/policyApi";
+import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi";
 import type { ReactNode } from "react";
 import PolicyLoading from "../../components/loader/PolicyLoading";
 import UpdateAboutForm from "../../components/AboutUs/UpdateAboutForm";
 
 const AboutUsPage = () => {
-  const { data, isLoading, isSuccess, error } = useGetAboutUsQuery(undefined);
+  const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("about-us");
   const about = data?.data;
 
   let content: ReactNode;
@@ -16,12 +15,12 @@ const AboutUsPage = () => {
   if (isLoading) {
     return <PolicyLoading />
   }
-  if (!isLoading && error && !about?._id) {
-    content = <CreateAboutForm />
+  if (!isLoading && isError) {
+    content = <h1>Server Error Occured</h1>
   }
 
-  if (!isLoading && isSuccess && about?._id) {
-    content = <UpdateAboutForm description={about?.description} />
+  if (!isLoading && isSuccess && about?.type) {
+    content = <UpdateAboutForm description={about?.content} />
   }
 
 
