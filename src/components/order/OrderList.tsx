@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import OrderTable from "./OrderTable";
 import { useGetOrdersQuery } from "../../redux/features/order/orderApi";
 
 const OrderList = () => {
-  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -73,13 +71,6 @@ const OrderList = () => {
                className="w-full pl-10 pr-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500"
              />
            </div>
-           <button
-             onClick={() => navigate("/add-product")}
-             className="bg-primary px-3 py-1.5 text-white cursor-pointer rounded-md hover:bg-[#2b4773] duration-200"
-           >
-             {" "}
-             Add New
-           </button>
          </div>
        </div>
        {content}
