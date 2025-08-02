@@ -29,6 +29,7 @@ import ProductsPage from "../pages/product/ProductsPage";
 import CreateProductPage from "../pages/product/CreateProductPage";
 import UpdateProductPage from "../pages/product/UpdateProductPage";
 import ProductDetailsPage from "../pages/product/ProductDetailsPage";
+import OrdersPage from "../pages/order/OrdersPage";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <DashboardPage />,
+      },
+      {
+        path: "orders",
+        element: <OrdersPage />,
       },
       {
         path: "admins",

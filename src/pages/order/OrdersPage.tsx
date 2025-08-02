@@ -1,13 +1,13 @@
-import BlogList from "../../components/blog/BlogList";
+import OrderList from "../../components/order/OrderList";
 
-const BlogsPage = () => {
+const OrdersPage = () => {
 
   return (
     <>
       <div>
         <div className="bg-white rounded-lg shadow h-full overflow-hidden">
           <div className="w-full h-full flex flex-col">
-           <BlogList/>
+           <OrderList/>
           </div>
         </div>
       </div>
@@ -15,4 +15,4 @@ const BlogsPage = () => {
   )
 }
 
-export default BlogsPage
+export default OrdersPage;

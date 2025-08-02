@@ -19,7 +19,7 @@ const UpdateProductPage = () => {
   }
 
   if (!isLoading && !isError && !product?._id) {
-    return <h1>Blog Not Found</h1>
+    return <h1>Product Not Found</h1>
   }
 
   if (!isLoading && !isError && product?._id) {

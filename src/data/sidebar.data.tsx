@@ -9,6 +9,7 @@ import { IoIosColorFilter } from "react-icons/io";
 import { RiProductHuntLine } from "react-icons/ri";
 export const menuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
+  { path: "/orders", label: "Orders", icon: GrUserAdmin },
   { path: "/admins", label: "Admins", icon: GrUserAdmin },
   { path: "/users", label: "Users", icon: PiStudentBold },
   { path: "/category", label: "Category", icon: MdCategory },
