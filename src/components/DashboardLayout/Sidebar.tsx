@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 
 import SidebarLink from './SidebarLink';
 import logo from "../../assets/images/logo.png";
-import { menuItems } from '../../data/sidebar.data';
 import { X } from 'lucide-react';
 import { MdLogout } from 'react-icons/md';
-import { logout } from '../../helper/SessionHelper';
+import { getUserInfo, logout } from '../../helper/SessionHelper';
+import { adminMenuItems, superAdminMenuItems } from '../../data/sidebar.data';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -13,6 +13,10 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, closeSidebar }) => {
+  const user = getUserInfo();
+  const menuItems = user?.role ==="admin" ? adminMenuItems : superAdminMenuItems;
+
+
   // Close sidebar when clicking outside on mobile
   useEffect(() => {
     const handleResize = () => {

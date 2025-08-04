@@ -3,27 +3,10 @@ import TagTypes from "../../../constant/tagType.constant";
 import { ErrorToast, SuccessToast } from "../../../helper/ValidationHelper";
 import type { IParam } from "../../../types/global.type";
 import { apiSlice } from "../api/apiSlice";
-import { SetAdmin, SetAdminCreateError } from "./adminSlice";
+import { SetAdminCreateError, SetAdminUpdateError } from "./adminSlice";
 
 export const adminApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getMe: builder.query({
-      query: () => ({
-        url: "/auth/profile",
-        method: "GET",
-      }),
-      keepUnusedDataFor: 600,
-      providesTags: [TagTypes.me],
-      async onQueryStarted(_arg, { queryFulfilled, dispatch}) {
-        try {
-          const res = await queryFulfilled;
-          const data = res?.data?.data;
-          dispatch(SetAdmin(data))
-        } catch{
-         ErrorToast("Server error is occured");
-        }
-      },
-    }),
     getAdmins: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -36,7 +19,7 @@ export const adminApi = apiSlice.injectEndpoints({
           });
         }
         return {
-          url: "/auth/get_all_admin",
+          url: "/admin/get-admins",
           method: "GET",
           params: params,
         };
@@ -46,7 +29,7 @@ export const adminApi = apiSlice.injectEndpoints({
     }),
     createAdmin: builder.mutation({
       query: (data) => ({
-        url: "/auth/register",
+        url: "/admin/create-admin",
         method: "POST",
         body: data,
       }),
@@ -66,9 +49,37 @@ export const adminApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    updateAdmin: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/admin/update-admin/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result) => {
+        if (result?.success) {
+          return [TagTypes.admins];
+        }
+        return [];
+      },
+      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
+        try {
+          await queryFulfilled;
+          SuccessToast("Admin is updated successfully");
+        } catch (err: any) {
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            dispatch(SetAdminUpdateError("Something Went Wrong"));
+          }
+          else {
+            dispatch(SetAdminUpdateError(message));
+          }
+        }
+      },
+    }),
     deleteAdmin: builder.mutation({
       query: (id) => ({
-        url: `/auth/delete-auth-account?email=${id}`,
+        url: `/admin/delete-admin/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: (result) => {
@@ -82,12 +93,18 @@ export const adminApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Admin is deleted successfully");
         } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          ErrorToast(message);
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),
   }),
 });
 
-export const { useGetAdminsQuery, useCreateAdminMutation, useDeleteAdminMutation, useGetMeQuery } = adminApi;
+export const { useGetAdminsQuery, useCreateAdminMutation, useUpdateAdminMutation, useDeleteAdminMutation } = adminApi;

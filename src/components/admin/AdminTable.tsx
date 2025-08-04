@@ -1,52 +1,54 @@
+import React from "react";
 import { Table, ConfigProvider, Pagination } from "antd";
+import ChangeStatusModal from "../modal/auth/ChangeStatusModal";
 import type { IMeta } from "../../types/global.type";
-import type { IOrder, TOrderDataSource } from "../../types/order.type";
+import type { IUser, IUserDataSource, TBlockStatus } from "../../types/user.type";
+import DeleteAdminModal from "../modal/admin/DeleteAdminModal";
+import EditAdminModal from "../modal/admin/EditAdminModal";
 
 
-type TProps = {
-  orders: IOrder[];
-  meta: IMeta,
+interface UserTableProps {
+  users: IUser[];
+  meta: IMeta;
   currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
-};
+}
 
 
-const AdminTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPageSize }: TProps) => {
+const AdminTable: React.FC<UserTableProps> = ({
+  users,
+  meta,
+  currentPage,
+  setCurrentPage,
+  pageSize,
+  setPageSize,
+}) => {
 
-  const dataSource: TOrderDataSource[] = orders?.map((order, index) => ({
+  const dataSource: IUserDataSource[] = users?.map((user, index) => ({
     key: index,
-    serial: Number(index + 1) + ((currentPage - 1) * pageSize),
-    _id: order?._id,
-    token: order?.token,
-    fullName: order?.fullName,
-    email: order?.email,
-    phone: order?.phone,
-    status: order?.status,
-    paymentStatus: order?.paymentStatus,
-    createdAt: order?.createdAt
+    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    _id: user?._id,
+    fullName: user?.fullName,
+    email: user?.email,
+    phone: user?.phone,
+    status: user?.status
   }));
-
 
 
   const columns = [
     {
-      title: "S.N.",
+      title: "Serial",
       dataIndex: "serial",
       key: "serial",
-      width: "3%",
+      width: "10%",
     },
     {
       title: "Name",
       dataIndex: "fullName",
       key: "fullName",
-      width: "12.5%",
-      render: (text: string) => (
-        <>
-          <p className="truncate">{text}</p>
-        </>
-      ),
+      width: "22.5%",
     },
     {
       title: "Email",
@@ -58,64 +60,61 @@ const AdminTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
-      width: "12.5%",
+      width: "22.5%",
     },
-    // {
-    //   title: "Status",
-    //   dataIndex: "status",
-    //   key: "status",
-    //   width: "15%",
-    //   render: (status: TBlockStatus, record: IUser) => {
-    //     const statusStyles = {
-    //       blocked: "bg-red-100 text-red-700 border border-red-300",
-    //       unblocked: "bg-green-100 text-green-700 border border-green-300",
-    //     };
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      width: "15%",
+      render: (status: TBlockStatus, record: IUser) => {
+        const statusStyles = {
+          blocked: "bg-red-100 text-red-700 border border-red-300",
+          unblocked: "bg-green-100 text-green-700 border border-green-300",
+        };
 
-    //     const bgColor = status=== "blocked" ? statusStyles.blocked : statusStyles.unblocked;
+        const bgColor = status=== "blocked" ? statusStyles.blocked : statusStyles.unblocked;
 
-    //     return (
-    //       <div className="flex items-center gap-2">
-    //         <button
-    //           className={`${bgColor} w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
-    //         >
-    //           {status === "blocked" ?  "Blocked" : "Active"}
-    //         </button>
-    //         <ChangeStatusModal userId={record?._id} status={status}/>
-    //       </div>
-    //     );
-    //   },
-    // },
-    // {
-    //   title: "Action",
-    //   dataIndex: "_id",
-    //   key: "action",
-    //   width: "7%",
-    //   render: (productId: string) => (
-    //     <div className="flex items-center gap-2">
-    //       <DeleteBlogModal blogId={productId} />
-    //     </div>
-    //   ),
-    // },
+        return (
+          <div className="flex items-center gap-2">
+            <button
+              className={`${bgColor} w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
+            >
+              {status === "blocked" ?  "Blocked" : "Active"}
+            </button>
+            <ChangeStatusModal userId={record?._id} status={status}/>
+          </div>
+        );
+      },
+    },
+    {
+      title: "Action",
+      dataIndex: "_id",
+      key: "action",
+      width: "15%",
+      render: (val: string, record: IUser) => (
+        <div className="flex items-center gap-3">
+          <EditAdminModal admin={record} />
+          <DeleteAdminModal userId={val} />
+        </div>
+      ),
+    },
   ];
-
-
 
   const handlePagination = (page: number, PageSize: number) => {
     setCurrentPage(page);
-    setPageSize(PageSize)
-  }
-
-
+    setPageSize(PageSize);
+  };
 
   return (
     <ConfigProvider
       theme={{
         components: {
           Table: {
-            headerBg: "#FEF3C7", // Amber-50 color
+            headerBg: "#FEF3C7",
             headerColor: "#000000",
-            rowHoverBg: "#F3F4F6", // Gray-100 color
-            borderColor: "#E5E7EB", // Gray-200 color
+            rowHoverBg: "#F3F4F6",
+            borderColor: "#E5E7EB",
           },
         },
       }}

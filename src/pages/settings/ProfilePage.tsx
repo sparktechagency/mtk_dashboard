@@ -4,13 +4,13 @@ import { useState } from "react";
 import ProfileLoading from "../../components/loader/ProfileLoading";
 import ProfileForm from "../../components/Profile/ProfileForm"
 import ProfilePic from "../../components/Profile/ProfilePic";
-import { useGetMeQuery } from "../../redux/features/admin/adminApi";
 import { useAppSelector } from "../../redux/hooks/hooks";
+import { useGetMeQuery } from "../../redux/features/user/userApi";
 
 const ProfilePage = () => {
   const [file, setFile] = useState<File | null>(null)
   const { isLoading, isError } = useGetMeQuery(undefined);
-  const { admin } = useAppSelector((state) => state.admin);
+  const { user } = useAppSelector((state) => state.user);
 
   if (isLoading) {
     return <ProfileLoading />
@@ -44,7 +44,7 @@ const ProfilePage = () => {
               </div>
             </div>
 
-            <ProfileForm admin={admin} file={file}/>
+            {/* <ProfileForm admin={admin} file={file}/> */}
           </div>
         </div>
       </div>

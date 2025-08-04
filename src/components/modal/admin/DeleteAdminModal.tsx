@@ -6,10 +6,10 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { useDeleteAdminMutation } from "../../../redux/features/admin/adminApi";
 
 type TProps = {
-  email: string;
+  userId: string;
 };
 
-const DeleteAdminModal = ({ email }: TProps) => {
+const DeleteAdminModal = ({ userId }: TProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const [deleteAdmin, { isLoading, isSuccess }] =
@@ -23,7 +23,7 @@ const DeleteAdminModal = ({ email }: TProps) => {
 
 
   const handleDelete = () => {
-    deleteAdmin(email);
+    deleteAdmin(userId);
   };
 
   return (

@@ -1,6 +1,5 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
-import { FaPlus } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -10,7 +9,6 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import Error from "../../validation/Error";
 import { useCreateAdminMutation } from "../../../redux/features/admin/adminApi";
 import { adminSchema } from "../../../schemas/admin.schema";
-import PasswordStrength from "../../validation/PasswordStrength";
 import { SetAdminCreateError } from "../../../redux/features/admin/adminSlice";
 
 type TFormValues = z.infer<typeof adminSchema>;
@@ -21,22 +19,12 @@ const CreateAdminModal = () => {
   const { CreateError } = useAppSelector((state) => state.admin);
   const [createAdmin, { isLoading, isSuccess }] =
     useCreateAdminMutation();
-  const { handleSubmit, control, watch, trigger, reset } =
+  const { handleSubmit, control, reset } =
     useForm<TFormValues>({
       resolver: zodResolver(adminSchema),
     });
 
-  const password = watch("password");
 
-  useEffect(() => {
-    if (password) {
-      // Only trigger validation if confirmPassword has been entered
-      const confirmPassword = watch("confirmPassword");
-      if (confirmPassword) {
-        trigger("confirmPassword");
-      }
-    }
-  }, [password, watch, trigger]);
 
 
   //if success
@@ -49,19 +37,17 @@ const CreateAdminModal = () => {
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
     dispatch(SetAdminCreateError(""));
-    createAdmin({
-        ...data,
-        role: "ADMIN"
-    })
+    createAdmin(data)
   };
 
   return (
     <>
+
       <button
         onClick={() => setModalOpen(true)}
-        className="flex items-center gap-2 bg-primary px-3 py-1.5 text-white cursor-pointer rounded-md hover:bg-[#2b4773] duration-200"
+        className="bg-primary px-3 py-1.5 text-white cursor-pointer rounded-md hover:bg-[#2b4773] duration-200"
       >
-        <FaPlus />
+        {" "}
         Add New
       </button>
       <Modal
@@ -77,13 +63,13 @@ const CreateAdminModal = () => {
           <div className="bg-white rounded-xl overflow-hidden transition-all duration-300">
             <div className="p-2">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                Create Admin
+                Add Admin
               </h2>
               {CreateError && <Error message={CreateError} />}
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <CustomInput
                   label="Name"
-                  name="name"
+                  name="fullName"
                   type="text"
                   control={control}
                   placeholder="Enter full name"
@@ -96,28 +82,19 @@ const CreateAdminModal = () => {
                   placeholder="Enter email address"
                 />
                 <CustomInput
-                  label="Phone Number(only UK)"
-                  name="phone_number"
+                  label="Phone Number"
+                  name="phone"
                   type="text"
                   control={control}
-                  placeholder="e.g., +44 20 1234 5678 or 020 1234 5678"
+                  placeholder="Enter phone number"
                 />
                 <CustomInput
-                  label="Password"
+                  label="Password (Optional)"
                   name="password"
                   type="password"
                   control={control}
                   placeholder="Enter password"
                 />
-                {password && <PasswordStrength password={password} />}
-                <CustomInput
-                  label="Confirm Password"
-                  name="confirmPassword"
-                  type="password"
-                  control={control}
-                  placeholder="Enter confirm password"
-                />
-
                 <div className="flex justify-end">
                   <button
                     type="submit"
