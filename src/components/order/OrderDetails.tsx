@@ -1,12 +1,13 @@
 "use client"
 
-import { ArrowLeft, Calendar, CreditCard, Package, Truck } from "lucide-react";
+import { ArrowLeft, Building2, Calendar, CreditCard, FolderArchive, MailOpen, MapPinHouse, MapPinned, Package, PhoneCall, Truck } from "lucide-react";
 import type { ISingleOrder } from "../../types/order.type";
 import OrderProductItem from "./OrderProductItem";
 import { useNavigate } from "react-router-dom";
 import getFormattedDate from "../../utils/getFormattedDate";
 import getStatusColor from "../../utils/getStatusColor";
 import getPaymentStatusColor from "../../utils/getPaymentStatusColor";
+import { SiNamesilo } from "react-icons/si";
 
 type TProps = {
   order: ISingleOrder
@@ -118,6 +119,65 @@ const OrderDetails = ({order}: TProps) =>{
             </div>
 
             {/* Order Information */}
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Cutomer Information</h2>
+              <div className="space-y-3">
+                <div className="flex items-start">
+                  <SiNamesilo className="w-5 h-5 text-gray-400 mt-0.5 mr-3" />
+                  <div className="flex gap-2 items-center">
+                    <p className="text-sm font-medium text-gray-900">Customer Name: </p>
+                    <p className="text-sm text-gray-600">{order?.customerName}</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <MailOpen   className="w-5 h-5 text-gray-400 mt-0.5 mr-3" />
+                  <div className="flex gap-2 items-center">
+                    <p className="text-sm font-medium text-gray-900">Email:</p>
+                    <p className="text-sm text-gray-600">{order?.customerEmail}</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <PhoneCall  className="w-5 h-5 text-gray-400 mt-0.5 mr-3" />
+                  <div className="flex gap-2 items-center">
+                    <p className="text-sm font-medium text-gray-900">Phone Number:</p>
+                    <p className="text-sm text-gray-600 capitalize">{order?.customerPhone}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Shipping Information</h2>
+              <div className="space-y-3">
+                <div className="flex items-start">
+                  <MapPinned  className="w-5 h-5 text-gray-400 mt-0.5 mr-3" />
+                  <div className="flex gap-2 items-center">
+                    <p className="text-sm font-medium text-gray-900">Street Address: </p>
+                    <p className="text-sm text-gray-600">{order?.shipping?.streetAddress}</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <Building2  className="w-5 h-5 text-gray-400 mt-0.5 mr-3" />
+                  <div className="flex gap-2 items-center">
+                    <p className="text-sm font-medium text-gray-900">City:</p>
+                    <p className="text-sm text-gray-600">{order?.shipping?.city}</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <MapPinHouse className="w-5 h-5 text-gray-400 mt-0.5 mr-3" />
+                  <div className="flex gap-2 items-center">
+                    <p className="text-sm font-medium text-gray-900">State:</p>
+                    <p className="text-sm text-gray-600 capitalize">{order?.shipping?.state}</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <FolderArchive className="w-5 h-5 text-gray-400 mt-0.5 mr-3" />
+                  <div className="flex gap-2 items-center">
+                    <p className="text-sm font-medium text-gray-900">Zip Code:</p>
+                    <p className="text-sm text-gray-600 capitalize">{order?.shipping?.zipCode}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white rounded-lg shadow-sm border p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Order Information</h2>
               <div className="space-y-3">

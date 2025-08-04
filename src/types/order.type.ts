@@ -29,6 +29,14 @@ export type TOrderDataSource = {
 }
 
 
+export interface IShipping {
+  streetAddress: string;
+  city: string;
+  state: string;
+  zipCode: string
+};
+
+
 export type TOrderProduct = {
   productId: string;
   name: string;
@@ -49,5 +57,9 @@ export type ISingleOrder = {
   status: TDeliveryStatus;
   deliveryAt: string | null;
   createdAt: string;
+  shipping: IShipping;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
   products: TOrderProduct[];
 };

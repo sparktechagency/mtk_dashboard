@@ -5,37 +5,28 @@ import type { z } from "zod";
 import CustomInput from "../form/CustomInput";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { updateAdminSchema } from "../../schemas/admin.schema";
-import type { TAuthAdmin } from "../../types/admin.type";
 import { useUpdateAdminProfileMutation } from "../../redux/features/auth/authApi";
+import type { IUser } from "../../types/user.type";
 
 type TFormValues = z.infer<typeof updateAdminSchema>;
 
 type TProps = {
-  file: File | null;
-  admin: TAuthAdmin | null
+  admin: IUser | null;
 }
 
-const ProfileForm = ({ admin, file }: TProps) => {
+const ProfileForm = ({ admin }: TProps) => {
   const [updateProfile, { isLoading }] = useUpdateAdminProfileMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(updateAdminSchema),
     defaultValues: {
-      name: admin?.name || "",
-      phone_number: admin?.contact || "" 
+      fullName: admin?.fullName || "",
+      phone: admin?.phone || "" 
     }
   });
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    //changePassword(data);
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("contact", data.phone_number);
-
-    if (file !== null) {
-      formData.append("profile_image", file);
-    }
-    updateProfile(formData)
+    updateProfile(data)
   };
 
 
@@ -44,7 +35,7 @@ const ProfileForm = ({ admin, file }: TProps) => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <CustomInput
           label="Name"
-          name="name"
+          name="fullName"
           type="text"
           control={control}
           placeholder="Enter full name"
@@ -70,7 +61,7 @@ const ProfileForm = ({ admin, file }: TProps) => {
 
         <CustomInput
           label="Phone Number(only UK)"
-          name="phone_number"
+          name="phone"
           type="text"
           control={control}
           placeholder="e.g., +44 20 1234 5678 or 020 1234 5678"
