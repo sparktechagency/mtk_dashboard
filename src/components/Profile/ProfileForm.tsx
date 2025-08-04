@@ -5,8 +5,8 @@ import type { z } from "zod";
 import CustomInput from "../form/CustomInput";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { updateAdminSchema } from "../../schemas/admin.schema";
-import { useUpdateAdminProfileMutation } from "../../redux/features/auth/authApi";
 import type { IUser } from "../../types/user.type";
+import { useUpdateProfileMutation } from "../../redux/features/user/userApi";
 
 type TFormValues = z.infer<typeof updateAdminSchema>;
 
@@ -15,7 +15,7 @@ type TProps = {
 }
 
 const ProfileForm = ({ admin }: TProps) => {
-  const [updateProfile, { isLoading }] = useUpdateAdminProfileMutation();
+  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(updateAdminSchema),
     defaultValues: {
