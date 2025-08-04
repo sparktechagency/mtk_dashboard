@@ -3,26 +3,38 @@ import {apiSlice} from "../api/apiSlice.js";
 import {ErrorToast, SuccessToast} from "../../../helper/ValidationHelper.js";
 import TagTypes from "../../../constant/tagType.constant.js";
 import { SetCreateFaqError, SetEditFaqError } from "./faqSlice.js";
+import type { IParam } from "../../../types/global.type.js";
 
 export const faqApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFaqs: builder.query({
-      query: () => ({
-          url: "/dashboard/get-faqs",
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args !== undefined && args.length > 0) {
+          args.forEach((item: IParam) => {
+            if (item.value) {
+              params.append(item.name, item.value);
+            }
+          });
+        }
+        return {
+          url: "/faq/get-faqs",
           method: "GET",
-      }),
+          params: params,
+        };
+      },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.faq],
+      providesTags: [TagTypes.faqs],
     }),
     createFaq: builder.mutation({
       query: (data) => ({
-        url: "/dashboard/add-faqs",
+        url: "/faq/create-faq",
         method: "POST",
         body: data,
       }),
       invalidatesTags: (result) =>{
         if(result?.success){
-          return [TagTypes.faq]
+          return [TagTypes.faqs]
         }
         return []
       },
@@ -38,12 +50,12 @@ export const faqApi = apiSlice.injectEndpoints({
     }),
     deleteFaq: builder.mutation({
       query: (id) => ({
-        url: `/dashboard/delete-faqs/${id}`,
+        url: `/faq/delete-faq/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: (result) =>{
         if(result?.success){
-          return [TagTypes.faq]
+          return [TagTypes.faqs]
         }
         return []
       },
@@ -59,13 +71,13 @@ export const faqApi = apiSlice.injectEndpoints({
     }),
     updateFaq: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/dashboard/update-faqs/${id}`,
+        url: `/faq/update-faq/${id}`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags: (result) =>{
         if(result?.success){
-          return [TagTypes.faq]
+          return [TagTypes.faqs]
         }
         return []
       },

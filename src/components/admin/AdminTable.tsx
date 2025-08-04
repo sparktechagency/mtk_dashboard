@@ -131,7 +131,7 @@ const AdminTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
           className="employer-table"
         />
       </div>
-      {meta?.total > 0 && (
+      {meta?.totalPages > 1 && (
         <div className="p-8 bg-white shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

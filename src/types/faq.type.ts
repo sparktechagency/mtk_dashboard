@@ -1,5 +1,6 @@
 export type IFaq = {
     _id: string;
-    questions: string;
-    answer: string
+    question: string;
+    answer: string;
+    isActive: boolean;
 }

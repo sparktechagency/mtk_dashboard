@@ -34,8 +34,14 @@ export const authApi = apiSlice.injectEndpoints({
               window.location.href = "/";
             }, 300);
         } catch (err: any) {
+          const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
-          dispatch(SetLoginError(message));
+          if (status === 500) {
+            dispatch(SetLoginError("Something Went Wrong"));
+          }
+          else {
+            dispatch(SetLoginError(message));
+          }
         }
       },
     }),

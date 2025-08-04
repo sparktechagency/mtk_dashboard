@@ -19,12 +19,14 @@ const ContactList = () => {
 
   //debounced handle
   useEffect(() => {
-    let timeoutId;
-    clearTimeout(timeoutId); 
-    timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setSearchTerm(searchQuery);
+      setCurrentPage(1)
     }, 600);
+
+    return () => clearTimeout(timeoutId); // cleanup for debounce
   }, [searchQuery]);
+
 
   const contacts = data?.data || [];
   const meta = data?.meta || {};

@@ -16,13 +16,15 @@ const OrderList = () => {
     { name: "searchTerm", value: searchTerm },
   ]);
 
- useEffect(() => {
-  const timeoutId = setTimeout(() => {
-    setSearchTerm(searchQuery);
-  }, 600);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setSearchTerm(searchQuery);
+      setCurrentPage(1)
+    }, 600);
 
-  return () => clearTimeout(timeoutId); // cleanup for debounce
-}, [searchQuery]);
+    return () => clearTimeout(timeoutId); // cleanup for debounce
+  }, [searchQuery]);
+
 
 
   const orders = data?.data || [];
