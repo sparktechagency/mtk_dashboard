@@ -38,7 +38,7 @@ const CreateProductForm = () => {
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
-      navigate("/blogs")
+      navigate("/products")
     }
   }, [isLoading, isSuccess, navigate])
 

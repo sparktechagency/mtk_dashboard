@@ -31,6 +31,7 @@ import UpdateProductPage from "../pages/product/UpdateProductPage";
 import ProductDetailsPage from "../pages/product/ProductDetailsPage";
 import OrdersPage from "../pages/order/OrdersPage";
 import OrderDetailsPage from "../pages/order/OrderDetailsPage";
+import NotFoundRoute from "./NotFoundRoute";
 
 const router = createBrowserRouter([
   {
@@ -171,8 +172,8 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <h1>This is Not Found Page</h1>
-    // element: <NotFoundRoute/>,
+    // element: <h1>This is Not Found Page</h1>
+    element: <NotFoundRoute/>,
   },
 ]);
 

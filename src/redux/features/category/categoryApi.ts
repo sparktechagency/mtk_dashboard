@@ -34,7 +34,7 @@ export const categoryApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.me],
+      providesTags: [TagTypes.categoryDropDown],
       async onQueryStarted(_arg, { queryFulfilled, dispatch}) {
         try {
           const res = await queryFulfilled;
@@ -58,7 +58,7 @@ export const categoryApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories];
+          return [TagTypes.categories, TagTypes.categoryDropDown];
         }
         return [];
       },
