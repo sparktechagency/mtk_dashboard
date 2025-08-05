@@ -47,7 +47,7 @@ export const resetPasswordSchema = z
 
 export const changePasswordSchema = z
   .object({
-    oldPassword: z
+    currentPassword: z
       .string({ required_error: "Current Password is required" })
       .trim()
       .min(1, "Current Password is required")

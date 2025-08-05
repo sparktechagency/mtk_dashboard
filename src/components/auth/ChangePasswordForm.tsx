@@ -37,7 +37,10 @@ const ChangePasswordForm = () => {
  
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
     dispatch(SetChangePasswordError(""));
-    changePassword(data);
+    changePassword({
+      currentPassword: data.currentPassword,
+      newPassword: data.newPassword
+    });
   };
 
 
@@ -47,7 +50,7 @@ const ChangePasswordForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <CustomInput
           label="Current Password"
-          name="oldPassword"
+          name="currentPassword"
           type="password"
           control={control}
           placeholder="Enter Current password"
