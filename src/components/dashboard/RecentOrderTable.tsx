@@ -23,6 +23,7 @@ const RecentOrderTable = ({ orders }: TProps) => {
     phone: order?.phone,
     status: order?.status,
     paymentStatus: order?.paymentStatus,
+    totalPrice: order?.totalPrice,
     createdAt: order?.createdAt
   }));
 

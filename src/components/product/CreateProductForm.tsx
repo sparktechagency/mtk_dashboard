@@ -32,9 +32,17 @@ const CreateProductForm = () => {
   const { sizeOptions } = useAppSelector((state) => state.size);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, watch, trigger} = useForm({
     resolver: zodResolver(createProductValidationSchema),
   });
+
+  const currentPrice = watch("currentPrice");
+
+  useEffect(() => {
+    if (currentPrice) {
+      trigger("originalPrice");
+    }
+  }, [currentPrice, watch, trigger]);
 
   useEffect(() => {
     if (!isLoading && isSuccess) {

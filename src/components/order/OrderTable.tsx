@@ -29,6 +29,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
     phone: order?.phone,
     status: order?.status,
     paymentStatus: order?.paymentStatus,
+    totalPrice: order?.totalPrice,
     createdAt: order?.createdAt
   }));
 
@@ -39,7 +40,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "3%",
+      width: "4%",
     },
     {
       title: "Token",
@@ -67,13 +68,22 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: "22.5%",
+      width: "15.5%",
     },
     {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
       width: "12.5%",
+    },
+    {
+      title: "Amount",
+      dataIndex: "totalPrice",
+      key: "totalPrice",
+      width: "10.5%",
+      render: (val:number)=> (
+        <span>${val}</span>
+      )
     },
     {
       title: "Status",
@@ -88,6 +98,12 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
           </div>
         );
       },
+    },
+     {
+      title: "Payment Status",
+      dataIndex: "paymentStatus",
+      key: "paymentStatus",
+      width: "10.5%",
     },
     {
       title: "View",

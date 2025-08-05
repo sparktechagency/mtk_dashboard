@@ -10,6 +10,7 @@ export type IOrder = {
   phone: string;
   status: TDeliveryStatus; 
   paymentStatus: TPaymentStatus; 
+  totalPrice: number;
   createdAt: string; 
 };
 
@@ -25,6 +26,7 @@ export type TOrderDataSource = {
   phone: string;
   status: TDeliveryStatus; 
   paymentStatus: TPaymentStatus; 
+  totalPrice: number;
   createdAt: string; 
 }
 

@@ -26,7 +26,7 @@ type TProps = {
 
 const UpdateProductForm = ({ product }: TProps) => {
   const navigate = useNavigate();
-  const defaultColors = product?.colors?.length > 0 ? product?.colors?.map((cv) => cv._id) : []
+  const defaultColors = product?.colors?.length > 0 ? product?.colors?.map((cv) => cv._id) : undefined
   useGetCategoryDropDownQuery(undefined);
   const {isLoading: isColorLoading} = useGetColorDropDownQuery(undefined);
   useGetSizesQuery(undefined);
@@ -43,7 +43,7 @@ const UpdateProductForm = ({ product }: TProps) => {
           originalPrice: String(product.originalPrice),
           discount: product?.discount,
           colors: defaultColors,
-          sizes: product?.sizes?.length > 0 ? product?.sizes?.map((cv) => cv._id) : [],
+          sizes: product?.sizes?.length > 0 ? product?.sizes?.map((cv) => cv._id) : undefined,
           status: product?.status,
           stockStatus: product?.stockStatus,
           introduction: product?.introduction,
@@ -59,10 +59,28 @@ const UpdateProductForm = ({ product }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    console.log(data)
+    const finalValues: Record<string, unknown> = {
+      name: data.name,
+      categoryId: data.categoryId,
+      currentPrice: data.currentPrice,
+      originalPrice: data.originalPrice,
+      status: data?.status,
+      stockStatus: data?.stockStatus,
+      introduction: data?.introduction,
+      description: data?.description
+    }
+
+    if(data.colors && data?.colors?.length > 0){
+      finalValues.colors=data.colors;
+    }
+    if(data.sizes && data?.sizes?.length > 0){
+      finalValues.sizes=data.sizes;
+    }
+
+    //console.log(finalValues)
     updateProduct({
         id: product?._id,
-        data
+        data: finalValues
     })
   };
 
