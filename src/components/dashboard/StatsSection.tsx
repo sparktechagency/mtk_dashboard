@@ -14,8 +14,7 @@ const StatsSection = () => {
   }
 
   if (!isLoading && isError) {
-    return <h1>Working</h1>
-    // return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
+    return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
   }
 
   if (!isLoading && !isError && stats) {
@@ -28,8 +27,8 @@ const StatsSection = () => {
                 <img src={employer} alt="job" className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-800">{stats?.totalEmployer}</p>
-                <p className="text-sm text-gray-500">Total Employers</p>
+                <p className="text-2xl font-bold text-gray-800">{stats?.totalUsers}</p>
+                <p className="text-sm text-gray-500">Total Users</p>
               </div>
             </div>
 
@@ -38,27 +37,27 @@ const StatsSection = () => {
                 <img src={candidate} alt="job" className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-800">{stats?.totalUsers}</p>
-                <p className="text-sm text-gray-500">Total Candidate</p>
+                <p className="text-2xl font-bold text-gray-800">{stats?.completedOrders}</p>
+                <p className="text-sm text-gray-500">Order Completed</p>
               </div>
             </div>
             <div className="bg-white rounded-lg shadow-sm p-6 flex items-center">
               <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mr-4">
-                <img src={job} alt="job" className="w-6 h-6" />
+                <img src={money} alt="money" className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-800">{stats?.totalJobs}</p>
-                <p className="text-sm text-gray-500">Total Job Post</p>
+                <p className="text-2xl font-bold text-gray-800">${stats?.totalIncome}</p>
+                <p className="text-sm text-gray-500">Total Income</p>
               </div>
             </div>
 
             <div className="bg-white rounded-lg shadow-sm p-6 flex items-center">
               <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4">
-                <img src={money} alt="money" className="w-6 h-6" />
+                <img src={job} alt="job" className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-800">${stats?.totalIncome}</p>
-                <p className="text-sm text-gray-500">Total Earning</p>
+                <p className="text-2xl font-bold text-gray-800">${stats?.totalProducts}</p>
+                <p className="text-sm text-gray-500">Total Products</p>
               </div>
             </div>
           </div>

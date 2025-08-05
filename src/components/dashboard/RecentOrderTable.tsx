@@ -1,27 +1,21 @@
-import { Table, ConfigProvider, Pagination } from "antd";
+import { Table, ConfigProvider } from "antd";
 import { Eye } from "lucide-react";
-import type { IMeta } from "../../types/global.type";
 import { Link } from "react-router-dom";
 import type { IOrder, TDeliveryStatus, TOrderDataSource } from "../../types/order.type";
-import StatusBadge from "./StatusBadge";
 import ChangeOrderStatusModal from "../modal/order/ChangeOrderStatusModal";
+import StatusBadge from "../order/StatusBadge";
 
 
 type TProps = {
   orders: IOrder[];
-  meta: IMeta,
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
-  pageSize: number;
-  setPageSize: React.Dispatch<React.SetStateAction<number>>;
 };
 
 
-const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPageSize }: TProps) => {
+const RecentOrderTable = ({ orders }: TProps) => {
 
   const dataSource: TOrderDataSource[] = orders?.map((order, index) => ({
     key: index,
-    serial: Number(index + 1) + ((currentPage - 1) * pageSize),
+    serial: Number(index + 1),
     _id: order?._id,
     token: order?.token,
     fullName: order?.fullName,
@@ -120,11 +114,6 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
 
 
 
-  const handlePagination = (page: number, PageSize: number) => {
-    setCurrentPage(page);
-    setPageSize(PageSize)
-  }
-
 
 
   return (
@@ -151,18 +140,8 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
           className="employer-table"
         />
       </div>
-      {meta?.totalPages > 1 && (
-        <div className="p-8 bg-white shadow-md flex justify-center">
-          <Pagination
-            onChange={handlePagination}
-            current={currentPage}
-            pageSize={pageSize}
-            total={meta?.total}
-          />
-        </div>
-      )}
     </ConfigProvider>
   );
 };
 
-export default OrderTable;
+export default RecentOrderTable;

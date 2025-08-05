@@ -1,7 +1,12 @@
 
 export type TJobYear = {
-    month: string;
-    jobs: number;
+  month: string;
+  jobs: number;
+}
+
+export type TUserYear = {
+  month: string;
+  users: number;
 }
 
 export type TIncomeYear = {

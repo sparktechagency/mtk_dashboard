@@ -27,7 +27,8 @@ const TagTypes = {
     colorDropDown: "ColorDropDown",
     policy: "Policy",
     orders: "Orders",
-    order: "Order"
+    order: "Order",
+    incomeGrowth: "incomeGrowth"
 }
 
 export default TagTypes;

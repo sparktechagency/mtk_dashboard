@@ -1,22 +1,13 @@
 import ColorList from "../../components/color/ColorList"
-import CreateColorModal from "../../components/modal/color/CreateColorModal"
 
 const ColorsPage = () => {
   return (
     <>
-      <div>
-        <div className="bg-white rounded-lg shadow h-full overflow-hidden">
+       <div>
+        <div className="bg-white shadow rounded-lg h-full overflow-hidden">
           <div className="w-full h-full flex flex-col">
-            <div className="p-4 flex justify-between">
-              <h1 className="text-xl font-medium text-gray-800">
-                Color List
-              </h1>
-              <CreateColorModal/>
-            </div>
-            <div className="flex-1 overflow-hidden">
-              <ColorList />
-            </div>
-          </div>{" "}
+            <ColorList/>
+          </div>
         </div>
       </div>
     </>

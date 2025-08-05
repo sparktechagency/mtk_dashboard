@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   AreaChart,
   Area,
@@ -9,7 +9,6 @@ import {
 } from 'recharts';
 import { yearOptions } from '../../data/options.data';
 import { useGetIncomeGrowthQuery } from '../../redux/features/dashboard/dashboardApi';
-import type { TGrowth } from '../../types/year.type';
 import IncomeOverviewLoading from '../loader/IncomeOverviewLoading';
 
 
@@ -20,20 +19,8 @@ const IncomeOverviewChart = () => {
   const date = new Date();
   const currentYear = date.getFullYear().toString();
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [barData, setBarData] = useState([])
   const {data, isLoading, isError} = useGetIncomeGrowthQuery(selectedYear);
-
-  
-  useEffect(() => {
-    if (!isLoading && data) {
-      const result = data?.data?.data;
-      const formatted = result?.map((item:TGrowth) => ({
-        month: item.month,
-        subscription: item.count,
-      }));
-      setBarData(formatted);
-    }
-  }, [data, isLoading]);
+  const barData = data?.data;
 
 
   if(isLoading){
@@ -41,7 +28,7 @@ const IncomeOverviewChart = () => {
     }
   
     if (!isLoading && isError) {
-      // return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
+      return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
     }
 
 
@@ -49,7 +36,7 @@ const IncomeOverviewChart = () => {
   return (
     <div className="md:p-6 bg-white rounded-lg shadow-sm">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">Order Overview</h2>
+        <h2 className="text-xl font-bold">Income Overview</h2>
         <select
           className="border rounded px-2 py-1 bg-white"
           value={selectedYear}
@@ -73,11 +60,11 @@ const IncomeOverviewChart = () => {
               </linearGradient>
             </defs>
             <XAxis dataKey="month" />
-            <YAxis />
+            <YAxis/>
             <Tooltip />
             <Area
               type="monotone"
-              dataKey="subscription"
+              dataKey="income"
               stroke="#007bff"
               fillOpacity={1}
               fill="url(#colorBookings)"

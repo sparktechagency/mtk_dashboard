@@ -86,7 +86,7 @@ const InformationPage = () => {
               <p className="text-sm font-medium text-gray-700">Teligram Link</p>
              <a
 
-                href={information?.teligram}
+                href={information?.telegram}
                 target="_blank"
                 className="font-medium text-blue-500 hover:underline"
               >

@@ -60,6 +60,12 @@ const ColorTable = ({
       ),
     },
     {
+      title: "Hex Code",
+      dataIndex: "hexCode",
+      key: "hexCode2",
+      width: "22%",
+    },
+    {
       title: "Action",
       dataIndex: "_id",
       key: "action",

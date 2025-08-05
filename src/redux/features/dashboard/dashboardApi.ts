@@ -6,34 +6,34 @@ export const dashboardApi = apiSlice.injectEndpoints({
     getStats: builder.query({
       query: () => {
         return {
-          url: `/dashboard/get_total_count`,
+          url: `/user/get-stats`,
           method: "GET",
         };
       },
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.stats],
     }),
-    getJobGrowth: builder.query({
+    getUserGrowth: builder.query({
       query: (year) => {
         return {
-          url: `/dashboard/get_job_growth?year=${year}`,
+          url: `/user/get-user-overview/${year}`,
           method: "GET",
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.jobGrowth],
+      providesTags: [TagTypes.userGrowth],
     }),
     getIncomeGrowth: builder.query({
       query: (year) => {
         return {
-          url: `/dashboard/get_subscription_growth?year=${year}`,
+          url: `/order/get-income-overview/${year}`,
           method: "GET",
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.jobGrowth],
+      providesTags: [TagTypes.incomeGrowth],
     }),
   }),
 });
 
-export const { useGetStatsQuery, useGetJobGrowthQuery, useGetIncomeGrowthQuery } = dashboardApi;
+export const { useGetStatsQuery, useGetUserGrowthQuery, useGetIncomeGrowthQuery } = dashboardApi;
