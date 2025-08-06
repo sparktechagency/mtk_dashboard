@@ -3,27 +3,27 @@ import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { useDeleteSubscriptionMutation } from "../../../redux/features/subscription/subscriptionApi";
+import { useDeleteSubscriberMutation } from "../../../redux/features/newsletter/newsletterApi";
 
 type TProps = {
-  subscriptionId: string;
+  subscriberId: string;
 };
 
-const DeleteSubscriptionModal = ({ subscriptionId }: TProps) => {
+const DeleteSubscriberModal = ({ subscriberId }: TProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [deleteSubscription, { isLoading, isSuccess }] =
-    useDeleteSubscriptionMutation();
+  const [deleteSubscriber, { isLoading, isSuccess }] =
+    useDeleteSubscriberMutation();
 
   useEffect(() => {
-    if (!isLoading && isSuccess) {
+    if (!isLoading) {
       setModalOpen(false);
     }
   }, [isLoading, isSuccess]);
 
 
   const handleDelete = () => {
-    deleteSubscription(subscriptionId);
+    deleteSubscriber(subscriberId);
   };
 
   return (
@@ -78,4 +78,4 @@ const DeleteSubscriptionModal = ({ subscriptionId }: TProps) => {
   );
 };
 
-export default DeleteSubscriptionModal;
+export default DeleteSubscriberModal;

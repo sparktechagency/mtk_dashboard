@@ -29,7 +29,7 @@ const TagTypes = {
     orders: "Orders",
     order: "Order",
     incomeGrowth: "incomeGrowth",
-    subsbscriptions: "Subscriptions"
+    subsbscribers: "Subscribers"
 }
 
 export default TagTypes;

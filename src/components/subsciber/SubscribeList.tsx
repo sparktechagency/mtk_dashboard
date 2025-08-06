@@ -1,12 +1,11 @@
-/* eslint-disable prefer-const */
 import React, { useEffect, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import { FaSearch } from "react-icons/fa";
-import SubscriberTable from "./SubscriberTable";
-import { useGetSubscribersQuery } from "../../redux/features/subscription/subscriptionApi";
+import { useGetSubscribersQuery } from "../../redux/features/newsletter/newsletterApi";
+import SubscribeTable from "./SubscribeTable";
 
-const SubscriberList = () => {
+const SubscribeList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,15 +18,17 @@ const SubscriberList = () => {
 
   //debounced handle
   useEffect(() => {
-    let timeoutId;
-    clearTimeout(timeoutId); 
-    timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setSearchTerm(searchQuery);
+      setCurrentPage(1)
     }, 600);
+
+    return () => clearTimeout(timeoutId); // cleanup for debounce
   }, [searchQuery]);
 
-  const subscribers = data?.data?.result || [];
-  const meta = data?.data?.meta || {};
+
+  const subscriptions = data?.data || [];
+  const meta = data?.meta || {};
 
   let content: React.ReactNode;
 
@@ -38,8 +39,8 @@ const SubscriberList = () => {
   if (!isLoading && !isError) {
     content = (
       <div className="flex-1 overflow-hidden">
-        <SubscriberTable
-          subscribers={subscribers}
+        <SubscribeTable
+          subscriptions={subscriptions}
           meta={meta}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
@@ -58,7 +59,7 @@ const SubscriberList = () => {
     <>
       <div className="p-4 flex justify-between">
         <h1 className="text-xl font-medium text-gray-800">
-          Total Subscribers
+          Subscriber List
         </h1>
         <div className="flex items-center gap-12">
           <h1 className="text-lg">
@@ -83,4 +84,4 @@ const SubscriberList = () => {
   );
 };
 
-export default SubscriberList;
+export default SubscribeList;

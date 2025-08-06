@@ -11,14 +11,11 @@ import ContactPage from "../pages/dashboard/ContactPage";
 import AboutUsPage from "../pages/settings/AboutUsPage";
 import PrivacyPolicyPage from "../pages/settings/PrivacyPolicyPage";
 import TermsConditionPage from "../pages/settings/TermsConditionPage";
-import JobDetailsPage from "../pages/dashboard/JobDetailsPage";
-import JobPostsPage from "../pages/dashboard/JobPostsPage";
 import ProfilePage from "../pages/settings/ProfilePage";
 import ChangePasswordPage from "../pages/settings/ChangePasswordPage";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import AdminsPage from "../pages/dashboard/AdminsPage";
-import CandidateDetailsPage from "../pages/dashboard/CandidateDetailsPage";
 import HelpPage from "../pages/help/HelpPage";
 import FaqsPage from "../pages/help/FaqsPage";
 import UsersPage from "../pages/dashboard/UsersPage";
@@ -32,7 +29,7 @@ import ProductDetailsPage from "../pages/product/ProductDetailsPage";
 import OrdersPage from "../pages/order/OrdersPage";
 import OrderDetailsPage from "../pages/order/OrderDetailsPage";
 import NotFoundRoute from "./NotFoundRoute";
-import SubscriptionsPage from "../pages/dashboard/SubscriptionsPage";
+import SubscriptionsPage from "../pages/dashboard/SubscribersPage";
 
 const router = createBrowserRouter([
   {
@@ -64,10 +61,6 @@ const router = createBrowserRouter([
         element: <UsersPage />,
       },
       {
-        path: "candidate-details/:id",
-        element: <CandidateDetailsPage />,
-      },
-      {
         path: "category",
         element: <CategoryPage />,
       },
@@ -96,7 +89,7 @@ const router = createBrowserRouter([
         element: <ContactPage />,
       },
       {
-        path: "subscriptions",
+        path: "subscribers",
         element: <SubscriptionsPage />,
       },
       {
@@ -134,15 +127,7 @@ const router = createBrowserRouter([
       {
         path: "terms-condition",
         element: <TermsConditionPage />,
-      },
-      {
-        path: "job-details",
-        element: <JobDetailsPage />,
-      },
-      {
-        path: "job-posts",
-        element: <JobPostsPage />,
-      },
+      }
     ],
   },
   {

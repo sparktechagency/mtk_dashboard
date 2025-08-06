@@ -1,5 +1,4 @@
-import SubscriberList from "../../components/subscriber/SubscriberList"
-
+import SubscribeList from "../../components/subsciber/SubscribeList"
 
 const SubscribersPage = () => {
   return (
@@ -7,7 +6,7 @@ const SubscribersPage = () => {
       <div>
         <div className="bg-white rounded-lg shadow h-full overflow-hidden">
           <div className="w-full h-full flex flex-col">
-            <SubscriberList/>
+            <SubscribeList/>
           </div>
         </div>
       </div>

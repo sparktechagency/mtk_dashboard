@@ -2,7 +2,7 @@ import { LayoutDashboard } from "lucide-react";
 import {
     SettingOutlined
   } from '@ant-design/icons';
-import { MdCategory, MdContactPhone, MdSubscriptions } from "react-icons/md";
+import { MdCategory, MdContactPhone, MdSubscriptions, MdUnsubscribe } from "react-icons/md";
 import { PiResize, PiStudentBold } from "react-icons/pi";
 import { GrUserAdmin, GrCircleInformation } from "react-icons/gr";
 import { IoIosColorFilter } from "react-icons/io";
@@ -19,7 +19,7 @@ export const adminMenuItems = [
   { path: "/products", label: "Products", icon: RiProductHuntLine },
   { path: "/information", label: "Contact Information", icon: GrCircleInformation },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
-  { path: "/subscriptions", label: "Subscriptions", icon: MdContactPhone },
+  { path: "/subscribers", label: "Subscribers", icon: MdUnsubscribe },
   {
     path: "",
     label: "Help & FAQ",
@@ -54,6 +54,7 @@ export const superAdminMenuItems = [
   { path: "/products", label: "Products", icon: RiProductHuntLine },
   { path: "/information", label: "Contact Information", icon: GrCircleInformation },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
+  { path: "/subscribers", label: "Subscribers", icon: MdUnsubscribe },
   {
     path: "",
     label: "Help & FAQ",

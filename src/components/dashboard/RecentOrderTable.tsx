@@ -1,7 +1,7 @@
 import { Table, ConfigProvider } from "antd";
 import { Eye } from "lucide-react";
 import { Link } from "react-router-dom";
-import type { IOrder, TDeliveryStatus, TOrderDataSource } from "../../types/order.type";
+import type { IOrder, TDeliveryStatus, TOrderDataSource, TPaymentStatus } from "../../types/order.type";
 import ChangeOrderStatusModal from "../modal/order/ChangeOrderStatusModal";
 import StatusBadge from "../order/StatusBadge";
 
@@ -34,7 +34,7 @@ const RecentOrderTable = ({ orders }: TProps) => {
       title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "3%",
+      width: "4%",
     },
     {
       title: "Token",
@@ -62,7 +62,7 @@ const RecentOrderTable = ({ orders }: TProps) => {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: "22.5%",
+      width: "15.5%",
     },
     {
       title: "Phone",
@@ -71,19 +71,61 @@ const RecentOrderTable = ({ orders }: TProps) => {
       width: "12.5%",
     },
     {
+      title: "Amount",
+      dataIndex: "totalPrice",
+      key: "totalPrice",
+      width: "8.5%",
+      align: "center" as const,
+      render: (val: number) => (
+        <span>${val}</span>
+      )
+    },
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      width: "10%",
+      width: "12%",
       render: (status: TDeliveryStatus, record: IOrder) => {
         return (
           <div className="flex items-center gap-2">
-             <StatusBadge status={status}/>
+            <StatusBadge status={status} />
             <ChangeOrderStatusModal orderId={record?._id} status={status} />
           </div>
         );
       },
     },
+    {
+      title: "Payment Status",
+      dataIndex: "paymentStatus",
+      key: "paymentStatus",
+      width: "12%",
+      render: (paymentStatus: TPaymentStatus) => {
+        const statusStyles = {
+          pending: "bg-yellow-100 text-yellow-700 border border-yellow-300",
+          paid: "bg-green-100 text-green-700 border border-green-300",
+          failled: "bg-red-100 text-red-700 border border-red-300",
+        };
+
+        const labelMap = {
+          pending: "Pending",
+          paid: "Paid",
+          failled: "Failed",
+        };
+
+        const style = statusStyles[paymentStatus] || "bg-gray-100 text-gray-700 border";
+
+        return (
+          <div className="flex items-center gap-2">
+            <span
+              className={`${style} w-20 text-center px-3 py-0.5 text-sm font-medium rounded-full`}
+            >
+              {labelMap[paymentStatus]}
+            </span>
+          </div>
+        );
+      }
+    }
+    ,
     {
       title: "View",
       dataIndex: "_id",
