@@ -8,12 +8,14 @@ import { useGetOrdersQuery } from "../../redux/features/order/orderApi";
 const OrderList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [status, setStatus] = useState("")
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const { data, isLoading, isError } = useGetOrdersQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
+    { name: "status", value: status },
   ]);
 
   useEffect(() => {
@@ -61,6 +63,23 @@ const OrderList = () => {
            <h1 className="text-lg">
              Total: <span className="font-bold"> {meta?.total} </span>
            </h1>
+           <div className="flex gap-3 items-center">
+             <h1>Filter by Status:</h1>
+             <select 
+               className="p-2 bg-white border border-gray-300 rounded-md focus:border-blue-300"
+               value={status}
+               onChange={(e) =>{
+                 setStatus(e.target.value);
+                 setCurrentPage(1);
+                }}
+              >
+               <option value="">All</option>
+               <option value="processing">Processing</option>
+               <option value="shipped">Shipped</option>
+               <option value="delivered">Delivered</option>
+               <option value="cancelled">Cancelled</option>
+             </select>
+           </div>
            <div className="relative w-72">
              <span className="absolute inset-y-0 left-3 flex items-center text-gray-700">
                <FaSearch size={16} />
