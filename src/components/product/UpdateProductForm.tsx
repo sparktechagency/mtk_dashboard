@@ -26,7 +26,7 @@ type TProps = {
 
 const UpdateProductForm = ({ product }: TProps) => {
   const navigate = useNavigate();
-  const defaultColors = product?.colors?.length > 0 ? product?.colors?.map((cv) => cv._id) : undefined
+  const defaultColors = product?.colors?.length > 0 ? product?.colors?.map((cv) => cv._id) : []
   useGetCategoryDropDownQuery(undefined);
   const {isLoading: isColorLoading} = useGetColorDropDownQuery(undefined);
   useGetSizesQuery(undefined);
@@ -43,7 +43,7 @@ const UpdateProductForm = ({ product }: TProps) => {
           originalPrice: String(product.originalPrice),
           discount: product?.discount,
           colors: defaultColors,
-          sizes: product?.sizes?.length > 0 ? product?.sizes?.map((cv) => cv._id) : undefined,
+          sizes: product?.sizes?.length > 0 ? product?.sizes?.map((cv) => cv._id) : [],
           status: product?.status,
           stockStatus: product?.stockStatus,
           introduction: product?.introduction,
@@ -76,21 +76,27 @@ const UpdateProductForm = ({ product }: TProps) => {
       name: data.name,
       categoryId: data.categoryId,
       currentPrice: data.currentPrice,
-      originalPrice: data.originalPrice,
+      colors: data.colors,
+      sizes: data.sizes,
       status: data?.status,
       stockStatus: data?.stockStatus,
       introduction: data?.introduction,
       description: data?.description
     }
 
-    if(data.colors && data?.colors?.length > 0){
-      finalValues.colors=data.colors;
+    if(!data.discount){
+      finalValues.discount="";
     }
-    if(data.sizes && data?.sizes?.length > 0){
-      finalValues.sizes=data.sizes;
+    if(data.discount){
+      finalValues.discount=data.discount;
+    }
+    if(!data.originalPrice){
+      finalValues.originalPrice=0;
+    }
+    if(data.originalPrice){
+      finalValues.originalPrice=data.originalPrice;
     }
 
-    //console.log(finalValues)
     updateProduct({
         id: product?._id,
         data: finalValues
@@ -154,7 +160,7 @@ const UpdateProductForm = ({ product }: TProps) => {
                 label: "Hidden",
                 value: "hidden"
               }
-            ]}
+            ]}           
             blankOption={false}
           />
           <CustomSelect
@@ -166,7 +172,7 @@ const UpdateProductForm = ({ product }: TProps) => {
             />
           <CustomInput
             label="Discount (Optional)"
-            name="discoun"
+            name="discount"
             type="text"
             control={control}
             placeholder="Enter discount"
@@ -188,7 +194,7 @@ const UpdateProductForm = ({ product }: TProps) => {
           height={250}
           placeholder="Write a description..."
         />
-
+                  
         <button
           type="submit"
           className="w-full flex justify-center items-center gap-x-2 bg-primary hover:bg-[#2b4773] cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100"

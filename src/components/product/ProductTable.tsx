@@ -87,14 +87,20 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       dataIndex: "currentPrice",
       key: "currentPrice",
       width: "5%",
-      align: 'center' as const
+      align: 'center' as const,
+      render: (val: number) => (
+        <span>${val}</span>
+      )
     },
     {
       title: "Original Price",
       dataIndex: "originalPrice",
       key: "originalPrice",
       width: "7%",
-      align: 'center' as const
+      align: 'center' as const,
+       render: (val: number) => (
+        <span>${val}</span>
+      )
     },
     {
       title: "Ratings",

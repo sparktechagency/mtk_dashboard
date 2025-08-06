@@ -183,14 +183,14 @@ export const updateProductValidationSchema = z.object({
       invalid_type_error: "colors must be an array",
       required_error: "colors must be at least one value"
     }
-  ).optional(),
+  ).default([]),
   sizes: z.array(
     z.string(),
     {
       invalid_type_error: "sizes must be an array",
       required_error: "sizes must be at least one value"
     }
-  ).optional(),
+  ).default([]),
   introduction: z.preprocess(
     (val) => {
       if (typeof val === "string" && isEditorContentEmpty(val)) {
