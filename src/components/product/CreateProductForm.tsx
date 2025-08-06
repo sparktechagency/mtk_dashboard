@@ -32,17 +32,22 @@ const CreateProductForm = () => {
   const { sizeOptions } = useAppSelector((state) => state.size);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
-  const { handleSubmit, control, watch, trigger} = useForm({
+  const { handleSubmit, control, watch, trigger, } = useForm({
     resolver: zodResolver(createProductValidationSchema),
   });
 
   const currentPrice = watch("currentPrice");
+  const originalPrice = watch("originalPrice");
 
   useEffect(() => {
     if (currentPrice) {
       trigger("originalPrice");
     }
-  }, [currentPrice, watch, trigger]);
+    if(currentPrice && !originalPrice){
+      trigger("currentPrice");
+    }
+  }, [currentPrice, originalPrice, watch, trigger]);
+  
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
@@ -106,7 +111,7 @@ const CreateProductForm = () => {
             }}
           />
           <CustomInput
-            label="Old Price(optional)"
+            label="Original Price(optional)"
             name="originalPrice"
             type="text"
             control={control}
@@ -159,14 +164,14 @@ const CreateProductForm = () => {
           name="introduction"
           control={control}
           height={40}
-          placeholder="Write a blog..."
+          placeholder="Write a short intro..."
         />
         <CustomQuilEditor
           label="Description"
           name="description"
           control={control}
           height={250}
-          placeholder="Write a blog..."
+          placeholder="Write a description..."
         />
 
         <button

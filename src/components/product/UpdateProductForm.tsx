@@ -34,7 +34,7 @@ const UpdateProductForm = ({ product }: TProps) => {
   const { colorOptions } = useAppSelector((state) => state.color);
   const { sizeOptions } = useAppSelector((state) => state.size);
   const [ updateProduct, { isLoading, isSuccess }] = useUpdateProductMutation();
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, watch, trigger } = useForm({
     resolver: zodResolver(updateProductValidationSchema),
       defaultValues: {
           name: product?.name,
@@ -51,9 +51,22 @@ const UpdateProductForm = ({ product }: TProps) => {
       }
   });
 
+  const currentPrice = watch("currentPrice");
+  const originalPrice = watch("originalPrice");
+
+  useEffect(() => {
+    if (currentPrice) {
+      trigger("originalPrice");
+    }
+    if(currentPrice && !originalPrice){
+      trigger("currentPrice");
+    }
+  }, [currentPrice, originalPrice, watch, trigger]);
+  
+
   useEffect(() => {
     if (!isLoading && isSuccess) {
-      //navigate("/blogs")
+      navigate("/products")
     }
   }, [isLoading, isSuccess, navigate])
 
