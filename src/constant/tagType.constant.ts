@@ -28,7 +28,8 @@ const TagTypes = {
     policy: "Policy",
     orders: "Orders",
     order: "Order",
-    incomeGrowth: "incomeGrowth"
+    incomeGrowth: "incomeGrowth",
+    subsbscriptions: "Subscriptions"
 }
 
 export default TagTypes;

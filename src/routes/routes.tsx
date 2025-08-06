@@ -32,6 +32,7 @@ import ProductDetailsPage from "../pages/product/ProductDetailsPage";
 import OrdersPage from "../pages/order/OrdersPage";
 import OrderDetailsPage from "../pages/order/OrderDetailsPage";
 import NotFoundRoute from "./NotFoundRoute";
+import SubscriptionsPage from "../pages/dashboard/SubscriptionsPage";
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
       {
         path: "contacts",
         element: <ContactPage />,
+      },
+      {
+        path: "subscriptions",
+        element: <SubscriptionsPage />,
       },
       {
         path: "products",

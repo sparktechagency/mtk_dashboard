@@ -19,6 +19,7 @@ export const adminMenuItems = [
   { path: "/products", label: "Products", icon: RiProductHuntLine },
   { path: "/information", label: "Contact Information", icon: GrCircleInformation },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
+  { path: "/subscriptions", label: "Subscriptions", icon: MdContactPhone },
   {
     path: "",
     label: "Help & FAQ",
