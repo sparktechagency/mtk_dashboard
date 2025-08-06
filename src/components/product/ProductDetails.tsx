@@ -77,9 +77,13 @@ const ProductDetails = ({ product}: TProps) =>{
             {product.originalPrice > product.currentPrice && (
               <>
                 <span className="text-xl text-gray-500 line-through">${product.originalPrice}</span>
-                <span className="bg-red-100 text-red-800 text-sm font-medium px-2.5 py-0.5 rounded">
-                  {product.discount} OFF
-                </span>
+                {
+                  product?.discount && (
+                    <span className="bg-red-100 text-red-800 text-sm font-medium px-2.5 py-0.5 rounded">
+                      {product.discount}
+                    </span>
+                  )
+                }
               </>
             )}
           </div>
