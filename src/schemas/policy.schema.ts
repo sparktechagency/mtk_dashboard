@@ -1,6 +1,11 @@
 import { z } from "zod";
-import { isEditorContentEmpty } from "./blog.schema";
 
+
+export const isEditorContentEmpty = (html: string) => {
+  const temp = document.createElement("div");
+  temp.innerHTML = html;
+  return temp.textContent?.trim() === "";
+};
 
 export const policySchema = z.object({
   description: z.preprocess(

@@ -5,11 +5,11 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import type { z } from "zod";
 import { CgSpinnerTwo } from "react-icons/cg";
 import type { TStockStatus } from "../../../types/product.type";
-import { useChangeProductStatusMutation } from "../../../redux/features/product/productApi";
 import { FiEdit } from "react-icons/fi";
 import CustomSelect from "../../form/CustomSelect";
 import { stockStatusOptions } from "../../../data/product.data";
 import { stockStatusSchema } from "../../../schemas/product.schema";
+import { useUpdateProductMutation } from "../../../redux/features/product/productApi";
 
 type TFormValues = z.infer<typeof stockStatusSchema>;
 
@@ -20,7 +20,7 @@ type TProps = {
 
 const ChangeStockStatusModal = ({ productId, stockStatus }: TProps) => {
     const [modalOpen, setModalOpen] = useState(false);
-    const [changeStatus, { isLoading, isSuccess }] = useChangeProductStatusMutation();
+    const [changeStatus, { isLoading, isSuccess }] = useUpdateProductMutation();
     const { handleSubmit, control } = useForm<TFormValues>({
         resolver: zodResolver(stockStatusSchema),
         defaultValues: {

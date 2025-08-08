@@ -10,7 +10,6 @@ export const productApi = apiSlice.injectEndpoints({
     getProducts: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
-
         if (args !== undefined && args.length > 0) {
           args.forEach((item: IParam) => {
             if (item.value) {
@@ -44,8 +43,14 @@ export const productApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Product is created successfully");
         } catch (err: any) {
-          const message = err?.error?.data?.message || "Something Went Wrong";    
-          ErrorToast(message);
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),
@@ -58,35 +63,6 @@ export const productApi = apiSlice.injectEndpoints({
       providesTags: (_result, _error, arg) => [
         { type: TagTypes.product, id: arg },
       ],
-      async onQueryStarted(_arg, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-        }catch{
-          ErrorToast("Server error is occured");
-        }
-      },
-    }),
-    changeProductStatus: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/product/update-product/${id}`,
-        method: "PATCH",
-        body: data,
-      }),
-      invalidatesTags: (result, _success, arg) => {
-        if (result?.success) {
-          return [TagTypes.products, { type: TagTypes.product, id: arg.id }];
-        }
-        return [];
-      },
-      async onQueryStarted(_arg, { queryFulfilled }) {
-       try {
-          await queryFulfilled;
-          SuccessToast("Update Success");
-        } catch (err:any) {
-          const message = err?.error?.data?.message || "Something Went Wrong";
-          ErrorToast(message);
-        }
-      },
     }),
     updateProduct: builder.mutation({
       query: ({ id, data }) => ({
@@ -105,8 +81,14 @@ export const productApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Update Success");
         } catch (err:any) {
+          const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
-          ErrorToast(message);
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),
@@ -123,12 +105,18 @@ export const productApi = apiSlice.injectEndpoints({
         return [];
       },
       async onQueryStarted(_arg, { queryFulfilled }) {
-       try {
+        try {
           await queryFulfilled;
           SuccessToast("Update Success");
-        } catch (err:any) {
+        } catch (err: any) {
+          const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
-          ErrorToast(message);
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),
@@ -148,12 +136,18 @@ export const productApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Product is deleted successfully");
         } catch (err: any) {
-          const message = err?.error?.data?.message;
-          ErrorToast(message);
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),
   }),
 });
 
-export const { useGetProductsQuery, useGetSingleProductQuery, useCreateProductMutation, useUpdateProductImgMutation, useDeleteProductMutation, useChangeProductStatusMutation, useUpdateProductMutation } = productApi;
+export const { useGetProductsQuery, useGetSingleProductQuery, useCreateProductMutation, useUpdateProductImgMutation, useDeleteProductMutation, useUpdateProductMutation } = productApi;

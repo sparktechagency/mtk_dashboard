@@ -22,8 +22,6 @@ const UpdateAboutForm = ( {description} : TProps) => {
   });
 
 
-
-
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
     createUpdatePolicy({
       type: "about-us",

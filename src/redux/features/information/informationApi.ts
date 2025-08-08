@@ -31,9 +31,14 @@ export const informationApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Information is updated successfully");
         } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          console.log(message)
-          ErrorToast(message)
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),

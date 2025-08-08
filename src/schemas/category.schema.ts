@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { z } from "zod";
 export const letterRegex = /^[A-Za-z]+$/;
 export const nonLetterRegex = /^[\s'.\-&,()]+$/;
@@ -12,7 +13,13 @@ export const categorySchema = z.object({
       required_error: "Title is required",
     })
     .min(1, "Title is required")
-    .trim(),
+    .trim()
+    .regex(/^[^0-9]*$/, {
+      message: "Title cannot contain numbers",
+    })
+    .regex(/^[^~!@#$%\^*\+\?><=;:"]*$/, {
+      message: 'Title cannot contain special characters: ~ ! @ # $ % ^ * + ? > < = ; : "',
+    }),
 });
 
 

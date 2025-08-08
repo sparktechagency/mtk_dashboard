@@ -14,9 +14,3 @@ export type TAdminDataSource = {
   phone_number: string;
 };
 
-
-export type TAuthAdmin = {
-  fullName: string;
-  email: string;
-  phone: string;
-};

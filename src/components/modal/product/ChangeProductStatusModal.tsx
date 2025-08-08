@@ -2,8 +2,8 @@ import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
-import { useChangeProductStatusMutation } from "../../../redux/features/product/productApi";
 import type { TProductStatus } from "../../../types/product.type";
+import { useUpdateProductMutation } from "../../../redux/features/product/productApi";
 
 type TProps ={
   productId:string;
@@ -12,7 +12,7 @@ type TProps ={
 
 const ChangeProductStatusModal = ({ productId, status }: TProps) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [ changeStatus, { isLoading, isSuccess }] = useChangeProductStatusMutation();
+  const [ changeStatus, { isLoading, isSuccess }] = useUpdateProductMutation();
 
   useEffect(() => {
     if (isSuccess) {

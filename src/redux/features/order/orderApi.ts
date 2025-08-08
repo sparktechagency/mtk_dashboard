@@ -10,7 +10,6 @@ export const orderApi = apiSlice.injectEndpoints({
     getOrders: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
-
         if (args !== undefined && args.length > 0) {
           args.forEach((item: IParam) => {
             if (item.value) {
@@ -36,35 +35,6 @@ export const orderApi = apiSlice.injectEndpoints({
       providesTags: (_result, _error, arg) => [
         { type: TagTypes.order, id: arg },
       ],
-      async onQueryStarted(_arg, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-        }catch{
-          ErrorToast("Server error is occured");
-        }
-      },
-    }),
-    changeProductStatus: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/product/update-product/${id}`,
-        method: "PATCH",
-        body: data,
-      }),
-      invalidatesTags: (result, _success, arg) => {
-        if (result?.success) {
-          return [TagTypes.products, { type: TagTypes.product, id: arg.id }];
-        }
-        return [];
-      },
-      async onQueryStarted(_arg, { queryFulfilled }) {
-       try {
-          await queryFulfilled;
-          SuccessToast("Update Success");
-        } catch (err:any) {
-          const message = err?.error?.data?.message || "Something Went Wrong";
-          ErrorToast(message);
-        }
-      },
     }),
     updateOrder: builder.mutation({
       query: ({ id, data }) => ({
@@ -83,55 +53,18 @@ export const orderApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Update Success");
         } catch (err:any) {
+          const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
-          ErrorToast(message);
-        }
-      },
-    }),
-    updateProductImg: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/product/update-product-img/${id}`,
-        method: "PATCH",
-        body: data,
-      }),
-      invalidatesTags: (result, _success, arg) => {
-        if (result?.success) {
-          return [TagTypes.products, { type: TagTypes.product, id: arg.id }];
-        }
-        return [];
-      },
-      async onQueryStarted(_arg, { queryFulfilled }) {
-       try {
-          await queryFulfilled;
-          SuccessToast("Update Success");
-        } catch (err:any) {
-          const message = err?.error?.data?.message || "Something Went Wrong";
-          ErrorToast(message);
-        }
-      },
-    }),
-    deleteProduct: builder.mutation({
-      query: (id) => ({
-        url: `/product/delete-product/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: (result) => {
-        if (result?.success) {
-          return [TagTypes.products];
-        }
-        return [];
-      },
-      async onQueryStarted(_arg, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          SuccessToast("Product is deleted successfully");
-        } catch (err: any) {
-          const message = err?.error?.data?.message;
-          ErrorToast(message);
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),
   }),
 });
 
-export const { useGetOrdersQuery, useGetSingleOrderQuery, useUpdateProductImgMutation, useDeleteProductMutation, useChangeProductStatusMutation, useUpdateOrderMutation } = orderApi;
+export const { useGetOrdersQuery, useGetSingleOrderQuery, useUpdateOrderMutation } = orderApi;

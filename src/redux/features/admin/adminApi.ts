@@ -10,7 +10,6 @@ export const adminApi = apiSlice.injectEndpoints({
     getAdmins: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
-
         if (args !== undefined && args.length > 0) {
           args.forEach((item: IParam) => {
             if (item.value) {

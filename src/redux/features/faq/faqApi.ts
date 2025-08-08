@@ -32,8 +32,8 @@ export const faqApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: (result) =>{
-        if(result?.success){
+      invalidatesTags: (result) => {
+        if (result?.success) {
           return [TagTypes.faqs]
         }
         return []
@@ -42,30 +42,15 @@ export const faqApi = apiSlice.injectEndpoints({
         try {
           await queryFulfilled;
           SuccessToast("Faq is created successfully");
-        } catch (err:any) {
-           const message = err?.error?.data?.message;
-           dispatch(SetCreateFaqError(message))
-        }
-      },
-    }),
-    deleteFaq: builder.mutation({
-      query: (id) => ({
-        url: `/faq/delete-faq/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: (result) =>{
-        if(result?.success){
-          return [TagTypes.faqs]
-        }
-        return []
-      },
-      async onQueryStarted(_arg, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          SuccessToast("Faq is deleted successfully");
-        } catch (err:any) {
-           const message = err?.error?.data?.message;
-           ErrorToast(message)
+        } catch (err: any) {
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            dispatch(SetCreateFaqError("Something Went Wrong"));
+          }
+          else {
+            dispatch(SetCreateFaqError(message));
+          }
         }
       },
     }),
@@ -75,8 +60,8 @@ export const faqApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result) =>{
-        if(result?.success){
+      invalidatesTags: (result) => {
+        if (result?.success) {
           return [TagTypes.faqs]
         }
         return []
@@ -84,10 +69,43 @@ export const faqApi = apiSlice.injectEndpoints({
       async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           await queryFulfilled;
-            SuccessToast("Faq is updated successfully");
-        } catch (err:any) {
-           const message = err?.error?.data?.message;
-           dispatch(SetEditFaqError(message))
+          SuccessToast("Faq is updated successfully");
+        } catch (err: any) {
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            dispatch(SetEditFaqError("Something Went Wrong"));
+          }
+          else {
+            dispatch(SetEditFaqError(message));
+          }
+        }
+      },
+    }),
+    deleteFaq: builder.mutation({
+      query: (id) => ({
+        url: `/faq/delete-faq/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result) => {
+        if (result?.success) {
+          return [TagTypes.faqs]
+        }
+        return []
+      },
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          SuccessToast("Faq is deleted successfully");
+        } catch (err: any) {
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),

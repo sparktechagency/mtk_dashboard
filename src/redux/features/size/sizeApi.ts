@@ -37,8 +37,14 @@ export const sizeApi = apiSlice.injectEndpoints({
           }))
           dispatch(SetSizeOptions(options))
         } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          ErrorToast(message);
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),
@@ -59,8 +65,14 @@ export const sizeApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Category is added successfully");
         } catch (err: any) {
+          const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
-          dispatch(SetSizeCreateError(message));
+          if (status === 500) {
+            dispatch(SetSizeCreateError("Something Went Wrong"));
+          }
+          else {
+            dispatch(SetSizeCreateError(message));
+          }
         }
       },
     }),
@@ -80,8 +92,14 @@ export const sizeApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Size is deleted successfully");
         } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          ErrorToast(message);
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),

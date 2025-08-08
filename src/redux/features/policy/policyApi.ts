@@ -36,9 +36,15 @@ export const policyApi = apiSlice.injectEndpoints({
         try {
           await queryFulfilled;
           SuccessToast(`Update Success`);
-        } catch (err:any) {
-          const message = err?.error?.data?.message;
-          ErrorToast(message);
+        } catch (err: any) {
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     })

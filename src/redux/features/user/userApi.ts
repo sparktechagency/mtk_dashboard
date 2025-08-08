@@ -40,8 +40,14 @@ export const userApi = apiSlice.injectEndpoints({
           const data = res?.data?.data;
           dispatch(SetUser(data))
         } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          ErrorToast(message);
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),

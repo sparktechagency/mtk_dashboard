@@ -60,7 +60,7 @@ const ProfileForm = ({ admin }: TProps) => {
 
 
         <CustomInput
-          label="Phone Number(only UK)"
+          label="Phone Number"
           name="phone"
           type="text"
           control={control}
