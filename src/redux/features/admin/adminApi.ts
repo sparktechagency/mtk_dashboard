@@ -44,8 +44,14 @@ export const adminApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Admin is created successfully");
         } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          dispatch(SetAdminCreateError(message));
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            dispatch(SetAdminCreateError("Something Went Wrong"));
+          }
+          else {
+            dispatch(SetAdminCreateError(message));
+          }
         }
       },
     }),

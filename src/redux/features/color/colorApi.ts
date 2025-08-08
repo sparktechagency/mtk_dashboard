@@ -35,18 +35,17 @@ export const colorApi = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.colorDropDown],
-      async onQueryStarted(_arg, { queryFulfilled, dispatch}) {
+      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           const res = await queryFulfilled;
           const data = res?.data?.data;
-          const options = data?.map((c:IColor)=> ({
-            value:c._id,
+          const options = data?.map((c: IColor) => ({
+            value: c._id,
             label: c.name,
           }))
           dispatch(SetColorOptions(options))
-        } catch(err:any){
-        const message = err?.error?.data?.message || "Something went wrong";
-         ErrorToast(message);
+        } catch {
+          ErrorToast("Something Went Wrong");
         }
       },
     }),
@@ -67,13 +66,19 @@ export const colorApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Color is added successfully");
         } catch (err: any) {
+          const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
-          dispatch(SetColorCreateError(message));
+          if (status === 500) {
+            dispatch(SetColorCreateError("Something Went Wrong"));
+          }
+          else {
+            dispatch(SetColorCreateError(message));
+          }
         }
       },
     }),
     updateColor: builder.mutation({
-      query: ({id, data }) => ({
+      query: ({ id, data }) => ({
         url: `/color/update-color/${id}`,
         method: "PATCH",
         body: data,
@@ -89,8 +94,14 @@ export const colorApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Color is updated successfully");
         } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          dispatch(SetColorUpdateError(message));
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            dispatch(SetColorUpdateError("Something Went Wrong"));
+          }
+          else {
+            dispatch(SetColorUpdateError(message));
+          }
         }
       },
     }),
@@ -110,8 +121,14 @@ export const colorApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Color is deleted successfully");
         } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          ErrorToast(message);
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),

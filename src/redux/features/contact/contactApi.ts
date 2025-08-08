@@ -44,8 +44,14 @@ export const contactApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Your reply has been sent successfully.");
         } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          ErrorToast(message);
+           const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
         }
       },
     }),

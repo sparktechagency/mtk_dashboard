@@ -57,8 +57,14 @@ export const authApi = apiSlice.injectEndpoints({
           setEmail(email);
           SuccessToast("OTP is sent successfully");
         } catch (err: any) {
+          const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
-          dispatch(SetForgotError(message));
+          if (status === 500) {
+            dispatch(SetForgotError("Something Went Wrong"));
+          }
+          else {
+            dispatch(SetForgotError(message));
+          }
         }
       },
     }),
@@ -97,8 +103,14 @@ export const authApi = apiSlice.injectEndpoints({
           setEmail(email);
           SuccessToast("OTP is sent successfully");
         } catch (err: any) {
+          const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
-          ErrorToast(message);
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+             ErrorToast(message);
+          }
         }
       },
     }),
@@ -117,8 +129,14 @@ export const authApi = apiSlice.injectEndpoints({
             window.location.href = "/auth/signin";
           }, 300);
         } catch (err: any) {
+          const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
-          dispatch(SetResetPasswordError(message));   
+          if (status === 500) {
+            dispatch(SetResetPasswordError("Something Went Wrong"));
+          }
+          else {
+            dispatch(SetResetPasswordError(message));
+          }
         }
       },
     }),
@@ -139,8 +157,14 @@ export const authApi = apiSlice.injectEndpoints({
           await queryFulfilled;
           SuccessToast("Update Success");
         } catch (err:any) {
+          const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
-          ErrorToast(message);
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+             ErrorToast(message);
+          }
         }
       },
     }),
@@ -158,35 +182,15 @@ export const authApi = apiSlice.injectEndpoints({
             localStorage.clear()
             window.location.href = "/auth/signin";
           }, 300);
-        } catch (err:any) {
-          const message = err?.error?.data?.message;
-          if(message === "password is incorrect"){
-            dispatch(SetChangePasswordError("Wrong Current Password"))
-          }else{
+        } catch (err: any) {
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            dispatch(SetChangePasswordError("Something Went Wrong"));
+          }
+          else {
             dispatch(SetChangePasswordError(message))
           }
-        }
-      },
-    }),
-    updateAdminProfile: builder.mutation({
-      query: (data) => ({
-        url: `/auth/admin/edit-profile`,
-        method: "PATCH",
-        body: data,
-      }),
-      invalidatesTags: (result) => {
-        if (result?.success) {
-          return [TagTypes.me];
-        }
-        return [];
-      },
-      async onQueryStarted(_arg, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          SuccessToast("Profile is updated successfully");
-        } catch (err: any) {
-          const message = err?.error?.data?.message || "Something went wrong";
-          ErrorToast(message);
         }
       },
     }),
@@ -201,5 +205,4 @@ export const {
   useForgotPasswordResetMutation,
   useChangeStatusMutation,
   useChangePasswordMutation,
-  useUpdateAdminProfileMutation
 } = authApi;
