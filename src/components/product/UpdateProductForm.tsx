@@ -97,7 +97,6 @@ const UpdateProductForm = ({ product }: TProps) => {
       finalValues.originalPrice=data.originalPrice;
     }
 
-    console.log(finalValues)
 
     updateProduct({
         id: product?._id,
