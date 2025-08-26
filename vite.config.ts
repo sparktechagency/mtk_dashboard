@@ -9,6 +9,6 @@ export default defineConfig({
     host: '0.0.0.0'    
   },
   preview: { 
-    allowedHosts: ['dashboard.machmakers.co.uk', '13.53.182.102', "www.dashboard.machmakers.co.uk"],  
+    allowedHosts: ['dashboard.machmakers.co.uk', '16.16.183.92', "www.dashboard.machmakers.co.uk"],  
   },
 })
