@@ -17,14 +17,15 @@ type TProps = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  loading: boolean;
 };
 
 
-const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, setPageSize }: TProps) => {
+const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, setPageSize, loading }: TProps) => {
 
   const dataSource: TProductDataSource[] = products?.map((product, index) => ({
     key: index,
-    serial: Number(index + 1) + ((currentPage - 1) * pageSize),
+    serial: Number(index + 1) + ((meta.page - 1) * pageSize),
     _id: product?._id,
     name: product?.name,
     categoryName: product?.categoryName,
@@ -233,9 +234,10 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
           sticky
           scroll={{ y: "calc(100vh - 324px)" }}
           className="employer-table"
+          loading={loading}
         />
       </div>
-      {meta?.totalPages > 1 && (
+      {meta?.total > 0 && (
         <div className="p-8 bg-white shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

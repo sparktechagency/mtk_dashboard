@@ -14,14 +14,15 @@ type TProps = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  isFetching: boolean;
 };
 
 
-const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPageSize }: TProps) => {
+const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPageSize, isFetching }: TProps) => {
 
   const dataSource: TOrderDataSource[] = orders?.map((order, index) => ({
     key: index,
-    serial: Number(index + 1) + ((currentPage - 1) * pageSize),
+    serial: Number(index + 1) + ((meta.page - 1) * pageSize),
     _id: order?._id,
     token: order?.token,
     fullName: order?.fullName,
@@ -148,17 +149,6 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
         </div>
       ),
     },
-    // {
-    //   title: "Action",
-    //   dataIndex: "_id",
-    //   key: "action",
-    //   width: "7%",
-    //   render: (productId: string) => (
-    //     <div className="flex items-center gap-2">
-    //       <DeleteBlogModal blogId={productId} />
-    //     </div>
-    //   ),
-    // },
   ];
 
 
@@ -192,9 +182,10 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
           sticky
           scroll={{ y: "calc(100vh - 324px)" }}
           className="employer-table"
+          loading={isFetching}
         />
       </div>
-      {meta?.totalPages > 1 && (
+      {meta?.total > 0 && (
         <div className="p-8 bg-white shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

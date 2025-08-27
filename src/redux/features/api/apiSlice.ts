@@ -6,7 +6,7 @@ import { ErrorToast } from "../../../helper/ValidationHelper.ts";
 
 //export const baseUrl = "http://localhost:9090/api/v1";
 //export const baseUrl = "https://mtk-server-zeta.vercel.app/api/v1"
-export const baseUrl = "http://16.16.183.92:8080/api/v1"
+export const baseUrl = "http://16.16.183.92:9090/api/v1"
 
 
 const baseQuery = fetchBaseQuery({

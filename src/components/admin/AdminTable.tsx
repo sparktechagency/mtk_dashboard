@@ -14,6 +14,7 @@ interface UserTableProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  isFetching: boolean
 }
 
 
@@ -24,11 +25,12 @@ const AdminTable: React.FC<UserTableProps> = ({
   setCurrentPage,
   pageSize,
   setPageSize,
+  isFetching,
 }) => {
 
   const dataSource: IUserDataSource[] = users?.map((user, index) => ({
     key: index,
-    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: user?._id,
     fullName: user?.fullName,
     email: user?.email,
@@ -128,6 +130,7 @@ const AdminTable: React.FC<UserTableProps> = ({
           sticky
           scroll={{ y: "calc(100vh - 324px)" }}
           className="employer-table"
+          loading={isFetching}
         />
       </div>
       {meta?.totalPages > 1 && (
