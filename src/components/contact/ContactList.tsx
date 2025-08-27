@@ -11,7 +11,7 @@ const ContactList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isError } = useGetContactListQuery([
+  const { data, isLoading, isFetching, isError } = useGetContactListQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
@@ -47,6 +47,7 @@ const ContactList = () => {
           setCurrentPage={setCurrentPage}
           pageSize={pageSize}
           setPageSize={setPageSize}
+          loading={isFetching}
         />
       </div>
     );

@@ -15,6 +15,7 @@ interface CandidateTableProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  loading: boolean;
 }
 
 type TDataSource = TContact & {
@@ -29,11 +30,12 @@ const ContactTable : React.FC<CandidateTableProps> = ({
   setCurrentPage,
   pageSize,
   setPageSize,
+  loading
 }) => {
 
   const dataSource: TDataSource[] = contacts?.map((contact, index) => ({
     key: index,
-    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: contact?._id,
     name: contact?.name,
     email: contact?.email,
@@ -159,6 +161,7 @@ const ContactTable : React.FC<CandidateTableProps> = ({
           sticky
           scroll={{ y: "calc(100vh - 324px)" }}
           className="employer-table"
+          loading={loading}
         />
       </div>
       {meta?.totalPages > 1 && (
