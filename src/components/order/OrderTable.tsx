@@ -36,18 +36,19 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
 
 
 
+ 
   const columns = [
     {
       title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "4%",
+      width: 60,
     },
     {
       title: "Token",
       dataIndex: "token",
       key: "token",
-      width: "8%",
+      width: 90,
       render: (text: string) => (
         <>
           <p className="font-bold">{text}</p>
@@ -58,7 +59,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       title: "Customer",
       dataIndex: "fullName",
       key: "fullName",
-      width: "12.5%",
+      width: 150,
       render: (text: string) => (
         <>
           <p className="truncate">{text}</p>
@@ -69,19 +70,29 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: "15.5%",
+      width: 200,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
-      width: "12.5%",
+      width: 140,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Amount",
       dataIndex: "totalPrice",
       key: "totalPrice",
-      width: "8.5%",
+      width: 90,
       align: "center" as const,
       render: (val: number) => (
         <span>${val}</span>
@@ -91,7 +102,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       title: "Status",
       dataIndex: "status",
       key: "status",
-      width: "12%",
+      width: 160,
       render: (status: TDeliveryStatus, record: IOrder) => {
         return (
           <div className="flex items-center gap-2">
@@ -105,7 +116,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       title: "Payment Status",
       dataIndex: "paymentStatus",
       key: "paymentStatus",
-      width: "12%",
+      width: 120,
       render: (paymentStatus: TPaymentStatus) => {
         const statusStyles = {
           pending: "bg-yellow-100 text-yellow-700 border border-yellow-300",
@@ -137,7 +148,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       title: "View",
       dataIndex: "_id",
       key: "_id",
-      width: "5%",
+      width: 80,
       render: (orderId: string) => (
         <div className="flex items-center gap-2">
           <Link
@@ -175,18 +186,19 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
     >
       <div className="w-full overflow-auto px-4">
         <Table
+          size="small"
           columns={columns}
           dataSource={dataSource}
           pagination={false}
           rowKey="_id"
           sticky
-          scroll={{ y: "calc(100vh - 324px)" }}
-          className="employer-table"
+          scroll={{ y: "calc(100vh - 265px)" }}
+          className="employer-table min-h-[calc(100vh-290px)]"
           loading={isFetching}
         />
       </div>
       {meta?.total > 0 && (
-        <div className="p-8 bg-white shadow-md flex justify-center">
+        <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}
             current={currentPage}

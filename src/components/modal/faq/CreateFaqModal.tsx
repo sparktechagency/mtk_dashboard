@@ -42,7 +42,7 @@ const CreateFaqModal = () => {
     <>
       <button
         onClick={() => setModalOpen(true)}
-        className="bg-primary text-white px-6 py-2 rounded hover:bg-gray-800 transition"
+        className="bg-primary text-white px-6 py-2 rounded hover:bg-primary/70 transition"
       >
         + Add FAQ
       </button>

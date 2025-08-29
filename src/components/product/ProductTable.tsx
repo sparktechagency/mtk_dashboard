@@ -38,19 +38,18 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
   }));
 
 
-
-  const columns = [
+ const columns = [
     {
       title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "3%",
+      width: 60,
     },
     {
       title: "Name",
       dataIndex: "name",
       key: "title",
-      width: "12.5%",
+      width: 160,
       render: (text: string) => (
         <>
           <p className="truncate">{text}</p>
@@ -61,7 +60,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Image",
       dataIndex: "image",
       key: "image",
-      width: "7.5%",
+      width: 100,
       render: (val: string) => (
         <>
           {/* <img src={val} alt="icon" className="w-12 h-12 rounded-md" /> */}
@@ -80,14 +79,19 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
     {
       title: "Category",
       dataIndex: "categoryName",
-      key: "categoryName",
-      width: "7%",
+      key: "category",
+      width: 100,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Price",
       dataIndex: "currentPrice",
       key: "currentPrice",
-      width: "5%",
+      width: 85,
       align: 'center' as const,
       render: (val: number) => (
         <span>${val}</span>
@@ -97,7 +101,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Original Price",
       dataIndex: "originalPrice",
       key: "originalPrice",
-      width: "7%",
+      width: 120,
       align: 'center' as const,
        render: (val: number) => (
         <span>${val}</span>
@@ -107,7 +111,8 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Ratings",
       dataIndex: "ratings",
       key: "ratings",
-      width: "5%",
+      width: 80,
+      align: 'center' as const,
       render: (value: number) => (
         <>
           <div className="flex items-center gap-1 justify-center">
@@ -121,7 +126,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Status",
       dataIndex: "status",
       key: "status",
-      width: "10%",
+      width: 145,
       render: (status: TProductStatus, record: TProductDataSource) => {
         const statusStyles = {
           hidden: "bg-red-100 text-red-700 border border-red-300",
@@ -146,7 +151,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Stock Status",
       dataIndex: "stockStatus",
       key: "stockStatus",
-      width: "10%",
+      width: 150,
       render: (status: TStockStatus, record: TProductDataSource) => {
         const statusStyles = {
           in_stock: "bg-blue-100 text-blue-800 border border-blue-300",
@@ -172,7 +177,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "View",
       dataIndex: "_id",
       key: "_id",
-      width: "5%",
+      width: 80,
       render: (productId: string) => (
         <div className="flex items-center gap-2">
           <Link
@@ -188,7 +193,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Action",
       dataIndex: "_id",
       key: "action",
-      width: "7%",
+      width: 115,
       render: (productId: string) => (
         <div className="flex items-center gap-2">
           <Link
@@ -202,7 +207,6 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       ),
     },
   ];
-
 
 
   const handlePagination = (page: number, PageSize: number) => {
@@ -225,15 +229,16 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
         },
       }}
     >
-      <div className="w-full overflow-auto px-4">
+      <div className="w-full overflow-auto px-4 overflow-x-auto sm:overflow-x-visible">
         <Table
+          size="small"
           columns={columns}
           dataSource={dataSource}
           pagination={false}
           rowKey="_id"
           sticky
-          scroll={{ y: "calc(100vh - 324px)" }}
-          className="employer-table"
+          scroll={{ y: "calc(100vh - 265px)" }}
+          className="employer-table min-h-[calc(100vh-290px)]"
           loading={loading}
         />
       </div>

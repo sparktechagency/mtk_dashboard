@@ -8,9 +8,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import JobOverviewLoading from '../loader/JobOverviewLoading';
 import { yearOptions } from '../../data/options.data';
 import { useGetUserGrowthQuery } from '../../redux/features/dashboard/dashboardApi';
+import UserOverviewLoading from '../loader/UserOverviewLoading';
 
 
 
@@ -24,7 +24,7 @@ const UserOverviewChart = () => {
 
 
   if(isLoading){
-    return <JobOverviewLoading/>
+    return <UserOverviewLoading/>
   }
 
   if (!isLoading && isError) {
@@ -34,7 +34,7 @@ const UserOverviewChart = () => {
 
 
   return (
-    <div className="md:p-6 bg-white rounded-lg shadow-sm">
+    <div className="p-2 md:p-6 bg-white rounded-lg shadow-sm">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">User Overview</h2>
         <select

@@ -78,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, closeSidebar }) => {
         <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
           {
             menuItems?.map((item, index)=> (
-              <SidebarLink menuItem={item} key={index}/>
+              <SidebarLink menuItem={item} key={index} closeSidebar={closeSidebar}/>
             ))
           }
         </nav>

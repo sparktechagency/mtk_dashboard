@@ -4,6 +4,8 @@ import { useState } from "react";
 import product_placeholder from "../../assets/images/product_placeholder.png";
 import { FaStar } from "react-icons/fa";
 import type { ISingleProduct } from "../../types/product.type";
+import { getStockStatusBg, getStockStatusColor } from "../../utils/getStockStatusColor";
+import getStockStatus from "../../utils/getStockStatus";
 
 
 type TProps = {
@@ -16,7 +18,7 @@ const ProductDetails = ({ product}: TProps) =>{
 
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Product Images */}
         <div className="space-y-4">
@@ -89,16 +91,14 @@ const ProductDetails = ({ product}: TProps) =>{
           </div>
 
           {/* Stock Status */}
-          <div className="flex items-center space-x-2">
+           <div className="flex items-center space-x-2">
             <div
-              className={`w-3 h-3 rounded-full ${product.stockStatus === "in_stock" ? "bg-green-500" : "bg-red-500"}`}
+              className={`w-3 h-3 rounded-full ${getStockStatusBg(product.stockStatus)}`}
             ></div>
             <span
-              className={`text-sm font-medium ${
-                product.stockStatus === "in_stock" ? "text-green-700" : "text-red-700"
-              }`}
+              className={`text-sm font-medium ${getStockStatusColor(product.stockStatus)}`}
             >
-              {product.stockStatus === "in_stock" ? "In Stock" : "Out of Stock"}
+              {getStockStatus(product.stockStatus)}
             </span>
           </div>
 

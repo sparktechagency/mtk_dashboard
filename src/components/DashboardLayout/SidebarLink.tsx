@@ -11,9 +11,10 @@ type TProps = {
     hasArrow?: boolean;
     children?: any[];
   };
+  closeSidebar: () => void;
 };
 
-const SidebarLink = ({ menuItem }: TProps) => {
+const SidebarLink = ({ menuItem, closeSidebar }: TProps) => {
   const { path, label, hasArrow, children } = menuItem;
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -25,6 +26,7 @@ const SidebarLink = ({ menuItem }: TProps) => {
     if (hasArrow) {
       setOpen(!open);
     } else if (path) {
+      closeSidebar()
       navigate(path);
     }
   };
@@ -50,8 +52,6 @@ const SidebarLink = ({ menuItem }: TProps) => {
             </span>
             {label}
           </div>
-
-          {/* <ChevronRight className="cursor-pointer"/> */}
           {hasArrow && (
             <span className="text-xs pr-3">
               {open ? <ChevronDown /> : <ChevronRight />}
@@ -63,7 +63,10 @@ const SidebarLink = ({ menuItem }: TProps) => {
             {children.map((child, index) => (
             <div
               key={index}
-              onClick={() => navigate(child.path)}
+              onClick={() => {
+                closeSidebar();
+                navigate(child.path);
+              }}
               className={`text-md px-2 py-1 rounded cursor-pointer ${
                 pathname === child.path
                   ? 'bg-slate-700 text-white'

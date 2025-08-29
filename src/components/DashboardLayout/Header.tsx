@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
           ) : (
             <div
               onClick={() => navigate("/profile")}
-              className="flex items-center gap-2 cursor-pointer"
+              className="flex items-center gap-2 cursor-pointer hover:bg-slate-200 transition-colors px-2 py-1 rounded-md"
             >
               <span className="text-gray-800 font-medium">{user?.fullName}</span>
             </div>

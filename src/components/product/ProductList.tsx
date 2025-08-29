@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
-import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import ProductTable from "./ProductTable";
 import { useGetProductsQuery } from "../../redux/features/product/productApi";
+import ProductListHeader from "./ProductListHeader";
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -57,33 +57,7 @@ const ProductList = () => {
 
    return (
      <>
-       <div className="p-4 flex justify-between">
-         <h1 className="text-xl font-medium text-gray-800">Product List</h1>
-         <div className="flex items-center gap-12">
-           <h1 className="text-lg">
-             Total: <span className="font-bold"> {meta?.total} </span>
-           </h1>
-           <div className="relative w-72">
-             <span className="absolute inset-y-0 left-3 flex items-center text-gray-700">
-               <FaSearch size={16} />
-             </span>
-             <input
-               type="text"
-               placeholder="Search here..."
-               value={searchQuery}
-               onChange={(e) => setSearchQuery(e.target.value)}
-               className="w-full pl-10 pr-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500"
-             />
-           </div>
-           <button
-             onClick={() => navigate("/add-product")}
-             className="bg-primary px-3 py-1.5 text-white cursor-pointer rounded-md hover:bg-[#2b4773] duration-200"
-           >
-             {" "}
-             Add New
-           </button>
-         </div>
-       </div>
+       <ProductListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} navigate={navigate} />
        {content}
      </>
    );

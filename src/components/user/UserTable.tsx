@@ -114,13 +114,13 @@ const UserTable: React.FC<UserTableProps> = ({
           pagination={false}
           rowKey="_id"
           sticky
-          scroll={{ y: "calc(100vh - 324px)" }}
-          className="employer-table"
+          scroll={{ y: "calc(100vh - 265px)" }}
+          className="employer-table min-h-[calc(100vh-290px)]"
           loading={isFetching}
         />
       </div>
       {meta?.totalPages > 1 && (
-        <div className="p-8 bg-white shadow-md flex justify-center">
+        <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}
             current={currentPage}
