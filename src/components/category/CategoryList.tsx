@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useGetCategoriesQuery } from "../../redux/features/category/categoryApi";
 import ServerErrorCard from "../card/ServerErrorCard";
-import ListLoading from "../loader/ListLoading";
 import CategoryTable from "./CategoryTable";
 import CategoryListHeader from "./CategoryListHeader";
+import FallbackLoading from "../loader/FallbackLoading";
 
 const CategoryList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -30,38 +30,32 @@ const CategoryList = () => {
 
   const categories = data?.data || [];
   const meta = data?.meta || {};
-  let content: React.ReactNode;
 
-
-  
 
   if (isLoading) {
-    content = <ListLoading />;
+    return <FallbackLoading />;
   }
 
   if (!isLoading && !isError) {
-    content = <CategoryTable
-      categories={categories}
-      meta={meta}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      pageSize={pageSize}
-      setPageSize={setPageSize}
-      loading={isFetching}
-    />;
-  }
-
-  if (!isLoading && isError) {
-    content = <ServerErrorCard />;
-  }
-
-
     return (
       <>
         <CategoryListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        {content}
+        <CategoryTable
+          categories={categories}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          loading={isFetching}
+        />
       </>
-    );
+    )
+  }
+
+  if (!isLoading && isError) {
+    return <ServerErrorCard />;
+  }
 };
 
 export default CategoryList;

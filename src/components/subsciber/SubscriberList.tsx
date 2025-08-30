@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import { useGetSubscribersQuery } from "../../redux/features/newsletter/newsletterApi";
-import SubscribeTable from "./SubscribeTable";
 import SubscriberListHeader from "./SubscriberListHeader";
+import SubscriberTable from "./SubscriberTable";
 
-const SubscribeList = () => {
+const SubscriberList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,38 +30,33 @@ const SubscribeList = () => {
   const subscriptions = data?.data || [];
   const meta = data?.meta || {};
 
-  let content: React.ReactNode;
-
   if (isLoading) {
-    content = <ListLoading />;
+    return <ListLoading />;
   }
 
   if (!isLoading && !isError) {
-    content = (
-      <div className="flex-1 overflow-hidden">
-        <SubscribeTable
-          subscriptions={subscriptions}
-          meta={meta}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          loading={isFetching}
-        />
-      </div>
+    return (
+      <>
+        <SubscriberListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <div className="flex-1 overflow-hidden">
+          <SubscriberTable
+            subscriptions={subscriptions}
+            meta={meta}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            loading={isFetching}
+          />
+        </div>
+      </>
     );
   }
 
   if (!isLoading && isError) {
-    content = <ServerErrorCard />;
+    return <ServerErrorCard />;
   }
 
-  return (
-    <>
-      <SubscriberListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-      {content}
-    </>
-  );
 };
 
-export default SubscribeList;
+export default SubscriberList;

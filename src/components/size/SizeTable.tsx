@@ -40,22 +40,22 @@ const SizeTable = ({
 
   const columns = [
     {
-      title: "Serial No",
+      title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "10%",
+      width: 70
     },
     {
       title: "Size",
       dataIndex: "size",
       key: "size",
-      width: "22.5%",
+      width: 100,
     },
     {
       title: "Action",
       dataIndex: "_id",
       key: "action",
-      width: "15%",
+      width: 110,
       render: (val: string) => (  
           <DeleteSizeModal sizeId={val} />
       ),
@@ -81,7 +81,7 @@ const SizeTable = ({
         },
       }}
     >
-      <div className="w-full overflow-auto">
+      <div className="w-full overflow-auto px-4 overflow-x-auto">
         <Table
           columns={columns}
           dataSource={dataSource}
@@ -89,7 +89,7 @@ const SizeTable = ({
           rowKey="_id"
           sticky
           scroll={{ y: "calc(100vh - 265px)" }}
-          className="employer-table"
+          className="employer-table min-h-[calc(100vh-290px)]"
         />
       </div>
       {meta?.total > 0 && (

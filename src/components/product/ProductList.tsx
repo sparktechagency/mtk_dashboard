@@ -12,7 +12,7 @@ const ProductList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading,isFetching, isError } = useGetProductsQuery([
+  const { data, isLoading, isFetching, isError } = useGetProductsQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
@@ -31,36 +31,31 @@ const ProductList = () => {
   const products = data?.data || [];
   const meta = data?.meta || {};
 
-  let content: React.ReactNode;
 
   if (isLoading) {
-    content = <ListLoading />;
+    return <ListLoading />;
   }
 
   if (!isLoading && !isError) {
-    content = (
-      <ProductTable
-        products={products}
-        meta={meta}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        loading={isFetching}
-      />
+    return (
+      <>
+        <ProductListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} navigate={navigate} />
+        <ProductTable
+          products={products}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          loading={isFetching}
+        />
+      </>
     );
   }
 
   if (!isLoading && isError) {
-    content = <ServerErrorCard />;
+    return <ServerErrorCard />;
   }
-
-   return (
-     <>
-       <ProductListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} navigate={navigate} />
-       {content}
-     </>
-   );
 };
 
 export default ProductList;

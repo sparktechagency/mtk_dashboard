@@ -2,7 +2,10 @@ import { useParams } from "react-router-dom";
 import ServerErrorCard from "../../components/card/ServerErrorCard";
 import { useGetSingleOrderQuery } from "../../redux/features/order/orderApi";
 import OrderLoading from "../../components/loader/OrderLoading";
-import OrderDetails from "../../components/order/OrderDetails";
+import React, { Suspense } from "react";
+
+const OrderDetails = React.lazy(() => import("../../components/order/OrderDetails"));
+
 
 const OrderDetailsPage = () => {
   const { id } = useParams();
@@ -24,7 +27,9 @@ const OrderDetailsPage = () => {
   if (!isLoading && !isError && order?._id) {
     return (
       <>
+      <Suspense fallback={<OrderLoading/>}>
         <OrderDetails order={order}/>
+      </Suspense>
       </>
     )
   }

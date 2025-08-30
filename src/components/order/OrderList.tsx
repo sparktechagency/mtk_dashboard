@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
-import ListLoading from "../loader/ListLoading";
 import OrderTable from "./OrderTable";
 import { useGetOrdersQuery } from "../../redux/features/order/orderApi";
 import OrderListHeader from "./OrderListHeader";
+import FallbackLoading from "../loader/FallbackLoading";
 
 const OrderList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,20 +35,30 @@ const OrderList = () => {
   let content: React.ReactNode;
 
   if (isLoading) {
-    content = <ListLoading />;
+    content = <FallbackLoading />;
   }
 
   if (!isLoading && !isError) {
     content = (
-      <OrderTable
-        orders={orders}
-        meta={meta}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        isFetching={isFetching}
-      />
+      <>
+        <OrderListHeader
+          meta={meta}
+          status={status}
+          setStatus={setStatus}
+          setCurrentPage={setCurrentPage}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        <OrderTable
+          orders={orders}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          isFetching={isFetching}
+        />
+      </>
     );
   }
 
@@ -56,19 +66,11 @@ const OrderList = () => {
     content = <ServerErrorCard />;
   }
 
-   return (
-     <>
-       <OrderListHeader
-         meta={meta}
-         status={status}
-         setStatus={setStatus}
-         setCurrentPage={setCurrentPage}
-         searchQuery={searchQuery}
-         setSearchQuery={setSearchQuery}
-       />
-       {content}
-     </>
-   );
+  return (
+    <>
+      {content}
+    </>
+  );
 };
 
 export default OrderList;

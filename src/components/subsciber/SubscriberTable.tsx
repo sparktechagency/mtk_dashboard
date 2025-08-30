@@ -17,7 +17,7 @@ interface SubscribeTableProps {
 }
 
 
-const SubscribeTable : React.FC<SubscribeTableProps> = ({
+const SubscriberTable : React.FC<SubscribeTableProps> = ({
   subscriptions,
   meta,
   currentPage,
@@ -121,4 +121,4 @@ const SubscribeTable : React.FC<SubscribeTableProps> = ({
   );
 };
 
-export default SubscribeTable;
+export default SubscriberTable;

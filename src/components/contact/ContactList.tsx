@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import ContactTable from "./ContactTable";
@@ -30,38 +30,34 @@ const ContactList = () => {
   const contacts = data?.data || [];
   const meta = data?.meta || {};
 
-  let content: React.ReactNode;
 
   if (isLoading) {
-    content = <ListLoading />;
+    return <ListLoading />;
   }
 
   if (!isLoading && !isError) {
-    content = (
-      <div className="flex-1 overflow-hidden">
-        <ContactTable
-          contacts={contacts}
-          meta={meta}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          loading={isFetching}
-        />
-      </div>
+    return (
+      <>
+        <ContactListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <div className="flex-1 overflow-hidden">
+          <ContactTable
+            contacts={contacts}
+            meta={meta}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            loading={isFetching}
+          />
+        </div>
+      </>
     );
   }
 
   if (!isLoading && isError) {
-    content = <ServerErrorCard />;
+    return <ServerErrorCard />;
   }
 
-  return (
-    <>
-      <ContactListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-      {content}
-    </>
-  );
 };
 
 export default ContactList;

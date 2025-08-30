@@ -1,8 +1,8 @@
 import ServerErrorCard from "../card/ServerErrorCard";
-import ListLoading from "../loader/ListLoading";
 import { useGetOrdersQuery } from "../../redux/features/order/orderApi";
 import RecentOrderTable from "./RecentOrderTable";
 import { useNavigate } from "react-router-dom";
+import RecentOrderLoading from "../loader/RecentOrderLoading";
 
 const RecentOrderList = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const RecentOrderList = () => {
   let content: React.ReactNode;
 
   if (isLoading) {
-    content = <ListLoading />;
+    content = <RecentOrderLoading />;
   }
 
   if (!isLoading && !isError) {

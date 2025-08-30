@@ -1,4 +1,4 @@
-export default function ListLoading() {
+export default function FallbackLoading() {
   return (
     <div className="">
       <div className="bg-white rounded-lg shadow-sm">

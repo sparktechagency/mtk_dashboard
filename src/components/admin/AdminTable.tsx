@@ -14,7 +14,7 @@ interface UserTableProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
-  isFetching: boolean
+  loading: boolean
 }
 
 
@@ -25,7 +25,7 @@ const AdminTable: React.FC<UserTableProps> = ({
   setCurrentPage,
   pageSize,
   setPageSize,
-  isFetching,
+  loading,
 }) => {
 
   const dataSource: IUserDataSource[] = users?.map((user, index) => ({
@@ -41,34 +41,49 @@ const AdminTable: React.FC<UserTableProps> = ({
 
   const columns = [
     {
-      title: "Serial",
+      title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "10%",
+      width: 60,
     },
     {
       title: "Name",
       dataIndex: "fullName",
       key: "fullName",
-      width: "22.5%",
+      width: 150,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: "22.5%",
+      width: 200,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
-      width: "22.5%",
+      width: 140,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      width: "15%",
+      width: 160,
       render: (status: TBlockStatus, record: IUser) => {
         const statusStyles = {
           blocked: "bg-red-100 text-red-700 border border-red-300",
@@ -93,7 +108,7 @@ const AdminTable: React.FC<UserTableProps> = ({
       title: "Action",
       dataIndex: "_id",
       key: "action",
-      width: "15%",
+      width: 120,
       render: (val: string, record: IUser) => (
         <div className="flex items-center gap-3">
           <EditAdminModal admin={record} />
@@ -128,12 +143,12 @@ const AdminTable: React.FC<UserTableProps> = ({
           pagination={false}
           rowKey="_id"
           sticky
-          scroll={{ y: "calc(100vh - 324px)" }}
-          className="employer-table"
-          loading={isFetching}
+          scroll={{ y: "calc(100vh - 265px)" }}
+          className="employer-table min-h-[calc(100vh-290px)]"
+          loading={loading}
         />
       </div>
-      {meta?.totalPages > 1 && (
+      {meta?.total > 1 && (
         <div className="p-8 bg-white shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

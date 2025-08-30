@@ -1,4 +1,8 @@
-import AdminList from "../../components/admin/AdminList";
+import React, { Suspense } from "react";
+import FallbackLoading from "../../components/loader/FallbackLoading";
+
+const AdminList = React.lazy(() => import("../../components/admin/AdminList"));
+
 
 const AdminsPage = () => {
   return (
@@ -6,7 +10,9 @@ const AdminsPage = () => {
       <div>
         <div className="bg-white shadow rounded-lg h-full overflow-hidden">
           <div className="w-full h-full flex flex-col">
-            <AdminList/>
+            <Suspense fallback={<FallbackLoading />}>
+              <AdminList/>
+            </Suspense>
           </div>
         </div>
       </div>

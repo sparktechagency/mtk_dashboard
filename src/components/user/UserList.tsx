@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import UserTable from "./UserTable";
@@ -29,38 +29,34 @@ const UserList = () => {
   const users = data?.data || [];
   const meta = data?.meta || {};
 
-  let content: React.ReactNode;
 
   if (isLoading) {
-    content = <ListLoading />;
+    return <ListLoading />;
   }
 
   if (!isLoading && !isError) {
-    content = (
-      <div className="flex-1 overflow-hidden">
-        <UserTable
-          users={users}
-          meta={meta}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          isFetching={isFetching}
-        />
-      </div>
+    return (
+      <>
+        <UserListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <div className="flex-1 overflow-hidden">
+          <UserTable
+            users={users}
+            meta={meta}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            isFetching={isFetching}
+          />
+        </div>
+      </>
     );
   }
 
   if (!isLoading && isError) {
-    content = <ServerErrorCard />;
+    return <ServerErrorCard />;
   }
 
-  return (
-    <>
-      <UserListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-      {content}
-    </>
-  );
 };
 
 export default UserList;

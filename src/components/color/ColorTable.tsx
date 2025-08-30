@@ -13,6 +13,7 @@ type TProps = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  loading: boolean;
 }
 
 
@@ -22,7 +23,8 @@ const ColorTable = ({
   currentPage,
   setCurrentPage,
   pageSize,
-  setPageSize
+  setPageSize,
+  loading
 }: TProps) => {
 
   const dataSource: TColorDataSource[] = colors?.map((color, index) => ({
@@ -35,22 +37,22 @@ const ColorTable = ({
 
   const columns = [
     {
-      title: "Serial No",
+      title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "10%",
+      width: 70,
     },
     {
       title: "Title",
       dataIndex: "name",
       key: "name",
-      width: "22.5%",
+      width: 130,
     },
     {
       title: "Color",
       dataIndex: "hexCode",
       key: "hexCode",
-      width: "22%",
+      width: 130,
       render: (val: string) => (
         <div
           className="w-5 h-5 rounded-full border border-gray-300"
@@ -63,13 +65,13 @@ const ColorTable = ({
       title: "Hex Code",
       dataIndex: "hexCode",
       key: "hexCode2",
-      width: "22%",
+      width: 150,
     },
     {
       title: "Action",
       dataIndex: "_id",
       key: "action",
-      width: "15%",
+      width: 120,
       render: (val: string, record: IColor) => (
         <div className="flex items-center gap-3">
           <EditColorModal color={record} />
@@ -98,7 +100,7 @@ const ColorTable = ({
         },
       }}
     >
-      <div className="w-full overflow-auto">
+      <div className="w-full overflow-auto px-4 overflow-x-auto">
         <Table
           columns={columns}
           dataSource={dataSource}
@@ -106,10 +108,11 @@ const ColorTable = ({
           rowKey="_id"
           sticky
           scroll={{ y: "calc(100vh - 265px)" }}
-          className="employer-table"
+          className="employer-table min-h-[calc(100vh-290px)]"
+          loading={loading}
         />
       </div>
-      {meta?.totalPages > 1 && (
+      {meta?.total > 0 && (
         <div className="p-8 bg-white shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

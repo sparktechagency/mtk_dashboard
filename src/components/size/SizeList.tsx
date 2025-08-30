@@ -3,6 +3,7 @@ import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import SizeTable from "./SizeTable";
 import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
+import SizeListHeader from "./SizeListHeader";
 
 const SizeList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,14 +17,19 @@ const SizeList = () => {
   }
 
   if (!isLoading && !isError) {
-    return <SizeTable
-      sizes={sizes}
-      meta={meta}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      pageSize={pageSize}
-      setPageSize={setPageSize}
-    />;
+    return (
+      <>
+        <SizeListHeader />
+        <SizeTable
+          sizes={sizes}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+        />
+      </>
+    );
   }
 
   if (!isLoading && isError) {
