@@ -21,12 +21,12 @@ const OrderListHeader = ({
   setSearchQuery,
 }: OrderListHeaderProps) => {
   return (
-    <div className="p-4 sm:p-4 bg-white border-b border-gray-200">
+    <div className="p-4 sm:p-4 bg-white">
       {/* Header Section */}
       <div className="flex flex-col space-y-4 lg:space-y-0 lg:flex-row lg:items-center lg:justify-between">
         {/* Title and Total */}
         <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-6">
-         <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Order List</h1>
+         <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Order List</h1>
           <div className="flex items-center">
             <span className="text-sm sm:text-base text-gray-600">Total:</span>
             <span className="ml-2 px-3 py-1 bg-blue-100 text-blue-800 font-semibold rounded-full text-sm">

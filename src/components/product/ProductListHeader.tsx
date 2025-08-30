@@ -11,11 +11,11 @@ interface TProps {
 
 const ProductListHeader = ({ meta, searchQuery, setSearchQuery, navigate }: TProps) => {
   return (
-    <div className="p-4 bg-white border-b border-gray-200">
+    <div className="p-4 bg-white">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-6">
         {/* Title Section */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
-                  <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Product List</h1>
+                  <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Product List</h1>
                   <div className="flex items-center">
                       <span className="text-sm sm:text-base text-gray-600">Total:</span>
                       <span className="ml-2 px-3 py-1 bg-blue-100 text-blue-800 font-semibold rounded-full text-sm">

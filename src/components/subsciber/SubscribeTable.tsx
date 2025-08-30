@@ -13,6 +13,7 @@ interface SubscribeTableProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  loading: boolean;
 }
 
 
@@ -23,6 +24,7 @@ const SubscribeTable : React.FC<SubscribeTableProps> = ({
   setCurrentPage,
   pageSize,
   setPageSize,
+  loading
 }) => {
 
   const dataSource: TSubscriberDataSource[] = subscriptions?.map((subscription, index) => ({
@@ -35,22 +37,22 @@ const SubscribeTable : React.FC<SubscribeTableProps> = ({
 
   const columns = [
     {
-      title: "Serial",
+      title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "5%",
+      width: 60,
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: "17%",
+      width: 200,
     },
     {
       title: "Subscribe Date",
       dataIndex: "subscribedAt",
       key: "subscribedAt",
-      width: "12%",
+      width: 150,
       render: (val: string) => {
         const { bg, text, border } = getColorClassForDate(val.split('T')[0]);
         return (
@@ -66,7 +68,8 @@ const SubscribeTable : React.FC<SubscribeTableProps> = ({
       title: "Action",
       dataIndex: "_id",
       key: "action",
-      width: "15%",
+      width: 70,
+      align: "center" as const,
       render: (val: string) => (  
           <DeleteSubscriberModal subscriberId={val} />
       ),
@@ -93,16 +96,18 @@ const SubscribeTable : React.FC<SubscribeTableProps> = ({
     >
       <div className="w-full overflow-auto px-4">
         <Table
+          size="middle"
           columns={columns}
           dataSource={dataSource}
           pagination={false}
           rowKey="_id"
           sticky
           scroll={{ y: "calc(100vh - 324px)" }}
-          className="employer-table"
+          className="employer-table min-h-[calc(100vh-290px)]"
+          loading={loading}
         />
       </div>
-      {meta?.totalPages > 1 && (
+      {meta?.total > 1 && (
         <div className="p-8 bg-white shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}
