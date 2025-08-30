@@ -108,7 +108,7 @@ const ColorTable = ({
           rowKey="_id"
           sticky
           scroll={{ y: "calc(100vh - 265px)" }}
-          className="employer-table min-h-[calc(100vh-290px)]"
+          className="custom-table min-h-[calc(100vh-290px)]"
           loading={loading}
         />
       </div>

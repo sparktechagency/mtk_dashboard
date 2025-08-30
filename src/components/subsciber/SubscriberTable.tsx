@@ -103,7 +103,7 @@ const SubscriberTable : React.FC<SubscribeTableProps> = ({
           rowKey="_id"
           sticky
           scroll={{ y: "calc(100vh - 324px)" }}
-          className="employer-table min-h-[calc(100vh-290px)]"
+          className="custom-table min-h-[calc(100vh-290px)]"
           loading={loading}
         />
       </div>

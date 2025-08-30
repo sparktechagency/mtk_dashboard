@@ -6,7 +6,7 @@ import RecentOrderLoading from "../loader/RecentOrderLoading";
 
 const RecentOrderList = () => {
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useGetOrdersQuery([
+  const { data, isLoading, isFetching, isError } = useGetOrdersQuery([
     { name: "page", value: 1 },
     { name: "limit", value: 5 },
   ]);
@@ -24,6 +24,7 @@ const RecentOrderList = () => {
     content = (
       <RecentOrderTable
         orders={orders}
+        loading={isFetching}
       />
     );
   }
