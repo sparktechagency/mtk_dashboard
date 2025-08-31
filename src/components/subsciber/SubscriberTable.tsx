@@ -108,7 +108,7 @@ const SubscriberTable : React.FC<SubscribeTableProps> = ({
         />
       </div>
       {meta?.total > 1 && (
-        <div className="p-8 bg-white shadow-md flex justify-center">
+        <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}
             current={currentPage}
