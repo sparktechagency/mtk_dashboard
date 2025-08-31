@@ -41,7 +41,7 @@ const UpdateTermsForm = ( {description} : TProps ) => {
 
         <button
           type="submit"
-          className="w-full flex justify-center items-center gap-x-2 bg-primary hover:bg-[#2b4773] cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100"
+          className="w-full flex justify-center items-center gap-x-2 bg-primary hover:bg-primary/70 cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100"
         >
           {isLoading ? (
             <>

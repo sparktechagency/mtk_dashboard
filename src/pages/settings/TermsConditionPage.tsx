@@ -23,7 +23,7 @@ const TermsConditionPage = () => {
   if (!isLoading && isSuccess && terms?.type) {
     return (
       <Suspense fallback={<PolicyLoading />}>
-        <div className="min-h-full bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-full bg-gray-50 py-4 sm:py-8 px-4 sm:px-6 lg:px-8">
           <div className="w-full mx-auto bg-white rounded-xl shadow-md overflow-hidden">
             {/* Header */}
             <div className="bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-4">

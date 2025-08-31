@@ -3,7 +3,7 @@ export default function PolicyLoading () {
     <div className="min-h-full bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="bg-white shadow-md rounded-lg">
         {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-purple-700 px-6 py-4 flex items-center justify-between">
+      <div className="bg-gradient-to-r from-purple-600 to-purple-700 px-6 py-4 flex items-center justify-between rounded-t-lg">
         <div className="flex items-center gap-3">
           <div className="w-6 h-6 bg-purple-400 rounded animate-pulse"></div>
           <div className="w-24 h-6 bg-purple-400 rounded animate-pulse"></div>

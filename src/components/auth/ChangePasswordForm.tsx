@@ -74,7 +74,7 @@ const ChangePasswordForm = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full flex items-center cursor-pointer justify-center gap-2 bg-primary text-white py-2 rounded-md hover:bg-dis transition disabled:bg-gray-800 disabled:cursor-not-allowed"
+          className="w-full flex items-center cursor-pointer justify-center gap-2 bg-primary hover:bg-primary/70 text-white py-2 rounded-md hover:bg-dis transition disabled:bg-primary/70 disabled:cursor-not-allowed"
         >
           {isLoading ? (
             <>

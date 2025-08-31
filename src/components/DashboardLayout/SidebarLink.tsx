@@ -36,16 +36,16 @@ const SidebarLink = ({ menuItem, closeSidebar }: TProps) => {
         <div onClick={toggleOpen} className={`flex w-full justify-between items-center cursor-pointer rounded-md ${
               active
                 ? "bg-primary text-white"
-                : "text-black hover:bg-[#f5c542] hover:text-[#1a1a1a]"
+                : "text-black hover:bg-slate-200 hover:text-[#1a1a1a]"
             }`}>
           <div
             className={`flex items-center px-4 py-2.5 text-md rounded-md transition-colors group `}
           >
             <span
-              className={`mr-3 hover:text-emerald-400 ${
+              className={`mr-3 hover:text-black ${
                 active
                   ? "text-white"
-                  : "text-black group-hover:text-white"
+                  : "text-black"
               }`}
             >
               {<menuItem.icon className="hover:text-emerald-400" size={18}/>}
@@ -70,7 +70,7 @@ const SidebarLink = ({ menuItem, closeSidebar }: TProps) => {
               className={`text-md px-2 py-1 rounded cursor-pointer ${
                 pathname === child.path
                   ? 'bg-slate-700 text-white'
-                  : 'text-gray-600 hover:bg-gray-100'
+                  : 'text-gray-600  hover:bg-gray-100'
               }`}
             >
               {child.label}

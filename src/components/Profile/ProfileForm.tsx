@@ -57,8 +57,6 @@ const ProfileForm = ({ admin }: TProps) => {
                     "
           />
         </div>
-
-
         <CustomInput
           label="Phone Number"
           name="phone"
@@ -70,7 +68,7 @@ const ProfileForm = ({ admin }: TProps) => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`px-4 py-2 w-full bg-primary hover:bg-[#2b4773] disabled:bg-[#2b4773 disabled:cursor-not-allowed rounded-lg text-white font-medium 
+            className={`px-4 py-2 w-full bg-primary hover:bg-primary/80 disabled:bg-[#2b4773 disabled:cursor-not-allowed disabled:bg-primary/80 rounded-lg text-white font-medium 
  transition-colors duration-200 flex items-center justify-center gap-x-2 focus:outline-none`}
           >
             {isLoading ? (

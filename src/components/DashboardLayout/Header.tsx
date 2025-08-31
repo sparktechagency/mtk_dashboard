@@ -11,7 +11,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ children }) => {
   const navigate = useNavigate();
-  const { isLoading } = useGetMeQuery(undefined);
+  const { isLoading, isFetching } = useGetMeQuery(undefined);
   const { user } = useAppSelector((state) => state.user);
 
 
@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
       </div>
 
       <div className="flex items-center space-x-3" onClick={() => navigate("/profile")}>   
-        {isLoading ? (
+        {isLoading || isFetching ? (
             <UserLoading />
           ) : (
             <div

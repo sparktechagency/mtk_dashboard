@@ -46,7 +46,6 @@ const EditFaqModal = ({ faq }: TProps) => {
   }, [isSuccess, reset, faq, dispatch]);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data)
     dispatch(SetEditFaqError(""));
     updateFaq({
       id: faq._id,
@@ -107,7 +106,7 @@ const EditFaqModal = ({ faq }: TProps) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 bg-primary text-white py-2 rounded-md hover:bg-gray-800 transition disabled:bg-gray-800 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 bg-primary text-white py-2 rounded-md hover:bg-primary/80 transition disabled:bg-primary/80 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <>
