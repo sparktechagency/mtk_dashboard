@@ -29,7 +29,7 @@ const SubscriberTable : React.FC<SubscribeTableProps> = ({
 
   const dataSource: TSubscriberDataSource[] = subscriptions?.map((subscription, index) => ({
     key: index,
-    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: subscription?._id,
     email: subscription?.email,
     subscribedAt: subscription?.subscribedAt,

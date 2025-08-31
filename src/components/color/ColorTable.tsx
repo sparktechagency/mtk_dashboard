@@ -29,7 +29,7 @@ const ColorTable = ({
 
   const dataSource: TColorDataSource[] = colors?.map((color, index) => ({
     key: index,
-    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: color?._id,
     name: color?.name,
     hexCode: color?.hexCode
