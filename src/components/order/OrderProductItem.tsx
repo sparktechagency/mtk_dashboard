@@ -25,9 +25,9 @@ const OrderProductItem = ({ product }: TProps) => {
               </div>
               <div className="flex-1 min-w-0">
                   <h3 className="text-lg font-semibold text-gray-900 truncate">{product?.name}</h3>
-                  <div className="flex items-center mt-1">
+                  <div className="flex flex-col md:flex-row md:items-center mt-1">
                       <span className="text-sm text-gray-600 mr-2">Product ID:</span>
-                      <span className="text-sm text-gray-900">{product.productId}</span>
+                      <span className="text-sm text-gray-900 font-semibold">{product.productId}</span>
                   </div>
                   {product?.colorName && (
                       <div className="flex items-center mt-1">
