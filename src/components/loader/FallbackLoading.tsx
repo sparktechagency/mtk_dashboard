@@ -4,7 +4,7 @@ export default function FallbackLoading() {
       <div className="bg-white rounded-lg shadow-sm">
         {/* Header */}
         <div className="p-6 border-b border-gray-200">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between mb-4">
             <div className="flex items-center gap-4">
               <div className="h-8 w-32 bg-gray-200 rounded animate-pulse"></div>
               <div className="h-6 w-16 bg-gray-200 rounded animate-pulse"></div>
@@ -38,7 +38,7 @@ export default function FallbackLoading() {
 
         {/* Table Body - Loading Rows */}
         <div className="divide-y divide-gray-200">
-          {Array.from({ length: 10 }).map((_, index) => (
+          {Array.from({ length: 9 }).map((_, index) => (
             <div key={index} className="px-6 py-4">
               <div className="grid grid-cols-9 gap-4 items-center">
                 {/* S.N. */}

@@ -38,7 +38,7 @@ export default function ListLoading() {
 
         {/* Table Body - Loading Rows */}
         <div className="divide-y divide-gray-200">
-          {Array.from({ length: 10 }).map((_, index) => (
+          {Array.from({ length: 9 }).map((_, index) => (
             <div key={index} className="px-6 py-4">
               <div className="grid grid-cols-9 gap-4 items-center">
                 {/* S.N. */}

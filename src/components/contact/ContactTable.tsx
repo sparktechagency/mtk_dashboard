@@ -56,7 +56,7 @@ const ContactTable : React.FC<ContactTableProps> = ({
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: 200,
+      width: 250,
     },
      {
       title: "Contact Number",

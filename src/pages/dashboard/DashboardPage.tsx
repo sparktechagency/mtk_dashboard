@@ -15,7 +15,7 @@ const DashboardPage = () => {
             <IncomeOverviewChart />
             <UserOverviewChart />
           </div>
-          <div className="mt-4">
+          <div className="w-full mt-4">
             <RecentOrderList />
           </div>
         </Suspense>

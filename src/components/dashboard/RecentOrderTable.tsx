@@ -63,7 +63,7 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: 200,
+      width: 220,
       render: (text: string) => (
         <>
           <p className="truncate">{text}</p>
@@ -172,14 +172,16 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
         },
       }}
     >
-      <div className="w-full overflow-auto">
+      <div className="w-full overflow-auto overflow-x-auto">
         <Table
+          size="small"
           columns={columns}
           dataSource={dataSource}
           pagination={false}
           rowKey="_id"
           sticky
           className="custom-table"
+          scroll={{x:"max-content"}}
           loading={loading}
         />
       </div>

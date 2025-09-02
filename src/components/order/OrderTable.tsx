@@ -70,7 +70,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: 200,
+      width: 220,
       render: (text: string) => (
         <>
           <p className="truncate">{text}</p>

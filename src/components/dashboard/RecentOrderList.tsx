@@ -27,7 +27,7 @@ const RecentOrderList = () => {
             <h1 className="text-xl font-semibold">Recent Orders</h1>
             <button onClick={() => navigate('/orders')} className="text-sm text-blue-600 hover:underline">View All</button>
           </div>
-          <RecentOrderTable
+           <RecentOrderTable
             orders={orders}
             loading={isFetching}
           />
