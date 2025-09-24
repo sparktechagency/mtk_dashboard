@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
-import UserTable from "./UserTable";
 import { useGetUsersQuery } from "../../redux/features/user/userApi";
-import UserListHeader from "./UserListHeader";
+
+const UserTable = React.lazy(() => import("./UserTable"));
+const UserListHeader = React.lazy(() => import("./UserListHeader"));
+
 
 const UserList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,18 +39,20 @@ const UserList = () => {
   if (!isLoading && !isError) {
     return (
       <>
-        <UserListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        <div className="flex-1 overflow-hidden">
-          <UserTable
-            users={users}
-            meta={meta}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            pageSize={pageSize}
-            setPageSize={setPageSize}
-            isFetching={isFetching}
-          />
-        </div>
+        <Suspense fallback={<ListLoading/>}>
+          <UserListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <div className="flex-1 overflow-hidden">
+            <UserTable
+              users={users}
+              meta={meta}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              pageSize={pageSize}
+              setPageSize={setPageSize}
+              isFetching={isFetching}
+            />
+          </div>
+        </Suspense>
       </>
     );
   }

@@ -10,6 +10,6 @@ export default defineConfig({
     port: 5173   
   },
   preview: { 
-    allowedHosts: ['dashboard.machmakers.co.uk', '16.16.183.92', "www.dashboard.machmakers.co.uk"],  
+    allowedHosts: ['dashboard.triplemcompany.com', '16.16.183.92', "www.dashboard.triplemcompany.com"],  
   },
 })

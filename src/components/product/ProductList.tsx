@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import { useNavigate } from "react-router-dom";
-import ProductTable from "./ProductTable";
 import { useGetProductsQuery } from "../../redux/features/product/productApi";
 import ProductListHeader from "./ProductListHeader";
+
+const ProductTable = React.lazy(() => import("./ProductTable"));
 
 const ProductList = () => {
   const navigate = useNavigate();
