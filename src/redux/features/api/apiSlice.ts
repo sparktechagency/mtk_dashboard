@@ -4,7 +4,7 @@ import TagTypes from "../../../constant/tagType.constant.ts";
 import { getToken } from "../../../helper/SessionHelper.ts";
 import { ErrorToast } from "../../../helper/ValidationHelper.ts";
 
-export const baseUrl = "https://backend.triplemcompany.com"
+export const baseUrl = "https://backend.triplemcompany.com/api/v1"
 
 
 const baseQuery = fetchBaseQuery({
