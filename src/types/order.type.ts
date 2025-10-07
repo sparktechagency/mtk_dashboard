@@ -1,5 +1,5 @@
 
-export type TPaymentStatus = "paid" | "pending" | "failled";
+export type TPaymentStatus = "unpaid" | "paid" | "failled";
 export type TDeliveryStatus = 'processing' | 'shipped' | 'delivered' | 'cancelled';
 
 export type IOrder = {

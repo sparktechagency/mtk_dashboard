@@ -68,7 +68,7 @@ const ChangePasswordForm = () => {
           name="confirmPassword"
           type="password"
           control={control}
-          placeholder="Enter new password"
+          placeholder="Enter confirm password"
         />
 
         <button

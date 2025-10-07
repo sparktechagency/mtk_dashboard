@@ -119,15 +119,9 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       width: 120,
       render: (paymentStatus: TPaymentStatus) => {
         const statusStyles = {
-          pending: "bg-yellow-100 text-yellow-700 border border-yellow-300",
+          unpaid: "bg-purple-100 text-purple-700 border border-purple-300",
           paid: "bg-green-100 text-green-700 border border-green-300",
           failled: "bg-red-100 text-red-700 border border-red-300",
-        };
-
-        const labelMap = {
-          pending: "Pending",
-          paid: "Paid",
-          failled: "Failed",
         };
 
         const style = statusStyles[paymentStatus] || "bg-gray-100 text-gray-700 border";
@@ -135,15 +129,14 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
         return (
           <div className="flex items-center gap-2">
             <span
-              className={`${style} w-20 text-center px-3 py-0.5 text-sm font-medium rounded-full`}
+              className={`${style} w-20 capitalize text-center px-3 py-0.5 text-sm font-medium rounded-full`}
             >
-              {labelMap[paymentStatus]}
+              {paymentStatus}
             </span>
           </div>
         );
       }
-    }
-    ,
+    },
     {
       title: "View",
       dataIndex: "_id",
