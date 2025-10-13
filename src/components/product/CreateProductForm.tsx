@@ -106,9 +106,6 @@ const CreateProductForm = () => {
             type="text"
             control={control}
             placeholder="Enter price"
-            onInput={(e: any) => {
-              e.target.value = e.target.value.replace(/[^0-9]/g, "");
-            }}
           />
           <CustomInput
             label="Original Price(optional)"
@@ -116,9 +113,6 @@ const CreateProductForm = () => {
             type="text"
             control={control}
             placeholder="Enter price"
-            onInput={(e: any) => {
-              e.target.value = e.target.value.replace(/[^0-9]/g, "");
-            }}
           />
         </div>
 

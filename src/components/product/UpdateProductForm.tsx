@@ -128,9 +128,6 @@ const UpdateProductForm = ({ product }: TProps) => {
             type="text"
             control={control}
             placeholder="Enter price"
-            onInput={(e: any) => {
-              e.target.value = e.target.value.replace(/[^0-9]/g, "");
-            }}
           />
           <CustomInput
             label="Original Price(optional)"
@@ -138,9 +135,6 @@ const UpdateProductForm = ({ product }: TProps) => {
             type="text"
             control={control}
             placeholder="Enter price"
-            onInput={(e: any) => {
-              e.target.value = e.target.value.replace(/[^0-9]/g, "");
-            }}
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
