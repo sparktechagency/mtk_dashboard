@@ -6,7 +6,6 @@ import product_placeholder from "../../assets/images/product_placeholder.png";
 import type { IProduct, TProductDataSource, TProductStatus, TStockStatus } from "../../types/product.type";
 import { FaStar } from "react-icons/fa";
 import ChangeProductStatusModal from "../modal/product/ChangeProductStatusModal";
-import ChangeStockStatusModal from "../modal/product/ChangeStockStatusModal";
 import DeleteProductModal from "../modal/product/DeleteProductModal";
 
 
@@ -31,6 +30,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
     categoryName: product?.categoryName,
     currentPrice: product?.currentPrice,
     originalPrice: product?.originalPrice,
+    quantity: product?.quantity,
     image: product?.images?.length > 0 ? product?.images[0] : product_placeholder,
     ratings: product?.ratings,
     status: product?.status,
@@ -63,7 +63,6 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       width: 100,
       render: (val: string) => (
         <>
-          {/* <img src={val} alt="icon" className="w-12 h-12 rounded-md" /> */}
           <img
             src={val}
             alt="profile"
@@ -147,16 +146,23 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
         );
       },
     },
+   {
+     title: "Quantity",
+     dataIndex: "quantity",
+     key: "quantity",
+     width: 80,
+     align: 'center' as const,
+   },
     {
       title: "Stock Status",
       dataIndex: "stockStatus",
       key: "stockStatus",
       width: 150,
-      render: (status: TStockStatus, record: TProductDataSource) => {
+      render: (status: TStockStatus) => {
         const statusStyles = {
-          in_stock: "bg-blue-100 text-blue-800 border border-blue-300",
-          stock_out: "bg-gray-200 text-gray-700 border border-gray-400",
-          up_coming: "bg-yellow-100 text-yellow-800 border border-yellow-300",
+          "In Stock": "bg-blue-100 text-blue-800 border border-blue-300",
+          "Out of Stock": "bg-gray-200 text-gray-700 border border-gray-400",
+          "Limited Stock": "bg-yellow-100 text-yellow-800 border border-yellow-300",
         };
 
         const bgColor = statusStyles[status] || "bg-neutral-100 text-neutral-700 border";
@@ -166,9 +172,8 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
             <button
               className={`${bgColor} capitalize w-28 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
             >
-              {status.replace("_", " ")}
+              {status}
             </button>
-            <ChangeStockStatusModal productId={record?._id} stockStatus={status} />
           </div>
         );
       }

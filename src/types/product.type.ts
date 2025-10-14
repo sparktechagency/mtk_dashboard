@@ -1,6 +1,6 @@
 
 export type TProductStatus = "visible" | "hidden";
-export type TStockStatus = 'in_stock' | 'stock_out' | 'up_coming';
+export type TStockStatus = "In Stock" | "Out of Stock" | "Limited Stock";
 
 export type IProduct = {
   _id: string;
@@ -9,6 +9,7 @@ export type IProduct = {
   categoryName: string;
   currentPrice: number;
   originalPrice: number;
+  quantity: number;
   discount: string;
   ratings: number;
   totalReview: number;
@@ -27,7 +28,7 @@ export type TProductDataSource = {
   categoryName: string;
   currentPrice: number;
   originalPrice: number;
-  //discount: string;
+  quantity: number;
   ratings: number;
   //totalReview: number;
   image: string;
