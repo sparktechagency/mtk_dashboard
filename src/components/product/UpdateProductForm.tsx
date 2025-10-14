@@ -17,6 +17,7 @@ import { useGetColorDropDownQuery } from "../../redux/features/color/colorApi";
 import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
 import type { ISingleProduct } from "../../types/product.type";
 import checkEqualArray from "../../utils/checkEqualArray";
+import { WarningToast } from "../../helper/ValidationHelper";
 
 type TFormValues = z.infer<typeof updateProductValidationSchema>;
 
@@ -119,11 +120,16 @@ const UpdateProductForm = ({ product }: TProps) => {
       finalValues.sizes=data.sizes
     }
    
-    //update the product
-    updateProduct({
+    if (Object.keys(finalValues).length === 0) {
+      WarningToast("No changes detected. Please update at least one field before saving.");
+    } else {
+      //update the product
+      updateProduct({
         id: product?._id,
         data: finalValues
-    })
+      })
+    }
+   
   };
 
   return (
