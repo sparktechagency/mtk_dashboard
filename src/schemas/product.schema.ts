@@ -1,11 +1,6 @@
 import { z } from "zod";
 
 
-export const isEditorContentEmpty = (html: string) => {
-  const temp = document.createElement("div");
-  temp.innerHTML = html;
-  return temp.textContent?.trim() === "";
-};
 
 export const createProductValidationSchema = z.object({
   name: z.string({
@@ -53,6 +48,14 @@ export const createProductValidationSchema = z.object({
         })
         .optional() // This makes it truly optional
     ),
+  quantity: z
+    .string({
+      required_error: "Quantity is required",
+      invalid_type_error: "Quantity must be a number",
+    })
+    .refine((val) => !isNaN(Number(val)), { message: "Quantity must be a valid number" })
+    .refine((val) => Number(val) > 0, { message: "Quantity must be greater than 0" })
+  ,
   discount: z.string({
     invalid_type_error: "discount must be string"
   }).optional(),
@@ -70,46 +73,17 @@ export const createProductValidationSchema = z.object({
       required_error: "sizes must be at least one value"
     }
   ).optional(),
-  introduction: z.preprocess(
-    (val) => {
-      if (typeof val === "string" && isEditorContentEmpty(val)) {
-        return ""; // force fail if visually empty
-      }
-      return val;
-    },
-    z
-      .string({
-        invalid_type_error: "Introduction must be string",
-        required_error: "Introduction is required"
-      })
-      .min(1, "Introduction is required")
-  ),
-  description: z.preprocess(
-    (val) => {
-      if (typeof val === "string" && isEditorContentEmpty(val)) {
-        return ""; // force fail if visually empty
-      }
-      return val;
-    },
-    z
-      .string({
-        invalid_type_error: "Description must be string",
-        required_error: "Description is required",
-      })
-      .min(1, "Description is required")
-  ),
-  status: z.string({
-    invalid_type_error: "status must be a valid string value.",
+  introduction: z.string({
+    invalid_type_error: "Introduction must be string",
+    required_error: "Introduction is required"
   })
-    .refine((val) => ['visible', 'hidden'].includes(val), {
-      message: "status must be one of: 'visible', 'hidden'",
-    }).optional(),
-  stockStatus: z.string({
-    invalid_type_error: "Stock Status must be a valid string value.",
-  })
-    .refine((val) => ['in_stock', 'stock_out', 'up_coming'].includes(val), {
-      message: "Stock Status must be one of: in_stock', 'stock_out', 'up_coming'",
-    }).optional(),
+    .min(1, "Introduction is required"),
+  description: z
+    .string({
+      invalid_type_error: "Description must be string",
+      required_error: "Description is required",
+    })
+    .min(1, "Description is required")
 })
   .superRefine((values, ctx) => {
     const { currentPrice, originalPrice } = values
@@ -174,6 +148,15 @@ export const updateProductValidationSchema = z.object({
         })
         .optional() // This makes it truly optional
     ),
+  quantity: z
+    .string({
+      required_error: "Quantity is required",
+      invalid_type_error: "Quantity must be a number",
+    })
+    .refine((val) => !isNaN(Number(val)), { message: "Quantity must be a valid number" })
+    .refine((val) => Number(val) > 0, { message: "Quantity must be greater than 0" })
+    .transform((val)=>Number(val))
+  ,
   discount: z.string({
     invalid_type_error: "discount must be string"
   }).optional(),
@@ -191,46 +174,17 @@ export const updateProductValidationSchema = z.object({
       required_error: "sizes must be at least one value"
     }
   ).default([]),
-  introduction: z.preprocess(
-    (val) => {
-      if (typeof val === "string" && isEditorContentEmpty(val)) {
-        return ""; // force fail if visually empty
-      }
-      return val;
-    },
-    z
-      .string({
-        invalid_type_error: "Introduction must be string",
-        required_error: "Introduction is required"
-      })
-      .min(1, "Introduction is required")
-  ),
-  description: z.preprocess(
-    (val) => {
-      if (typeof val === "string" && isEditorContentEmpty(val)) {
-        return ""; // force fail if visually empty
-      }
-      return val;
-    },
-    z
-      .string({
-        invalid_type_error: "Description must be string",
-        required_error: "Description is required",
-      })
-      .min(1, "Description is required")
-  ),
-  status: z.string({
-    invalid_type_error: "status must be a valid string value.",
+  introduction: z.string({
+    invalid_type_error: "Introduction must be string",
+    required_error: "Introduction is required"
   })
-    .refine((val) => ['visible', 'hidden'].includes(val), {
-      message: "status must be one of: 'visible', 'hidden'",
-    }),
-  stockStatus: z.string({
-    invalid_type_error: "Stock Status must be a valid string value.",
-  })
-    .refine((val) => ['in_stock', 'stock_out', 'up_coming'].includes(val), {
-      message: "Stock Status must be one of: in_stock', 'stock_out', 'up_coming'",
+    .min(1, "Introduction is required"),
+  description: z
+    .string({
+      invalid_type_error: "Description must be string",
+      required_error: "Description is required",
     })
+    .min(1, "Description is required")
 }).superRefine((values, ctx) => {
   const { currentPrice, originalPrice } = values
   if (currentPrice && originalPrice && (currentPrice > originalPrice)) {

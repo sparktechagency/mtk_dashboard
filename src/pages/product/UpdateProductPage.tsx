@@ -3,6 +3,8 @@ import { useGetSingleProductQuery } from "../../redux/features/product/productAp
 import UpdateProductLoading from "../../components/loader/UpdateProductLoading";
 import ServerErrorCard from "../../components/card/ServerErrorCard";
 import React, { Suspense } from "react";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import AuthenticationCard from "../../components/card/AuthenticationCard";
 
 const UpdateImagePreview = React.lazy(() => import("../../components/product/UpdateImagePreview"));
 const UpdateProductForm = React.lazy(() => import("../../components/product/UpdateProductForm"));
@@ -10,11 +12,16 @@ const UpdateProductForm = React.lazy(() => import("../../components/product/Upda
 
 const UpdateProductPage = () => {
   const { id } = useParams();
-  const { data, isLoading, isError } = useGetSingleProductQuery(id);
-  const product = data?.data?.product|| {};
+  const { data, isLoading, isError, error } = useGetSingleProductQuery(id);
+  const product = data?.data|| {};
+  const fetchError = error as FetchBaseQueryError;
 
   if (isLoading) {
     return <UpdateProductLoading />
+  }
+
+  if (!isLoading && isError && fetchError?.status===401) {
+    return <AuthenticationCard/>
   }
 
   if (!isLoading && isError) {

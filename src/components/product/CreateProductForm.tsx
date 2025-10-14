@@ -16,7 +16,6 @@ import CustomMultiSelect from "../form/CustomMultiSelect";
 import { useGetColorDropDownQuery } from "../../redux/features/color/colorApi";
 import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
 import ProductImageField from "./ProductImageField";
-import { stockStatusOptions } from "../../data/product.data";
 import { ErrorToast } from "../../helper/ValidationHelper";
 
 type TFormValues = z.infer<typeof createProductValidationSchema>;
@@ -121,28 +120,17 @@ const CreateProductForm = () => {
           <CustomMultiSelect name="colors" label="Colors (Optional)" control={control} options={colorOptions} disabled={colorOptions?.length === 0} />
           <CustomMultiSelect name="sizes" label="Sizes (Optional)" control={control} options={sizeOptions} disabled={sizeOptions?.length === 0} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <CustomSelect
-            label="Status (Optional)"
-            name="status"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+          <CustomInput
+            label="Quantity"
+            name="quantity"
+            type="text"
             control={control}
-            options={[
-              {
-                label: "Visible",
-                value: "visible"
-              },
-              {
-                label: "Hidden",
-                value: "hidden"
-              }
-            ]}
+            placeholder="Enter quantity"
+            onInput={(e: any) => {
+              e.target.value = e.target.value.replace(/[^0-9]/g, "");
+            }}
           />
-          <CustomSelect
-            label="Stock Status (Optional)"
-            name="stockStatus"
-            control={control}
-            options={stockStatusOptions}
-            />
           <CustomInput
             label="Discount (Optional)"
             name="discoun"
@@ -151,8 +139,6 @@ const CreateProductForm = () => {
             placeholder="Enter discount"
           />
         </div>
-     
-
         <CustomQuilEditor
           label="Short Introduction"
           name="introduction"

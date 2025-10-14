@@ -15,8 +15,8 @@ import { useGetCategoryDropDownQuery } from "../../redux/features/category/categ
 import CustomMultiSelect from "../form/CustomMultiSelect";
 import { useGetColorDropDownQuery } from "../../redux/features/color/colorApi";
 import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
-import { stockStatusOptions } from "../../data/product.data";
 import type { ISingleProduct } from "../../types/product.type";
+import checkEqualArray from "../../utils/checkEqualArray";
 
 type TFormValues = z.infer<typeof updateProductValidationSchema>;
 
@@ -27,6 +27,7 @@ type TProps = {
 const UpdateProductForm = ({ product }: TProps) => {
   const navigate = useNavigate();
   const defaultColors = product?.colors?.length > 0 ? product?.colors?.map((cv) => cv._id) : []
+  const defaultSizes = product?.sizes?.length > 0 ? product?.sizes?.map((cv) => cv._id) : [];
   useGetCategoryDropDownQuery(undefined);
   const {isLoading: isColorLoading} = useGetColorDropDownQuery(undefined);
   useGetSizesQuery(undefined);
@@ -41,11 +42,10 @@ const UpdateProductForm = ({ product }: TProps) => {
           categoryId: product?.categoryId,
           currentPrice: String(product.currentPrice),
           originalPrice: String(product.originalPrice),
+          quantity: String(product.quantity),
           discount: product?.discount,
           colors: defaultColors,
-          sizes: product?.sizes?.length > 0 ? product?.sizes?.map((cv) => cv._id) : [],
-          status: product?.status,
-          stockStatus: product?.stockStatus,
+          sizes: defaultSizes,
           introduction: product?.introduction,
           description: product?.description
       }
@@ -72,32 +72,54 @@ const UpdateProductForm = ({ product }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    const finalValues: Record<string, unknown> = {
-      name: data.name,
-      categoryId: data.categoryId,
-      currentPrice: data.currentPrice,
-      colors: data.colors,
-      sizes: data.sizes,
-      status: data?.status,
-      stockStatus: data?.stockStatus,
-      introduction: data?.introduction,
-      description: data?.description
+    const finalValues: Record<string, unknown> = {};
+
+    if (product?.discount != data.discount) {
+      if (!data.discount) {
+        finalValues.discount = "";
+      }
+      if (data.discount) {
+        finalValues.discount = data.discount;
+      }
     }
 
-    if(!data.discount){
-      finalValues.discount="";
+    if (product.originalPrice != data.originalPrice) {
+      if (!data.originalPrice) {
+        finalValues.originalPrice = 0;
+      }
+      if (data.originalPrice) {
+        finalValues.originalPrice = data.originalPrice;
+      }
     }
-    if(data.discount){
-      finalValues.discount=data.discount;
+  
+    if(product.name != data?.name){
+      finalValues.name=data?.name
     }
-    if(!data.originalPrice){
-      finalValues.originalPrice=0;
+
+    if(product.categoryId != data?.categoryId){
+      finalValues.categoryId=data?.categoryId
     }
-    if(data.originalPrice){
-      finalValues.originalPrice=data.originalPrice;
+
+    if(product.currentPrice != data?.currentPrice){
+      finalValues.currentPrice=data?.currentPrice
+    }
+
+    if(product.introduction != data?.introduction){
+      finalValues.introduction=data?.introduction
+    }
+    if(product.description != data?.description){
+      finalValues.description=data?.description
     }
 
 
+    if(!checkEqualArray(defaultColors, data.colors)){
+      finalValues.colors=data.colors
+    }
+    if(!checkEqualArray(defaultSizes, data.sizes)){
+      finalValues.sizes=data.sizes
+    }
+   
+    //update the product
     updateProduct({
         id: product?._id,
         data: finalValues
@@ -141,30 +163,17 @@ const UpdateProductForm = ({ product }: TProps) => {
           <CustomMultiSelect name="colors" label="Colors (Optional)" control={control} options={colorOptions} disabled={isColorLoading || colorOptions?.length === 0} />
           <CustomMultiSelect name="sizes" label="Sizes (Optional)" control={control} options={sizeOptions} disabled={sizeOptions?.length === 0} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <CustomSelect
-            label="Status (Optional)"
-            name="status"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+           <CustomInput
+            label="Quantity"
+            name="quantity"
+            type="text"
             control={control}
-            options={[
-              {
-                label: "Visible",
-                value: "visible"
-              },
-              {
-                label: "Hidden",
-                value: "hidden"
-              }
-            ]}           
-            blankOption={false}
+            placeholder="Enter quantity"
+            onInput={(e: any) => {
+              e.target.value = e.target.value.replace(/[^0-9]/g, "");
+            }}
           />
-          <CustomSelect
-            label="Stock Status (Optional)"
-            name="stockStatus"
-            control={control}
-            options={stockStatusOptions}
-            blankOption={false}
-            />
           <CustomInput
             label="Discount (Optional)"
             name="discount"

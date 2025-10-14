@@ -43,6 +43,7 @@ export type ISingleProduct = {
   categoryName: string;
   currentPrice: number;
   originalPrice: number;
+  quantity: number;
   discount: string;
   ratings: number;
   totalReview: number;
