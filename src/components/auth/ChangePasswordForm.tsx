@@ -1,5 +1,3 @@
-"use client";
-
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useChangePasswordMutation } from "../../redux/features/auth/authApi";
 import { useForm, type SubmitHandler } from "react-hook-form";

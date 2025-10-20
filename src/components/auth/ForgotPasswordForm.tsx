@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useForgotPasswordSendOtpMutation } from "../../redux/features/auth/authApi";
@@ -10,7 +9,7 @@ import { SetForgotError } from "../../redux/features/auth/authSlice";
 import type { z } from "zod";
 import Error from "../validation/Error";
 import CustomInput from "../form/CustomInput";
-import { CgSpinnerTwo } from "react-icons/cg";
+import SubmitButton from "../form/SubmitButton";
 
 type TFormValues = z.infer<typeof forgotPasswordSendOtpSchema>;
 
@@ -47,21 +46,7 @@ const ForgotPasswordForm = () => {
           control={control}
           placeholder="Enter email address"
         />
-
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full flex items-center cursor-pointer justify-center gap-2 bg-primary text-white py-2 rounded-md hover:bg-dis transition disabled:bg-gray-800 disabled:cursor-not-allowed"
-        >
-          {isLoading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              Processing...
-            </>
-          ) : (
-            "Continue"
-          )}
-        </button>
+        <SubmitButton isLoading={isLoading}>Continue</SubmitButton>
       </form>
     </>
   );

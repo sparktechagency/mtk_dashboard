@@ -1,4 +1,3 @@
-"use client"
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useForgotPasswordResendOtpMutation, useForgotPasswordVerifyOtpMutation } from "../../redux/features/auth/authApi";
@@ -6,7 +5,7 @@ import Error from "../validation/Error";
 import { SetVerifyOtpError } from "../../redux/features/auth/authSlice";
 import { getEmail } from "../../helper/SessionHelper";
 import { useNavigate } from "react-router-dom";
-import { CgSpinnerTwo } from "react-icons/cg";
+import CustomButton from "../form/CustomButton";
 
 const VerifyotpForm = () => {
   const navigate = useNavigate();
@@ -125,7 +124,7 @@ const VerifyotpForm = () => {
   return (
     <>
     {VerifyOtpError && <Error message={VerifyOtpError} />}
-      <div className="space-y-4 mt-1">
+      <div className="space-y-4 mt-3">
         {/* Code Inputs */}
         <div className="flex justify-center gap-3 mb-6">
           {code.map((digit, idx) => (
@@ -143,21 +142,7 @@ const VerifyotpForm = () => {
             />
           ))}
         </div>
-
-        <button
-          onClick={handleVerify}
-          disabled={isDisabled || isLoading}
-          className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-[#2b4773] cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100 disabled:cursor-not-allowed"
-        >
-          {isLoading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              Verifying...
-            </>
-          ) : (
-            "Verify"
-          )}
-        </button>
+        <CustomButton onClick={handleVerify} isLoading={isLoading} loadingTitle="Verifying..." disabled={isDisabled}>Verify</CustomButton>
         {/* Resend & Timer */}
         <div className="text-center text-sm mb-6">
           {canResend ? (
