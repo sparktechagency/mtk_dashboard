@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import type { IOrder, TDeliveryStatus, TOrderDataSource, TPaymentStatus } from "../../types/order.type";
 import StatusBadge from "./StatusBadge";
 import ChangeOrderStatusModal from "../modal/order/ChangeOrderStatusModal";
+import ViewPaymentIdModal from "../modal/order/ViewPaymentIdModal";
 
 
 type TProps = {
@@ -19,8 +20,6 @@ type TProps = {
 
 
 const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPageSize, isFetching }: TProps) => {
-  console.log(orders)
-
   const dataSource: TOrderDataSource[] = orders?.map((order, index) => ({
     key: index,
     serial: Number(index + 1) + ((meta.page - 1) * pageSize),
@@ -31,13 +30,13 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
     phone: order?.phone,
     status: order?.status,
     paymentStatus: order?.paymentStatus,
+    paymentId: order?.paymentId,
     totalPrice: order?.totalPrice,
+    stripeFee: order?.stripeFee,
+    netAmount: order?.netAmount,
     createdAt: order?.createdAt
   }));
 
-
-
- 
   const columns = [
     {
       title: "S.N.",
@@ -79,13 +78,20 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       ),
     },
     {
-      title: "Phone",
-      dataIndex: "phone",
-      key: "phone",
-      width: 140,
-      render: (text: string) => (
+      title: "Payment ID",
+      dataIndex: "paymentId",
+      key: "paymentId",
+      width: 110,
+      render: (paymentId: string) => (
         <>
-          <p className="truncate">{text}</p>
+          <div className="flex gap-2 items-center">
+            {paymentId ? (
+              <p className="truncate">{paymentId.slice(0, 7) + "..."}</p>
+            ) : (
+              <p className="text-gray-400 italic">N/A</p>
+            )}
+            <ViewPaymentIdModal paymentId={paymentId}/>
+          </div>
         </>
       ),
     },
@@ -96,7 +102,31 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       width: 90,
       align: "center" as const,
       render: (val: number) => (
-        <span>${val}</span>
+        <span>${val?.toFixed(2)}</span>
+      )
+    },
+    {
+      title: "Stripe Fee",
+      dataIndex: "stripeFee",
+      key: "stripeFee",
+      width: 90,
+      align: "center" as const,
+      render: (val: number) => (
+        <>
+          {val ? `$${val.toFixed(2)}` : 'N/A'}
+        </>
+      )
+    },
+    {
+      title: "Net Amount",
+      dataIndex: "netAmount",
+      key: "netAmount",
+      width: 90,
+      align: "center" as const,
+      render: (val: number) => (
+        <>
+          {val ? `$${val.toFixed(2)}` : 'N/A'}
+        </>
       )
     },
     {

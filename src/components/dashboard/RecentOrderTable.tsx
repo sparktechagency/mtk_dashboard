@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import type { IOrder, TDeliveryStatus, TOrderDataSource, TPaymentStatus } from "../../types/order.type";
 import ChangeOrderStatusModal from "../modal/order/ChangeOrderStatusModal";
 import StatusBadge from "../order/StatusBadge";
+import ViewPaymentIdModal from "../modal/order/ViewPaymentIdModal";
 
 
 type TProps = {
@@ -20,11 +21,14 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
     _id: order?._id,
     token: order?.token,
     fullName: order?.fullName,
+    paymentId: order?.paymentId,
     email: order?.email,
     phone: order?.phone,
     status: order?.status,
     paymentStatus: order?.paymentStatus,
     totalPrice: order?.totalPrice,
+    stripeFee: order?.stripeFee,
+    netAmount: order?.netAmount,
     createdAt: order?.createdAt
   }));
 
@@ -71,13 +75,20 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
       ),
     },
     {
-      title: "Phone",
-      dataIndex: "phone",
-      key: "phone",
-      width: 140,
-      render: (text: string) => (
+      title: "Payment ID",
+      dataIndex: "paymentId",
+      key: "paymentId",
+      width: 110,
+      render: (paymentId: string) => (
         <>
-          <p className="truncate">{text}</p>
+          <div className="flex gap-2 items-center">
+            {paymentId ? (
+              <p className="truncate">{paymentId.slice(0, 7) + "..."}</p>
+            ) : (
+              <p className="text-gray-400 italic">N/A</p>
+            )}
+            <ViewPaymentIdModal paymentId={paymentId} />
+          </div>
         </>
       ),
     },
@@ -89,6 +100,30 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
       align: "center" as const,
       render: (val: number) => (
         <span>${val}</span>
+      )
+    },
+      {
+      title: "Stripe Fee",
+      dataIndex: "stripeFee",
+      key: "stripeFee",
+      width: 90,
+      align: "center" as const,
+      render: (val: number) => (
+        <>
+          {val ? `$${val}` : 'N/A'}
+        </>
+      )
+    },
+    {
+      title: "Net Amount",
+      dataIndex: "netAmount",
+      key: "netAmount",
+      width: 90,
+      align: "center" as const,
+      render: (val: number) => (
+        <>
+          {val ? `$${val}` : 'N/A'}
+        </>
       )
     },
     {

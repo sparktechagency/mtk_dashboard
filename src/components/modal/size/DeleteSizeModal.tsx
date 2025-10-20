@@ -1,7 +1,6 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { useDeleteSizeMutation } from "../../../redux/features/size/sizeApi";
 import DeleteButton from "../../form/DeleteButton";
 
@@ -54,18 +53,6 @@ const DeleteSizeModal = ({ sizeId }: TProps) => {
               className="px-4 py-2 cursor-pointer border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none"
             >
               No
-            </button>
-            <button
-              onClick={handleDelete}
-              className="px-4 cursor-pointer py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none"
-            >
-              {isLoading ? (
-                <>
-                  <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                </>
-              ) : (
-                "Yes"
-              )}
             </button>
             <DeleteButton onClick={handleDelete} isLoading={isLoading}/>
           </div>

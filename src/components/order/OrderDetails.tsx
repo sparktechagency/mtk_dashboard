@@ -95,6 +95,14 @@ const OrderDetails = ({order}: TProps) =>{
               <div className="space-y-3">
                 <div className="pt-3">
                   <div className="flex justify-between">
+                    <span className="text-base font-semibold text-gray-900">Net Amount</span>
+                    <span className="text-base font-semibold text-gray-800">{order?.netAmount ? `$${order?.netAmount.toFixed(2)}` : "N/A"}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-base font-semibold text-gray-900">Stripe Fee</span>
+                    <span className="text-base font-semibold text-gray-800">{order?.stripeFee ? `$${order?.stripeFee.toFixed(2)}` : "N/A"}</span>
+                  </div>
+                  <div className="flex justify-between">
                     <span className="text-base font-semibold text-gray-900">Total</span>
                     <span className="text-base font-semibold text-gray-900">${order?.totalPrice.toFixed(2)}</span>
                   </div>

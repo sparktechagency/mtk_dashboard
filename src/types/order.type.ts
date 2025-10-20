@@ -10,7 +10,10 @@ export type IOrder = {
   phone: string;
   status: TDeliveryStatus; 
   paymentStatus: TPaymentStatus; 
+  paymentId: string;
   totalPrice: number;
+  stripeFee: number;
+  netAmount: number;
   createdAt: string; 
 };
 
@@ -26,7 +29,10 @@ export type TOrderDataSource = {
   phone: string;
   status: TDeliveryStatus; 
   paymentStatus: TPaymentStatus; 
+  paymentId: string;
   totalPrice: number;
+  stripeFee: number;
+  netAmount: number;
   createdAt: string; 
 }
 
@@ -54,7 +60,9 @@ export type TOrderProduct = {
 export type ISingleOrder = {
   _id: string;
   token: string;
-  totalPrice: number;
+  totalPrice: number
+  stripeFee: number;
+  netAmount: number;
   paymentStatus: TPaymentStatus;
   status: TDeliveryStatus;
   deliveryAt: string | null;
