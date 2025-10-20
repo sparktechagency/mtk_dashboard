@@ -1,5 +1,3 @@
-"use client"
-
 import { FaSearch } from "react-icons/fa"
 import type { IMeta } from "../../types/global.type"
 import { X } from "lucide-react"
@@ -16,7 +14,7 @@ const ContactListHeader = ({meta, searchQuery, setSearchQuery}: TProps) => {
     <div className="p-3 sm:p-4">
       <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between">
         {/* Title and Total Section */}
-        <div className="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:items-center sm:space-x-6 lg:space-x-8">
+        <div className="flex justify-between sm:flex-row sm:items-center sm:space-x-6 lg:space-x-8">
          <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Contact List</h1>
            <div className="flex items-center">
              <span className="text-sm sm:text-base text-gray-600">Total:</span>

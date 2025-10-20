@@ -11,7 +11,7 @@ const OrderList = () => {
   const [status, setStatus] = useState("")
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isFetching, isError } = useGetOrdersQuery([
+  const { data, isLoading, isFetching, isError, refetch } = useGetOrdersQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
@@ -48,6 +48,8 @@ const OrderList = () => {
           setCurrentPage={setCurrentPage}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          onRefresh={()=>refetch()}
+          isFetching={isFetching}
         />
         <OrderTable
           orders={orders}

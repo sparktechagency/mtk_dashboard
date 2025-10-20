@@ -68,7 +68,7 @@ const ChangeOrderStatusModal = ({ orderId, status }: TProps) => {
                             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                                 Update Order Status
                             </h2>
-                            <form onSubmit={handleSubmit(onSubmit)}>
+                            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                                 <CustomSelect
                                     label="Status"
                                     name="status"

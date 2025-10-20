@@ -1,4 +1,3 @@
-"use client"
 import CreateSizeModal from "../modal/size/CreateSizeModal"
 
 

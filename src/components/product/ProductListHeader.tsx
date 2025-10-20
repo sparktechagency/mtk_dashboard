@@ -1,5 +1,3 @@
-"use client"
-
 import { FaSearch } from "react-icons/fa"
 
 interface TProps {
@@ -14,7 +12,7 @@ const ProductListHeader = ({ meta, searchQuery, setSearchQuery, navigate }: TPro
     <div className="p-4 bg-white">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-6">
         {/* Title Section */}
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
+        <div className="flex justify-between sm:flex-row sm:items-center gap-2 sm:gap-6">
                   <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Product List</h1>
                   <div className="flex items-center">
                       <span className="text-sm sm:text-base text-gray-600">Total:</span>
@@ -22,7 +20,7 @@ const ProductListHeader = ({ meta, searchQuery, setSearchQuery, navigate }: TPro
                           {meta?.total || 0}
                       </span>
                   </div>
-              </div>
+        </div>
 
         {/* Actions Section */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">

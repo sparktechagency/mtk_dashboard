@@ -1,5 +1,3 @@
-"use client"
-
 import { ArrowLeft, Building2, Calendar, CreditCard, FolderArchive, MailOpen, MapPinHouse, MapPinned, Package, PhoneCall, Truck } from "lucide-react";
 import type { ISingleOrder } from "../../types/order.type";
 import OrderProductItem from "./OrderProductItem";

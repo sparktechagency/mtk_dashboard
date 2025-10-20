@@ -23,7 +23,7 @@ export const orderApi = apiSlice.injectEndpoints({
           params: params,
         };
       },
-      keepUnusedDataFor: 120,
+      keepUnusedDataFor: 60,
       providesTags: [TagTypes.orders],
     }),
     getSingleOrder: builder.query({

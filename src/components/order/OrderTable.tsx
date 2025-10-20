@@ -19,6 +19,7 @@ type TProps = {
 
 
 const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPageSize, isFetching }: TProps) => {
+  console.log(orders)
 
   const dataSource: TOrderDataSource[] = orders?.map((order, index) => ({
     key: index,
