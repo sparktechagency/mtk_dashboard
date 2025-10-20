@@ -5,7 +5,7 @@ import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi";
 import React, { Suspense } from "react";
 import PolicyLoading from "../../components/loader/PolicyLoading";
 
-const UpdatePrivacyForm = React.lazy(() => import("../../components/PrivacyPolicy/UpdatePrivacyForm"));
+const UpdatePrivacyForm = React.lazy(() => import("../../components/policy/UpdatePrivacyForm"));
 
 
 const PrivacyPolicyPage = () => {

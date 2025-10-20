@@ -1,9 +1,8 @@
-"use client";
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { useDeleteAdminMutation } from "../../../redux/features/admin/adminApi";
+import DeleteButton from "../../form/DeleteButton";
 
 type TProps = {
   userId: string;
@@ -58,18 +57,7 @@ const DeleteAdminModal = ({ userId }: TProps) => {
               >
                 No
               </button>
-              <button
-                onClick={handleDelete}
-                className="px-4 cursor-pointer py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none"
-              >
-                {isLoading? (
-                  <>
-                    <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                  </>
-                ) : (
-                  "Yes"
-                )}
-              </button>
+               <DeleteButton onClick={handleDelete} isLoading={isLoading}/>
             </div>
           </div>
         </div>

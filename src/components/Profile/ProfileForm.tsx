@@ -1,12 +1,11 @@
-"use client";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { z } from "zod";
 import CustomInput from "../form/CustomInput";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { updateAdminSchema } from "../../schemas/admin.schema";
 import type { IUser } from "../../types/user.type";
 import { useUpdateProfileMutation } from "../../redux/features/user/userApi";
+import SubmitButton from "../form/SubmitButton";
 
 type TFormValues = z.infer<typeof updateAdminSchema>;
 
@@ -64,23 +63,7 @@ const ProfileForm = ({ admin }: TProps) => {
           control={control}
           placeholder="e.g., +44 20 1234 5678 or 020 1234 5678"
         />
-        <div className="flex justify-end">
-          <button
-            type="submit"
-            disabled={isLoading}
-            className={`px-4 py-2 w-full bg-primary hover:bg-primary/80 disabled:bg-[#2b4773 disabled:cursor-not-allowed disabled:bg-primary/80 rounded-lg text-white font-medium 
- transition-colors duration-200 flex items-center justify-center gap-x-2 focus:outline-none`}
-          >
-            {isLoading ? (
-              <>
-                <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                Processing...
-              </>
-            ) : (
-              "Save Changes"
-            )}
-          </button>
-        </div>
+        <SubmitButton isLoading={isLoading}>Save Changes</SubmitButton>
       </form>
     </>
   );

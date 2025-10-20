@@ -6,11 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import type { z } from "zod";
 import CustomInput from "../../form/CustomInput";
-import { CgSpinnerTwo } from "react-icons/cg";
 import Error from "../../validation/Error";
 import { sizeSchema } from "../../../schemas/size.schema";
 import { SetSizeCreateError } from "../../../redux/features/size/sizeSlice";
 import { useCreateSizeMutation } from "../../../redux/features/size/sizeApi";
+import SubmitButton from "../../form/SubmitButton";
 
 type TFormValues = z.infer<typeof sizeSchema>;
 
@@ -72,27 +72,7 @@ const CreateSizeModal = () => {
                   control={control}
                   placeholder="Enter size"
                 />
-                <div className="flex justify-end mt-4">
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className={`px-4 py-2 w-full rounded-lg text-white font-medium 
-                  ${
-                    isLoading
-                      ? "bg-disabled cursor-not-allowed"
-                      : "bg-primary hover:bg-disabled"
-                  } transition-colors duration-200 flex items-center justify-center gap-x-2 focus:outline-none focus:ring-blue-500`}
-                  >
-                    {isLoading ? (
-                      <>
-                         <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                        Processing...
-                      </>
-                    ) : (
-                      "Add"
-                    )}
-                  </button>
-                </div>
+                <SubmitButton isLoading={isLoading} loadingTitle="Adding...">Add</SubmitButton>
               </form>
             </div>
           </div>

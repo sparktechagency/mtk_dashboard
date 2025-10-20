@@ -9,7 +9,7 @@ import type { z } from "zod";
 import Error from "../validation/Error";
 import CustomInput from "../form/CustomInput";
 import PasswordStrength from "../validation/PasswordStrength";
-import { CgSpinnerTwo } from "react-icons/cg";
+import SubmitButton from "../form/SubmitButton";
 
 type TFormValues = z.infer<typeof changePasswordSchema>;
 
@@ -21,16 +21,18 @@ const ChangePasswordForm = () => {
     resolver: zodResolver(changePasswordSchema),
   });
 
-  const newPassword = watch("newPassword");
+   const newPassword = watch("newPassword");
+  const currentPassword = watch("currentPassword");
 
   useEffect(() => {
-    if (newPassword) {
-      const confirmPassword = watch("confirmPassword");
-      if (confirmPassword === newPassword) {
-        trigger("confirmPassword");
-      }
+    const confirmPassword = watch("confirmPassword");
+    if (newPassword?.length >=6 && confirmPassword?.length >=6) {
+      trigger("confirmPassword");
     }
-  }, [newPassword, watch, trigger]);
+    if (currentPassword?.length >= 6 && newPassword?.length >= 6) {
+      trigger("newPassword");
+    }
+  }, [newPassword, currentPassword, trigger, watch]);
 
  
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
@@ -68,21 +70,7 @@ const ChangePasswordForm = () => {
           control={control}
           placeholder="Enter confirm password"
         />
-
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full flex items-center cursor-pointer justify-center gap-2 bg-primary hover:bg-primary/70 text-white py-2 rounded-md hover:bg-dis transition disabled:bg-primary/70 disabled:cursor-not-allowed"
-        >
-          {isLoading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              Processing...
-            </>
-          ) : (
-            "Save Changes"
-          )}
-        </button>
+        <SubmitButton isLoading={isLoading}>Save Changes</SubmitButton>
       </form>
     </>
   );

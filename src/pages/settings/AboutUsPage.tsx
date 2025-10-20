@@ -5,7 +5,7 @@ import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi";
 import PolicyLoading from "../../components/loader/PolicyLoading";
 import React, { Suspense } from "react";
 
-const UpdateAboutForm = React.lazy(() => import("../../components/AboutUs/UpdateAboutForm"));
+const UpdateAboutForm = React.lazy(() => import("../../components/policy/UpdateAboutForm"));
 
 const AboutUsPage = () => {
   const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("about-us");

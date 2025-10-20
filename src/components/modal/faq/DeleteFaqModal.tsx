@@ -1,8 +1,8 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { FiTrash2 } from "react-icons/fi";
 import { useDeleteFaqMutation } from "../../../redux/features/faq/faqApi";
+import DeleteButton from "../../form/DeleteButton";
 
 
 type TProps = {
@@ -40,23 +40,11 @@ const DeleteFaqModal = ({ faqId }: TProps) => {
         <div className="flex justify-end px-4 gap-x-3">
           <button
             onClick={() => setModalOpen(false)}
-            className="bg-black text-white px-4 py-1 rounded-md"
+            className="bg-black text-white px-4 py-2 rounded-md"
           >
             No
           </button>
-          <button
-            onClick={handleDelete}
-            disabled={isLoading}
-            className="bg-red-500 hover:bg-red-600 duration-500 text-white px-4 py-1 rounded-md disabled:cursor-not-allowed"
-          >
-            {isLoading ? (
-              <>
-                <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              </>
-            ) : (
-              "Yes"
-            )}
-          </button>
+         <DeleteButton onClick={handleDelete} isLoading={isLoading}/>
         </div>
       </Modal>
     </>

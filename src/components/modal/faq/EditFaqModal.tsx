@@ -7,12 +7,12 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Error from "../../validation/Error";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { SetEditFaqError } from "../../../redux/features/faq/faqSlice";
 import { updateFaqSchema } from "../../../schemas/faq.schema";
 import type { IFaq } from "../../../types/faq.type";
 import CustomCheckbox from "../../form/CustomCheckbox";
 import CustomTextArea from "../../form/CustomTextArea";
+import SubmitButton from "../../form/SubmitButton";
 
 type TProps = {
   faq: IFaq;
@@ -78,7 +78,6 @@ const EditFaqModal = ({ faq }: TProps) => {
         <form className="space-y-4 pt-5" onSubmit={handleSubmit(onSubmit)}>
           <h2 className="text-xl font-semibold mb-4 text-center">Update Faq</h2>
           {EditFaqError && <Error message={EditFaqError} />}
-
           <CustomTextArea label="Question" name="question" control={control} placeholder="write a question..." />
           <CustomTextArea label="Answer" name="answer" rows={3} control={control} placeholder="write an answer..." />
           <CustomCheckbox
@@ -103,20 +102,7 @@ const EditFaqModal = ({ faq }: TProps) => {
             >
               Cancel
             </button>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 bg-primary text-white py-2 rounded-md hover:bg-primary/80 transition disabled:bg-primary/80 disabled:cursor-not-allowed"
-            >
-              {isLoading ? (
-                <>
-                  <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                  Processing...
-                </>
-              ) : (
-                "Save Changes"
-              )}
-            </button>
+            <SubmitButton isLoading={isLoading} >Save Changes</SubmitButton>
           </div>
         </form>
       </Modal>

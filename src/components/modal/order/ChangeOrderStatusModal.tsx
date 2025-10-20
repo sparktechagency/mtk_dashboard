@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import type { z } from "zod";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
 import CustomSelect from "../../form/CustomSelect";
 import { orderStatusOptions } from "../../../data/order.data";
 import type { TDeliveryStatus } from "../../../types/order.type";
 import { orderStatusSchema } from "../../../schemas/order.schema";
 import { useUpdateOrderMutation } from "../../../redux/features/order/orderApi";
+import SubmitButton from "../../form/SubmitButton";
 
 type TFormValues = z.infer<typeof orderStatusSchema>;
 
@@ -76,26 +76,7 @@ const ChangeOrderStatusModal = ({ orderId, status }: TProps) => {
                                     options={orderStatusOptions}
                                     blankOption={false}
                                 />
-                                <div className="flex justify-end mt-4">
-                                    <button
-                                        type="submit"
-                                        disabled={isLoading}
-                                        className={`px-4 py-2 w-full rounded-lg text-white font-medium 
-                                            ${isLoading
-                                                ? "bg-disabled cursor-not-allowed"
-                                                : "bg-primary hover:bg-disabled"
-                                            } transition-colors duration-200 flex items-center justify-center gap-x-2 focus:outline-none focus:ring-blue-500`}
-                                    >
-                                        {isLoading ? (
-                                            <>
-                                                <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                                                Processing...
-                                            </>
-                                        ) : (
-                                            "Save Change"
-                                        )}
-                                    </button>
-                                </div>
+                                <SubmitButton isLoading={isLoading} >Save Change</SubmitButton>
                             </form>
                         </div>
                     </div>

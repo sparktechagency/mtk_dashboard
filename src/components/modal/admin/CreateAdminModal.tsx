@@ -5,11 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import type { z } from "zod";
 import CustomInput from "../../form/CustomInput";
-import { CgSpinnerTwo } from "react-icons/cg";
 import Error from "../../validation/Error";
 import { useCreateAdminMutation } from "../../../redux/features/admin/adminApi";
 import { adminSchema } from "../../../schemas/admin.schema";
 import { SetAdminCreateError } from "../../../redux/features/admin/adminSlice";
+import SubmitButton from "../../form/SubmitButton";
 
 type TFormValues = z.infer<typeof adminSchema>;
 
@@ -95,23 +95,7 @@ const CreateAdminModal = () => {
                   control={control}
                   placeholder="Enter password"
                 />
-                <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className={`px-4 py-2 w-full bg-primary hover:bg-[#2b4773] disabled:bg-[#2b4773 disabled:cursor-not-allowed rounded-lg text-white font-medium 
- transition-colors duration-200 flex items-center justify-center gap-x-2 focus:outline-none`}
-                  >
-                    {isLoading ? (
-                      <>
-                        <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                        Processing...
-                      </>
-                    ) : (
-                      "Create Admin"
-                    )}
-                  </button>
-                </div>
+                <SubmitButton isLoading={isLoading} loadingTitle="Adding...">Add</SubmitButton>
               </form>
             </div>
           </div>

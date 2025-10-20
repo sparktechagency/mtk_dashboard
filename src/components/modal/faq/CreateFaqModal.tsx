@@ -7,9 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Error from "../../validation/Error";
 import { SetCreateFaqError } from "../../../redux/features/faq/faqSlice";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { faqSchema } from "../../../schemas/faq.schema";
 import CustomTextArea from "../../form/CustomTextArea";
+import SubmitButton from "../../form/SubmitButton";
 
 type FormValues = z.infer<typeof faqSchema>;
 
@@ -62,11 +62,8 @@ const CreateFaqModal = () => {
         <form className="space-y-4 pt-5" onSubmit={handleSubmit(onSubmit)}>
           <h2 className="text-xl font-semibold mb-4 text-center">Add New</h2>
           {CreateFaqError && <Error message={CreateFaqError} />}
-
           <CustomTextArea label="Question" name="question" control={control} placeholder="write a question..." />
           <CustomTextArea label="Answer" name="answer" rows={3} control={control} placeholder="write an answer..." />
-
-          {/* Buttons */}
           <div className="grid grid-cols-2 gap-3 mt-4">
             <button
               type="button"
@@ -82,20 +79,7 @@ const CreateFaqModal = () => {
             >
               Cancel
             </button>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 bg-primary text-white py-2 rounded-md hover:bg-primary/80 transition disabled:bg-primary/80 disabled:cursor-not-allowed"
-            >
-              {isLoading ? (
-                <>
-                  <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                  Adding...
-                </>
-              ) : (
-                "Add"
-              )}
-            </button>
+            <SubmitButton isLoading={isLoading} loadingTitle="Adding...">Add</SubmitButton>
           </div>
         </form>
       </Modal>

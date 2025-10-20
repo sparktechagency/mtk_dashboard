@@ -9,8 +9,8 @@ import type { z } from "zod";
 import Error from "../validation/Error";
 import CustomInput from "../form/CustomInput";
 import PasswordStrength from "../validation/PasswordStrength";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { getEmail, getOtp } from "../../helper/SessionHelper";
+import SubmitButton from "../form/SubmitButton";
 
 type TFormValues = z.infer<typeof resetPasswordSchema>;
 
@@ -62,21 +62,7 @@ const ResetPasswordForm = () => {
           control={control}
           placeholder="Enter new password"
         />
-
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full flex items-center cursor-pointer justify-center gap-2 bg-primary text-white py-2 rounded-md hover:bg-dis transition disabled:bg-gray-800 disabled:cursor-not-allowed"
-        >
-          {isLoading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              Processing...
-            </>
-          ) : (
-            "Reset Password"
-          )}
-        </button>
+        <SubmitButton isLoading={isLoading}>Reset Password</SubmitButton>
       </form>
     </>
   );

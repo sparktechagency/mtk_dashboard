@@ -61,6 +61,7 @@ const ChangeProductStatusModal = ({ productId, status }: TProps) => {
               "Yes"
             )}
            </button>
+           
         </div>
       </Modal>
     </>

@@ -5,7 +5,7 @@ import PolicyLoading from "../../components/loader/PolicyLoading"
 import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi"
 import React, { Suspense } from "react";
 
-const UpdateTermsForm = React.lazy(() => import("../../components/TermsCondition/UpdateTermsForm"));
+const UpdateTermsForm = React.lazy(() => import("../../components/policy/UpdateTermsForm"));
 
 
 const TermsConditionPage = () => {

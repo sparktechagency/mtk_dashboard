@@ -1,32 +1,29 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CgSpinnerTwo } from "react-icons/cg";
 import type { z } from "zod";
 import CustomQuilEditor from "../form/CustomQuilEditor";
 import { policySchema } from "../../schemas/policy.schema";
 import { useCreateUpdatePolicyMutation } from "../../redux/features/policy/policyApi";
+import SubmitButton from "../form/SubmitButton";
 
 type TFormValues = z.infer<typeof policySchema>;
-
 type TProps = {
     description: string;
 }
 
-const UpdateHelpForm = ( {description} : TProps) => {
-  const [createUpdatePolicy, { isLoading }] = useCreateUpdatePolicyMutation();
+const UpdateTermsForm = ( {description} : TProps ) => {
+   const [createUpdatePolicy, { isLoading }] = useCreateUpdatePolicyMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(policySchema),
     defaultValues: {
-      description
+        description
     }
   });
 
 
-
-
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
     createUpdatePolicy({
-      type: "help",
+      type: "terms-condition",
       content: data.description
     });
   };
@@ -39,25 +36,12 @@ const UpdateHelpForm = ( {description} : TProps) => {
           name="description"
           control={control}
           height={550}
-          placeholder="Write a description..."
+          placeholder="Write here..."
         />
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full flex justify-center items-center gap-x-2 bg-primary hover:bg-primary/80 cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100 disabled:cursor-not-allowed"
-        >
-          {isLoading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              Processing...
-            </>
-          ) : (
-            "Save Change"
-          )}
-        </button>
-      </form>   
+         <SubmitButton isLoading={isLoading}>Save Change</SubmitButton>
+      </form>
     </>
   );
 };
 
-export default UpdateHelpForm;
+export default UpdateTermsForm;
