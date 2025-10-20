@@ -47,7 +47,6 @@ const LoginForm = () => {
             Forgot password?
           </Link>
         </div>
-
         <SubmitButton isLoading={isLoading}>Sign In</SubmitButton>
       </form>
     </>
