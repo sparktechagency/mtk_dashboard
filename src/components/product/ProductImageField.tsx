@@ -1,5 +1,3 @@
-"use client"
-
 import type React from "react"
 import { useRef } from "react"
 import { X, Plus } from "lucide-react";
@@ -44,7 +42,7 @@ const ProductImageField = ({selectedFiles, setSelectedFiles}: TProps) => {
 
   return (
     <div className="max-w-xl">
-      <h2 className="text-xl font-bold mb-6">Upload Images</h2>
+      <h2 className="text-xl font-bold mb-4">Upload Images</h2>
 
       {/* Hidden file input */}
       <input ref={fileInputRef} type="file" multiple accept="image/*" onChange={handleFileSelect} className="hidden" />
@@ -54,10 +52,10 @@ const ProductImageField = ({selectedFiles, setSelectedFiles}: TProps) => {
         onClick={triggerFileInput}
         type="button"
          disabled={selectedFiles.length >= 5}
-        className={`mb-6 px-6 py-3 rounded-lg transition-colors flex items-center gap-2 ${
+        className={`mb-6 px-6 py-2 rounded-lg transition-colors flex items-center gap-2 ${
           selectedFiles.length >= 5
             ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-            : "bg-blue-600 text-white hover:bg-blue-700"
+            : "bg-cyan-500 text-white hover:bg-cyan-600"
         }`}
       >
         <Plus className="w-5 h-5" />

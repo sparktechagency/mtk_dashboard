@@ -3,7 +3,6 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomInput from "../form/CustomInput";
-import { CgSpinnerTwo } from "react-icons/cg";
 import type { z } from "zod";
 import CustomSelect from "../form/CustomSelect";
 import CustomQuilEditor from "../form/CustomQuilEditor";
@@ -18,6 +17,7 @@ import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
 import type { ISingleProduct } from "../../types/product.type";
 import checkEqualArray from "../../utils/checkEqualArray";
 import { WarningToast } from "../../helper/ValidationHelper";
+import SubmitButton from "../form/SubmitButton";
 
 type TFormValues = z.infer<typeof updateProductValidationSchema>;
 
@@ -192,13 +192,10 @@ const UpdateProductForm = ({ product }: TProps) => {
             placeholder="Enter discount"
           />
         </div>
-     
-
         <CustomQuilEditor
           label="Short Introduction"
           name="introduction"
           control={control}
-          height={40}
           placeholder="Write a short intro..."
         />
         <CustomQuilEditor
@@ -208,20 +205,7 @@ const UpdateProductForm = ({ product }: TProps) => {
           height={250}
           placeholder="Write a description..."
         />
-                  
-        <button
-          type="submit"
-          className="w-full flex justify-center items-center gap-x-2 bg-primary hover:bg-primary/80 disabled:bg-primary/80 cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100"
-        >
-          {isLoading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              Processing...
-            </>
-          ) : (
-            "Save Changes"
-          )}
-        </button>
+        <SubmitButton isLoading={isLoading}>Save Changes</SubmitButton>
       </form>
     </>
   );

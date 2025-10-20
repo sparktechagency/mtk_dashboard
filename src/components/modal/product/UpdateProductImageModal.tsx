@@ -1,9 +1,9 @@
 import { Modal } from "antd";
 import { useEffect, useRef, useState } from "react";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { Edit, Plus, X } from "lucide-react";
 import { ErrorToast } from "../../../helper/ValidationHelper";
 import { useUpdateProductImgMutation } from "../../../redux/features/product/productApi";
+import CustomButton from "../../form/CustomButton";
 
 
 
@@ -101,9 +101,9 @@ const UpdateProductImageModal = ({ productId }: TProps) => {
                   onClick={triggerFileInput}
                   type="button"
                   disabled={selectedFiles.length >= 5}
-                  className={`mb-6 px-6 py-3 rounded-lg transition-colors flex items-center gap-2 ${selectedFiles.length >= 5
+                  className={`mb-6 px-6 py-2 rounded-lg transition-colors flex items-center gap-2 ${selectedFiles.length >= 5
                       ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-                      : "bg-blue-600 text-white hover:bg-blue-700"
+                      : "bg-cyan-500 text-white hover:bg-cyan-600"
                     }`}
                 >
                   <Plus className="w-5 h-5" />
@@ -147,28 +147,7 @@ const UpdateProductImageModal = ({ productId }: TProps) => {
                 )}
 
               </div>
-
-              <div className="flex justify-end mt-4">
-                <button
-                onClick={handleSubmit}
-                  type="button"
-                  disabled={isLoading}
-                  className={`px-4 py-2 w-full rounded-lg text-white font-medium 
-                  ${isLoading
-                      ? "bg-disabled cursor-not-allowed"
-                      : "bg-primary hover:bg-disabled"
-                    } transition-colors duration-200 flex items-center justify-center gap-x-2 focus:outline-none focus:ring-blue-500`}
-                >
-                  {isLoading ? (
-                    <>
-                      <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                      Processing...
-                    </>
-                  ) : (
-                    "Save Changes"
-                  )}
-                </button>
-              </div>
+             <CustomButton isLoading={isLoading} onClick={handleSubmit}>Save Changes</CustomButton>
             </div>
           </div>
         </div>
