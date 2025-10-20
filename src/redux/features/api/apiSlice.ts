@@ -4,8 +4,8 @@ import TagTypes from "../../../constant/tagType.constant.ts";
 import { getToken } from "../../../helper/SessionHelper.ts";
 import { ErrorToast } from "../../../helper/ValidationHelper.ts";
 
-//const baseUrl = "https://backend.triplemcompany.com/api/v1"
-const baseUrl = "http://localhost:9090/api/v1"
+const baseUrl = "https://mtk-server-zeta.vercel.app/api/v1"
+//const baseUrl = "http://localhost:9090/api/v1"
 
 
 const baseQuery = fetchBaseQuery({
