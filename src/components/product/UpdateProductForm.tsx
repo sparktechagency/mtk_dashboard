@@ -112,6 +112,10 @@ const UpdateProductForm = ({ product }: TProps) => {
       finalValues.description=data?.description
     }
 
+    if(product.quantity != data?.quantity){
+      finalValues.quantity=data?.quantity
+    }
+
 
     if(!checkEqualArray(defaultColors, data.colors)){
       finalValues.colors=data.colors

@@ -1,22 +1,22 @@
 
 export const getStockStatusBg = (status: string) => {
-    switch (status.toLowerCase()) {
-        case "in_stock":
+    switch (status) {
+        case "In Stock":
             return "bg-blue-200"
-        case "stock_out":
+        case "Out of Stock":
             return "bg-red-200"
-        case "up_coming":
+        case "Limited Stock":
             return "bg-red-200"
     }
 }
 
 export const getStockStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-        case "in_stock":
+    switch (status) {
+        case "In Stock":
             return "text-blue-500"
-        case "stock_out":
+        case "Out of Stock":
             return "text-red-500"
-        case "up_coming":
+        case "Limited Stock":
             return "text-yellow-500"
     }
 }

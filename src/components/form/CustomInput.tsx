@@ -11,6 +11,7 @@ type TProps = {
   type?: "text" | "password";
   placeholder?: string;
   onInput?: React.FormEventHandler<HTMLInputElement>;
+  showPasswordIcon?: boolean;
 };
 
 const CustomInput = ({
@@ -20,7 +21,9 @@ const CustomInput = ({
   control,
   placeholder= "",
   onInput,
+  showPasswordIcon= true
 }: TProps) => {
+
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -55,7 +58,11 @@ const CustomInput = ({
                       className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 cursor-pointer"
                       onClick={() => setShowPassword(!showPassword)}
                     >
-                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                      {showPasswordIcon && (
+                        <>
+                         {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </>
+                      )}
                     </div>
                   </div>
                   {error && (

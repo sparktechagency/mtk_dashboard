@@ -9,7 +9,7 @@ import { SetLoginError } from "../../redux/features/auth/authSlice";
 import type { z } from "zod";
 import CustomInput from "../form/CustomInput";
 import Error from "../validation/Error";
-import { CgSpinnerTwo } from "react-icons/cg";
+import SubmitButton from "../form/SubmitButton";
 
 type TFormValues = z.infer<typeof loginSchema>
 
@@ -34,7 +34,7 @@ const LoginForm = () => {
      {LoginError && <Error message={LoginError} />}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <CustomInput label="Email" name="email" type="text" control={control} placeholder="Enter email address"/>
-        <CustomInput label="Password" name="password" type="password" control={control} placeholder="Enter your password"/>
+        <CustomInput label="Password" name="password" type="password" control={control} placeholder="Enter your password" showPasswordIcon={false}/>
         <div className="flex justify-between items-center">
           <label className="flex items-center text-sm">
             <input type="checkbox" className="mr-2 cursor-pointer" /> Remember
@@ -48,16 +48,7 @@ const LoginForm = () => {
           </Link>
         </div>
 
-        <button type="submit" className="w-full flex justify-center items-center gap-x-2 bg-primary hover:bg-primary/80 cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100">
-          {isLoading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              Processing...
-            </>
-          ) : (
-            "Sign In"
-          )}
-        </button>
+        <SubmitButton isLoading={isLoading}>Sign In</SubmitButton>
       </form>
     </>
   );

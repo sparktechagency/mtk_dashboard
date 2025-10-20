@@ -5,7 +5,6 @@ import product_placeholder from "../../assets/images/product_placeholder.png";
 import { FaStar } from "react-icons/fa";
 import type { ISingleProduct } from "../../types/product.type";
 import { getStockStatusBg, getStockStatusColor } from "../../utils/getStockStatusColor";
-import getStockStatus from "../../utils/getStockStatus";
 
 
 type TProps = {
@@ -58,11 +57,10 @@ const ProductDetails = ({ product}: TProps) =>{
 
         {/* Product Info */}
         <div className="space-y-6">
+           {/* Product Name */}
+          <h1 className="text-3xl font-bold text-gray-900">{product?.name}</h1>
           {/* Category */}
           <div className="text-sm text-gray-500 uppercase tracking-wide">Category: <span className="text-green-500">{product?.categoryName}</span></div>
-
-          {/* Product Name */}
-          <h1 className="text-3xl font-bold text-gray-900">{product?.name}</h1>
 
           {/* Ratings */}
           <div className="flex items-center space-x-2">
@@ -98,12 +96,23 @@ const ProductDetails = ({ product}: TProps) =>{
             <span
               className={`text-sm font-medium ${getStockStatusColor(product.stockStatus)}`}
             >
-              {getStockStatus(product.stockStatus)}
+              {product.stockStatus}
+            </span>
+          </div>
+
+          {/* Quantity */}
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center">Quantity: </div>
+            <span className="text-md text-gray-600">
+              {product?.quantity}
             </span>
           </div>
 
           {/* Introduction */}
-          <div className="text-gray-600 leading-relaxed"  dangerouslySetInnerHTML={{ __html: product.introduction as string }}></div>
+          <div>
+            <h1 className="font-bold">Introduction</h1>
+            <div className="text-gray-600 leading-relaxed"  dangerouslySetInnerHTML={{ __html: product.introduction as string }}></div>
+          </div>
 
           {/* Color */}
           {
