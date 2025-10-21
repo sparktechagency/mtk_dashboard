@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table, ConfigProvider, Pagination } from "antd";
 import type { IMeta } from "../../types/global.type";
 import getColorClassForDate from "../../utils/getColorClassForDate";
@@ -26,6 +26,13 @@ const SubscriberTable : React.FC<SubscribeTableProps> = ({
   setPageSize,
   loading
 }) => {
+
+  //handle pagination after deleting last document of last page
+  useEffect(()=> {
+    if(currentPage > meta.totalPages){
+      setCurrentPage(meta.totalPages)
+    }
+  }, [currentPage, meta, setCurrentPage])
 
   const dataSource: TSubscriberDataSource[] = subscriptions?.map((subscription, index) => ({
     key: index,

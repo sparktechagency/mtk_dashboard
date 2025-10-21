@@ -1,31 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import ContactTable from "./ContactTable";
 import { useGetContactListQuery } from "../../redux/features/contact/contactApi";
 import ContactListHeader from "./ContactListHeader";
+import useDebounce from "../../hooks/useDebounce";
 
 const ContactList = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const { searchTerm } = useDebounce({searchQuery, setCurrentPage}) //search debounce handled
   const { data, isLoading, isFetching, isError } = useGetContactListQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
   ]);
-
-  //debounced handle
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setSearchTerm(searchQuery);
-      setCurrentPage(1)
-    }, 600);
-
-    return () => clearTimeout(timeoutId); // cleanup for debounce
-  }, [searchQuery]);
-
 
   const contacts = data?.data || [];
   const meta = data?.meta || {};

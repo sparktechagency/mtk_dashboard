@@ -1,33 +1,23 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import OrderTable from "./OrderTable";
 import { useGetOrdersQuery } from "../../redux/features/order/orderApi";
 import OrderListHeader from "./OrderListHeader";
 import FallbackLoading from "../loader/FallbackLoading";
+import useDebounce from "../../hooks/useDebounce";
 
 const OrderList = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
   const [status, setStatus] = useState("")
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const { searchTerm } = useDebounce({searchQuery, setCurrentPage}) //search debounce handled
   const { data, isLoading, isFetching, isError, refetch } = useGetOrdersQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
     { name: "status", value: status },
   ]);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setSearchTerm(searchQuery);
-      setCurrentPage(1)
-    }, 600);
-
-    return () => clearTimeout(timeoutId); // cleanup for debounce
-  }, [searchQuery]);
-
-
 
   const orders = data?.data || [];
   const meta = data?.meta || {};

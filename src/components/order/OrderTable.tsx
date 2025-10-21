@@ -221,7 +221,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
           loading={isFetching}
         />
       </div>
-      {meta?.total > 0 && (
+      {meta?.totalPages > 1 && (
         <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

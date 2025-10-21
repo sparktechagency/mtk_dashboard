@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetFaqsQuery } from "../../redux/features/faq/faqApi";
 import type { IFaq } from "../../types/faq.type";
 import FaqNotFoundCard from "../card/FaqNotFoundCard";
 import ServerErrorCard from "../card/ServerErrorCard";
 import FaqLoading from "../loader/FaqLoading";
-import CreateFaqModal from "../modal/faq/CreateFaqModal";
 import FaqItem from "./FaqItem";
 import { Pagination } from "antd";
 import TableOverlayLoading from "../loader/TableOverlayLoading";
@@ -17,7 +16,14 @@ const FaqList = () => {
       { name: "limit", value: pageSize },
     ]);
   const faqs: IFaq[] = data?.data || [];
-  const meta = data?.meta || {};
+  const meta = data?.meta;
+
+  //handle pagination after deleting last document of last page
+  useEffect(() => {
+    if (meta && currentPage > meta.totalPages) {
+      setCurrentPage(meta.totalPages)
+    }
+  }, [currentPage, meta, setCurrentPage])
 
   const handlePagination = (page: number, PageSize: number) => {
     setCurrentPage(page);
@@ -58,20 +64,13 @@ const FaqList = () => {
     return <ServerErrorCard />
   }
 
-  if (!isLoading && faqs.length === 0) {
+  if (!isLoading && !isFetching && faqs.length === 0) {
     return (
       <>
         <FaqNotFoundCard />
-        <div className="mt-8 text-center bottom-0 flex justify-center items-center">
-          <CreateFaqModal />
-        </div>
       </>
     );
   }
-
-
-
-
 
 }
 

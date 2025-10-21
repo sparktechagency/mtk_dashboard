@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table, ConfigProvider, Pagination } from "antd";
 import { Reply } from "lucide-react";
 import type { IMeta } from "../../types/global.type";
@@ -33,6 +33,13 @@ const ContactTable : React.FC<ContactTableProps> = ({
   loading
 }) => {
 
+  //handle pagination after deleting last document of last page
+  useEffect(() => {
+    if (currentPage > meta.totalPages) {
+      setCurrentPage(meta.totalPages)
+    }
+  }, [currentPage, meta, setCurrentPage])
+
   const dataSource: TDataSource[] = contacts?.map((contact, index) => ({
     key: index,
     serial: Number(index + 1) + (meta.page - 1) * pageSize,
@@ -45,6 +52,7 @@ const ContactTable : React.FC<ContactTableProps> = ({
     replyAt: contact?.replyAt,
   }));
 
+ 
   const columns = [
     {
       title: "S.N.",

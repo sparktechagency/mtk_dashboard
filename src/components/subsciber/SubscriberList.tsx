@@ -1,30 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ListLoading from "../loader/ListLoading";
 import { useGetSubscribersQuery } from "../../redux/features/newsletter/newsletterApi";
 import SubscriberListHeader from "./SubscriberListHeader";
 import SubscriberTable from "./SubscriberTable";
+import useDebounce from "../../hooks/useDebounce";
 
 const SubscriberList = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const { searchTerm } = useDebounce({searchQuery, setCurrentPage}) //search debounce handled
   const { data, isLoading, isFetching, isError } = useGetSubscribersQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
   ]);
-
-  //debounced handle
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setSearchTerm(searchQuery);
-      setCurrentPage(1)
-    }, 600);
-
-    return () => clearTimeout(timeoutId); // cleanup for debounce
-  }, [searchQuery]);
 
 
   const subscriptions = data?.data || [];

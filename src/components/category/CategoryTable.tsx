@@ -3,6 +3,7 @@ import EditCategoryModal from "../modal/category/EditCategoryModal";
 import type { ICategory } from "../../types/category.type";
 import DeleteCategoryModal from "../modal/category/DeleteCategoryModal";
 import type { IMeta } from "../../types/global.type";
+import { useEffect } from "react";
 
 
 
@@ -39,6 +40,13 @@ const CategoryTable = ({
     _id: category?._id,
     name: category?.name
   }))
+
+  //handle pagination after deleting last document of last page
+  useEffect(() => {
+    if (currentPage > meta.totalPages) {
+      setCurrentPage(meta.totalPages)
+    }
+  }, [currentPage, meta, setCurrentPage])
 
   const columns = [
     {
@@ -103,7 +111,7 @@ const CategoryTable = ({
           loading={loading}
         />
       </div>
-      {meta?.total > 0 && (
+      {meta?.totalPages > 1 && (
         <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

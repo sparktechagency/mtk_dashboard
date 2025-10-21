@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table, ConfigProvider, Pagination } from "antd";
 import ChangeStatusModal from "../modal/auth/ChangeStatusModal";
 import type { IMeta } from "../../types/global.type";
@@ -37,6 +37,13 @@ const AdminTable: React.FC<UserTableProps> = ({
     phone: user?.phone,
     status: user?.status
   }));
+
+  //handle pagination after deleting last document of last page
+  useEffect(() => {
+    if (currentPage > meta.totalPages) {
+      setCurrentPage(meta.totalPages)
+    }
+  }, [currentPage, meta, setCurrentPage])
 
 
   const columns = [
@@ -148,7 +155,7 @@ const AdminTable: React.FC<UserTableProps> = ({
           loading={loading}
         />
       </div>
-      {meta?.total > 1 && (
+      {meta?.totalPages > 1 && (
         <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

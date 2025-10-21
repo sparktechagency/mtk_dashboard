@@ -3,6 +3,7 @@ import type { IMeta } from "../../types/global.type";
 import type { IColor, TColorDataSource } from "../../types/color.type";
 import EditColorModal from "../modal/color/EditColorModal";
 import DeleteColorModal from "../modal/color/DeleteColorModal";
+import { useEffect } from "react";
 
 
 
@@ -34,6 +35,13 @@ const ColorTable = ({
     name: color?.name,
     hexCode: color?.hexCode
   }))
+
+  //handle pagination after deleting last document of last page
+  useEffect(() => {
+    if (currentPage > meta.totalPages) {
+      setCurrentPage(meta.totalPages)
+    }
+  }, [currentPage, meta, setCurrentPage])
 
   const columns = [
     {
@@ -112,7 +120,7 @@ const ColorTable = ({
           loading={loading}
         />
       </div>
-      {meta?.total > 0 && (
+      {meta?.totalPages > 1 && (
         <div className="p-8 bg-white shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

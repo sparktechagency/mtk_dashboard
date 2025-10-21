@@ -7,6 +7,7 @@ import type { IProduct, TProductDataSource, TProductStatus, TStockStatus } from 
 import { FaStar } from "react-icons/fa";
 import ChangeProductStatusModal from "../modal/product/ChangeProductStatusModal";
 import DeleteProductModal from "../modal/product/DeleteProductModal";
+import { useEffect } from "react";
 
 
 type TProps = {
@@ -21,6 +22,13 @@ type TProps = {
 
 
 const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, setPageSize, loading }: TProps) => {
+
+  //handle pagination after deleting last document of last page
+  useEffect(() => {
+    if (currentPage > meta.totalPages) {
+      setCurrentPage(meta.totalPages)
+    }
+  }, [currentPage, meta, setCurrentPage])
 
   const dataSource: TProductDataSource[] = products?.map((product, index) => ({
     key: index,
@@ -247,7 +255,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
           loading={loading}
         />
       </div>
-      {meta?.total > 0 && (
+      {meta?.totalPages > 1 && (
         <div className="p-8 bg-white shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}
