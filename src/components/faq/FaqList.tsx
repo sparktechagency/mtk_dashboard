@@ -7,11 +7,12 @@ import FaqLoading from "../loader/FaqLoading";
 import CreateFaqModal from "../modal/faq/CreateFaqModal";
 import FaqItem from "./FaqItem";
 import { Pagination } from "antd";
+import TableOverlayLoading from "../loader/TableOverlayLoading";
 
 const FaqList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isError } = useGetFaqsQuery([
+  const { data, isLoading, isError, isFetching} = useGetFaqsQuery([
       { name: "page", value: currentPage },
       { name: "limit", value: pageSize },
     ]);
@@ -23,6 +24,7 @@ const FaqList = () => {
     setPageSize(PageSize);
   };
 
+
   if (isLoading) {
     return <FaqLoading />
   }
@@ -30,13 +32,14 @@ const FaqList = () => {
   if (!isLoading && faqs?.length > 0) {
     return (
       <>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[75%] overflow-y-scroll content-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[60vh] overflow-y-scroll content-start relative">
           {faqs?.map((faq, index) => (
-            <FaqItem faq={faq} key={index} serial={Number(index + 1) + (currentPage - 1) * pageSize} />
+            <FaqItem faq={faq} key={index} serial={Number(index + 1) + (meta.page - 1) * pageSize} />
           ))}
+           {!isLoading && isFetching && <TableOverlayLoading />}
         </div>
-        <div className="mt-8 text-center bottom-0 flex justify-center items-center">
-          <div className="flex flex-col space-y-4">
+        <div className="mt-8 text-center relative flex justify-center items-center">
+          <div className="fixed bottom-12">
             {meta?.totalPages > 1 && (
               <Pagination
                 onChange={handlePagination}
@@ -45,7 +48,6 @@ const FaqList = () => {
                 total={meta?.total}
               />
             )}
-            <CreateFaqModal />
           </div>
         </div>
       </>

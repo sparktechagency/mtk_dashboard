@@ -1,6 +1,6 @@
 
 const FaqLoading = () => {
-  const loadingArray = [1, 2, 3, 4, 5, 6];
+  const loadingArray = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
     <div className="space-y-6 md:p-4">
@@ -19,9 +19,6 @@ const FaqLoading = () => {
             <div className="h-3 bg-gray-200 rounded w-5/6" /> 
           </div>
         ))}
-      </div>
-      <div className="flex justify-center">
-        <div className="h-10 w-28 bg-gray-300 rounded-md animate-pulse" />
       </div>
     </div>
   );
