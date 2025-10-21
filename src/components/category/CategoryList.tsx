@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useGetCategoriesQuery } from "../../redux/features/category/categoryApi";
 import ServerErrorCard from "../card/ServerErrorCard";
-import CategoryTable from "./CategoryTable";
-import CategoryListHeader from "./CategoryListHeader";
 import FallbackLoading from "../loader/FallbackLoading";
 import useDebounce from "../../hooks/useDebounce";
+
+const CategoryListHeader = React.lazy(() => import("./CategoryListHeader"));
+const CategoryTable = React.lazy(() => import("./CategoryTable"));
 
 const CategoryList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,16 +30,18 @@ const CategoryList = () => {
   if (!isLoading && !isError) {
     return (
       <>
-        <CategoryListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        <CategoryTable
-          categories={categories}
-          meta={meta}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          loading={isFetching}
-        />
+        <Suspense fallback={<FallbackLoading/>}>
+          <CategoryListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <CategoryTable
+            categories={categories}
+            meta={meta}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            loading={isFetching}
+          />
+        </Suspense>
       </>
     )
   }
