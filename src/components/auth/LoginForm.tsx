@@ -33,7 +33,7 @@ const LoginForm = () => {
      {LoginError && <Error message={LoginError} />}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <CustomInput label="Email" name="email" type="text" control={control} placeholder="Enter email address"/>
-        <CustomInput label="Password" name="password" type="password" control={control} placeholder="Enter your password" showPasswordIcon={false}/>
+        <CustomInput label="Password" name="password" type="password" control={control} placeholder="Enter your password" />
         <div className="flex justify-between items-center">
           <label className="flex items-center text-sm">
             <input type="checkbox" className="mr-2 cursor-pointer" /> Remember
