@@ -1,4 +1,3 @@
-"use client";
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
