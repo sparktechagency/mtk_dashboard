@@ -44,7 +44,7 @@ const FaqList = () => {
           ))}
            {!isLoading && isFetching && <TableOverlayLoading />}
         </div>
-        <div className="mt-8 text-center relative flex justify-center items-center">
+        <div className="mt-8 text-center flex justify-center items-center">
           <div className="fixed bottom-12">
             {meta?.totalPages > 1 && (
               <Pagination

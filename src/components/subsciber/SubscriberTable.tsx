@@ -114,7 +114,7 @@ const SubscriberTable : React.FC<SubscribeTableProps> = ({
           loading={loading}
         />
       </div>
-      {meta?.total > 1 && (
+      {meta?.totalPages > 1 && (
         <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

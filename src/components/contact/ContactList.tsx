@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { Suspense, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
-import ListLoading from "../loader/ListLoading";
-import ContactTable from "./ContactTable";
 import { useGetContactListQuery } from "../../redux/features/contact/contactApi";
 import ContactListHeader from "./ContactListHeader";
 import useDebounce from "../../hooks/useDebounce";
+import TableLoading from "../loader/TableLoading";
+const ContactTable = React.lazy(() => import("./ContactTable"));
+
 
 const ContactList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,32 +22,42 @@ const ContactList = () => {
   const meta = data?.meta || {};
 
 
+  let content: React.ReactNode;
+
   if (isLoading) {
-    return <ListLoading />;
+    content = <TableLoading />;
   }
 
   if (!isLoading && !isError) {
-    return (
-      <>
-        <ContactListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        <div className="flex-1 overflow-hidden">
-          <ContactTable
-            contacts={contacts}
-            meta={meta}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            pageSize={pageSize}
-            setPageSize={setPageSize}
-            loading={isFetching}
-          />
-        </div>
+    content = (
+      <>   
+        <Suspense fallback={<TableLoading/>}>
+          <div className="flex-1 overflow-hidden">
+            <ContactTable
+              contacts={contacts}
+              meta={meta}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              pageSize={pageSize}
+              setPageSize={setPageSize}
+              loading={isFetching}
+            />
+          </div>
+        </Suspense>
       </>
     );
   }
 
   if (!isLoading && isError) {
-    return <ServerErrorCard />;
+    content = <ServerErrorCard />;
   }
+
+  return (
+    <>
+      <ContactListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      {content}
+    </>
+  )
 
 };
 

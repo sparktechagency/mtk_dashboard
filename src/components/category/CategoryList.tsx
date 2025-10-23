@@ -1,10 +1,10 @@
 import React, { Suspense, useState } from "react";
 import { useGetCategoriesQuery } from "../../redux/features/category/categoryApi";
 import ServerErrorCard from "../card/ServerErrorCard";
-import FallbackLoading from "../loader/FallbackLoading";
 import useDebounce from "../../hooks/useDebounce";
+import TableLoading from "../loader/TableLoading";
+import CategoryListHeader from "./CategoryListHeader";
 
-const CategoryListHeader = React.lazy(() => import("./CategoryListHeader"));
 const CategoryTable = React.lazy(() => import("./CategoryTable"));
 
 const CategoryList = () => {
@@ -23,15 +23,16 @@ const CategoryList = () => {
   const meta = data?.meta || {};
 
 
+  let content: React.ReactNode;
+
   if (isLoading) {
-    return <FallbackLoading />;
+    content = <TableLoading />;
   }
 
   if (!isLoading && !isError) {
-    return (
+    content = (
       <>
-        <Suspense fallback={<FallbackLoading/>}>
-          <CategoryListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <Suspense fallback={<TableLoading/>}>
           <CategoryTable
             categories={categories}
             meta={meta}
@@ -47,8 +48,15 @@ const CategoryList = () => {
   }
 
   if (!isLoading && isError) {
-    return <ServerErrorCard />;
+    content = <ServerErrorCard />;
   }
+
+  return (
+    <>
+      <CategoryListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      {content}
+    </>
+  )
 };
 
 export default CategoryList;

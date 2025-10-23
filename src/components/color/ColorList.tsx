@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { Suspense, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
-import ListLoading from "../loader/ListLoading";
-import ColorTable from "./ColorTable";
 import { useGetColorsQuery } from "../../redux/features/color/colorApi";
 import ColorListHeader from "./ColorListHeader";
 import useDebounce from "../../hooks/useDebounce";
+import TableLoading from "../loader/TableLoading";
+const ColorTable = React.lazy(() => import("./ColorTable"));
+
 
 const ColorList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,32 +22,40 @@ const ColorList = () => {
   const colors = data?.data || [];
   const meta = data?.meta || {};
 
+  let content: React.ReactNode;
+
   if (isLoading) {
-    return <ListLoading />;
+    content = <TableLoading />;
   }
 
   if (!isLoading && !isError) {
-    return (
+    content = (
       <>
-        <ColorListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        <ColorTable
-          colors={colors}
-          meta={meta}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          loading={isFetching}
-        />
+        <Suspense fallback={<TableLoading />}>
+          <ColorTable
+            colors={colors}
+            meta={meta}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            loading={isFetching}
+          />
+        </Suspense>
       </>
     );
   }
 
   if (!isLoading && isError) {
-    return <ServerErrorCard />;
+    content = <ServerErrorCard />;
   }
 
-
+  return (
+    <>
+      <ColorListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      {content}
+    </>
+  )
  
 };
 

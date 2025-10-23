@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
-import ListLoading from "../loader/ListLoading";
-import AdminTable from "./AdminTable";
 import { useGetAdminsQuery } from "../../redux/features/admin/adminApi";
 import AdminListHeader from "./AdminListHeader";
 import useDebounce from "../../hooks/useDebounce";
+import TableLoading from "../loader/TableLoading";
+
+const AdminTable = React.lazy(() => import("./AdminTable"));
 
 const AdminList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -22,14 +23,15 @@ const AdminList = () => {
   const meta = data?.meta || {};
 
 
+   let content: React.ReactNode;
+
   if (isLoading) {
-    return <ListLoading />;
+    content = <TableLoading />;
   }
 
   if (!isLoading && !isError) {
-    return (
+    content = (
       <>
-        <AdminListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <div className="flex-1 overflow-hidden">
           <AdminTable
             users={users}
@@ -46,9 +48,15 @@ const AdminList = () => {
   }
 
   if (!isLoading && isError) {
-    return <ServerErrorCard />;
+    content = <ServerErrorCard />;
   }
 
+  return (
+    <>
+      <AdminListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      {content}
+    </>
+  )
 };
 
 export default AdminList;

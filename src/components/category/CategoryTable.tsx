@@ -101,6 +101,7 @@ const CategoryTable = ({
     >
       <div className="w-full overflow-auto px-4 overflow-x-auto">
         <Table
+          size="small"
           columns={columns}
           dataSource={dataSource}
           pagination={false}

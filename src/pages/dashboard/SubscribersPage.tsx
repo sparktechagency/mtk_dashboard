@@ -1,18 +1,12 @@
-import React, { Suspense } from "react";
-import FallbackLoading from "../../components/loader/FallbackLoading";
-const SubscriberList = React.lazy(() => import("../../components/subsciber/SubscriberList"));
+import SubscriberList from "../../components/subsciber/SubscriberList"
 
 
 const SubscribersPage = () => {
   return (
     <>
-      <div>
-        <div className="bg-white rounded-lg shadow h-full overflow-hidden">
-          <div className="w-full h-full flex flex-col">
-            <Suspense fallback={<FallbackLoading />}>
-              <SubscriberList />
-            </Suspense>
-          </div>
+      <div className="min-h-full bg-white rounded-md shadow">
+        <div className="w-full h-full flex flex-col">
+          <SubscriberList />
         </div>
       </div>
     </>

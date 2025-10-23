@@ -1,10 +1,12 @@
-import { useState } from "react";
+import React, { Suspense, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
-import OrderTable from "./OrderTable";
 import { useGetOrdersQuery } from "../../redux/features/order/orderApi";
 import OrderListHeader from "./OrderListHeader";
-import FallbackLoading from "../loader/FallbackLoading";
 import useDebounce from "../../hooks/useDebounce";
+import TableLoading from "../loader/TableLoading";
+
+
+const OrderTable = React.lazy(() => import("./OrderTable"));
 
 const OrderList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,31 +27,23 @@ const OrderList = () => {
   let content: React.ReactNode;
 
   if (isLoading) {
-    content = <FallbackLoading />;
+    content = <TableLoading />;
   }
 
   if (!isLoading && !isError) {
     content = (
       <>
-        <OrderListHeader
-          meta={meta}
-          status={status}
-          setStatus={setStatus}
-          setCurrentPage={setCurrentPage}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          onRefresh={()=>refetch()}
-          isFetching={isFetching}
-        />
-        <OrderTable
-          orders={orders}
-          meta={meta}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          isFetching={isFetching}
-        />
+        <Suspense fallback={<TableLoading/>}>
+          <OrderTable
+            orders={orders}
+            meta={meta}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            isFetching={isFetching}
+          />
+        </Suspense>
       </>
     );
   }
@@ -60,6 +54,16 @@ const OrderList = () => {
 
   return (
     <>
+      <OrderListHeader
+        meta={meta}
+        status={status}
+        setStatus={setStatus}
+        setCurrentPage={setCurrentPage}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        onRefresh={() => refetch()}
+        isFetching={isFetching}
+      />
       {content}
     </>
   );

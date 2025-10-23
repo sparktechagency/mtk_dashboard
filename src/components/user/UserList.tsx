@@ -1,11 +1,11 @@
 import React, { Suspense, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
-import ListLoading from "../loader/ListLoading";
 import { useGetUsersQuery } from "../../redux/features/user/userApi";
 import useDebounce from "../../hooks/useDebounce";
+import TableLoading from "../loader/TableLoading";
+import UserListHeader from "./UserListHeader";
 
 const UserTable = React.lazy(() => import("./UserTable"));
-const UserListHeader = React.lazy(() => import("./UserListHeader"));
 
 
 const UserList = () => {
@@ -22,16 +22,18 @@ const UserList = () => {
   const users = data?.data || [];
   const meta = data?.meta || {};
 
+  let content: React.ReactNode;
 
   if (isLoading) {
-    return <ListLoading />;
+    content = <TableLoading />;
   }
 
+
+
   if (!isLoading && !isError) {
-    return (
+    content = (
       <>
-        <Suspense fallback={<ListLoading/>}>
-          <UserListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <Suspense fallback={<TableLoading/>}>   
           <div className="flex-1 overflow-hidden">
             <UserTable
               users={users}
@@ -49,8 +51,15 @@ const UserList = () => {
   }
 
   if (!isLoading && isError) {
-    return <ServerErrorCard />;
+    content = <ServerErrorCard />;
   }
+
+  return (
+    <>
+      <UserListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      {content}
+    </>
+  )
 
 };
 

@@ -1,19 +1,13 @@
-import React, { Suspense } from "react";
-import FallbackLoading from "../../components/loader/FallbackLoading";
+import ContactList from "../../components/contact/ContactList"
 
-const ContactList = React.lazy(() => import("../../components/contact/ContactList"));
 
 const ContactPage = () => {
   return (
     <>
-      <div>
-        <div className="bg-white rounded-lg shadow h-full overflow-hidden">
+      <div className="min-h-full bg-white rounded-md shadow">
           <div className="w-full h-full flex flex-col">
-            <Suspense fallback={<FallbackLoading />}>
               <ContactList />
-            </Suspense>
           </div>
-        </div>
       </div>
     </>
   )

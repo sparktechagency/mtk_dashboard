@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import ServerErrorCard from "../card/ServerErrorCard";
-import ListLoading from "../loader/ListLoading";
 import { useNavigate } from "react-router-dom";
 import { useGetProductsQuery } from "../../redux/features/product/productApi";
 import ProductListHeader from "./ProductListHeader";
 import useDebounce from "../../hooks/useDebounce";
+import TableLoading from "../loader/TableLoading";
 
 const ProductTable = React.lazy(() => import("./ProductTable"));
 
@@ -14,7 +14,7 @@ const ProductList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const { searchTerm } = useDebounce({searchQuery, setCurrentPage}) //search debounce handled
-  const { data, isLoading, isFetching, isError } = useGetProductsQuery([
+  const { data, isLoading, isFetching, isError, refetch } = useGetProductsQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
@@ -24,30 +24,47 @@ const ProductList = () => {
   const meta = data?.meta || {};
 
 
+  let content: React.ReactNode;
+
   if (isLoading) {
-    return <ListLoading />;
+    content = <TableLoading />;
   }
 
   if (!isLoading && !isError) {
-    return (
+    content = (
       <>
-        <ProductListHeader meta={meta} searchQuery={searchQuery} setSearchQuery={setSearchQuery} navigate={navigate} />
-        <ProductTable
-          products={products}
-          meta={meta}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          loading={isFetching}
-        />
+        <Suspense fallback={<TableLoading />}>
+          <ProductTable
+            products={products}
+            meta={meta}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            loading={isFetching}
+          />
+        </Suspense >
       </>
     );
   }
 
   if (!isLoading && isError) {
-    return <ServerErrorCard />;
+    content = <ServerErrorCard />;
   }
+
+  return (
+    <>
+      <ProductListHeader
+        meta={meta}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        navigate={navigate}
+        onRefresh={() => refetch()}
+        isFetching={isFetching}
+      />
+      {content}
+    </>
+  )
 };
 
 export default ProductList;
