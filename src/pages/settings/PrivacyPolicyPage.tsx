@@ -1,5 +1,3 @@
-"use client"
-
 import { FileText } from "lucide-react"
 import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi";
 import React, { Suspense } from "react";

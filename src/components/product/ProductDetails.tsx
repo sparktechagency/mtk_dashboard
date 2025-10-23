@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react";
 import product_placeholder from "../../assets/images/product_placeholder.png";
 import { FaStar } from "react-icons/fa";

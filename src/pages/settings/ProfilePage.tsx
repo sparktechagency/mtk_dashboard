@@ -1,5 +1,3 @@
-"use client";
-
 import ProfileLoading from "../../components/loader/ProfileLoading";
 import ProfileForm from "../../components/Profile/ProfileForm"
 import { useAppSelector } from "../../redux/hooks/hooks";

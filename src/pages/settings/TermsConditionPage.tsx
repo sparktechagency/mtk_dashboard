@@ -1,5 +1,3 @@
-"use client"
-
 import { FileText } from "lucide-react"
 import PolicyLoading from "../../components/loader/PolicyLoading"
 import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi"

@@ -11,7 +11,6 @@ const OrderDetailsPage = () => {
   const { id } = useParams();
   const { data, isLoading, isError } = useGetSingleOrderQuery(id);
   const order = data?.data || {};
-  console.log(order)
 
   if (isLoading) {
     return <OrderLoading />
