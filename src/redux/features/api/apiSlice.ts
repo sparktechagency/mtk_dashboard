@@ -6,7 +6,6 @@ import { ErrorToast } from "../../../helper/ValidationHelper.ts";
 
 //const baseUrl = "http://localhost:9090/api/v1"
 const baseUrl = "https://backend.triplemcompany.com/api/v1"
-//const baseUrl = "https://triplem-backend-goni.vercel.app/api/v1"
 
 
 const baseQuery = fetchBaseQuery({
