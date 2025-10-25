@@ -121,7 +121,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       title: "Net Amount",
       dataIndex: "netAmount",
       key: "netAmount",
-      width: 90,
+      width: 120,
       align: "center" as const,
       render: (val: number) => (
         <>

@@ -9,7 +9,8 @@ interface OrderListHeaderProps {
   searchQuery: string
   setSearchQuery: (query: string) => void
   onRefresh?: () => void;
-  isFetching?:boolean
+  isFetching?:boolean;
+  isLoading?: boolean;
 }
 
 const OrderListHeader = ({
@@ -20,7 +21,8 @@ const OrderListHeader = ({
   searchQuery,
   setSearchQuery,
   onRefresh,
-  isFetching
+  isFetching,
+  isLoading
 }: OrderListHeaderProps) => {
   return (
     <div className="p-4 sm:p-4 bg-white">
@@ -87,7 +89,7 @@ const OrderListHeader = ({
               className={`w-full sm:w-auto px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2`}
               title="Refresh orders"
             >
-              <RefreshCw className={`h-4 w-4 sm:h-6 sm:w-6 ${isFetching && 'animate-spin'}`} />
+              <RefreshCw className={`h-4 w-4 sm:h-6 sm:w-6 ${!isLoading && isFetching && 'animate-spin'}`} />
               <span className="sm:hidden">Refresh</span>
             </button>
           )}

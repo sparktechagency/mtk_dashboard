@@ -63,6 +63,7 @@ const OrderList = () => {
         setSearchQuery={setSearchQuery}
         onRefresh={() => refetch()}
         isFetching={isFetching}
+        isLoading={isLoading}
       />
       {content}
     </>

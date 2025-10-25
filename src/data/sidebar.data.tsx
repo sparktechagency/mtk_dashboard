@@ -3,16 +3,17 @@ import {
     SettingOutlined
   } from '@ant-design/icons';
 import { MdCategory, MdContactPhone, MdSubscriptions, MdUnsubscribe } from "react-icons/md";
-import { PiResize, PiStudentBold } from "react-icons/pi";
+import { PiResize } from "react-icons/pi";
 import { GrUserAdmin, GrCircleInformation } from "react-icons/gr";
 import { IoIosColorFilter } from "react-icons/io";
 import { RiProductHuntLine } from "react-icons/ri";
 import { PiInvoiceBold } from "react-icons/pi";
+import { FaUsers } from "react-icons/fa6";
 
 export const adminMenuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/orders", label: "Orders", icon: PiInvoiceBold },
-  { path: "/users", label: "Users", icon: PiStudentBold },
+  { path: "/users", label: "Users", icon: FaUsers },
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/colors", label: "Colors", icon: IoIosColorFilter },
   { path: "/sizes", label: "Sizes", icon: PiResize },
@@ -47,7 +48,7 @@ export const superAdminMenuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/orders", label: "Orders", icon: PiInvoiceBold },
   { path: "/admins", label: "Admins", icon: GrUserAdmin },
-  { path: "/users", label: "Users", icon: PiStudentBold },
+  { path: "/users", label: "Users", icon: FaUsers },
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/colors", label: "Colors", icon: IoIosColorFilter },
   { path: "/sizes", label: "Sizes", icon: PiResize },

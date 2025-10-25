@@ -61,6 +61,7 @@ const ProductList = () => {
         navigate={navigate}
         onRefresh={() => refetch()}
         isFetching={isFetching}
+        isLoading={isLoading}
       />
       {content}
     </>
